@@ -1,4 +1,4 @@
-const QUESTIONS = [
+const ELECTRICAL = [
 
 /* ============================================================
    LIGHTING
