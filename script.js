@@ -412,14 +412,218 @@ function buildNavigationTree(){
    PART 2
 =========================================================== */
 
-function renderQuestions(trade,category){
+/* ===========================================================
+   PART 2
+   QUESTION GRID RENDERING
+=========================================================== */
 
-    console.log(
+function renderQuestions(trade, category) {
 
-        trade,
+    document.getElementById("categoryTitle").innerText = category;
 
-        category
-
+    const questions = QUESTION_BANK.filter(q =>
+        q.trade === trade &&
+        q.category === category
     );
+
+    updateCategoryProgress(questions);
+
+    buildTableHeader();
+
+    buildQuestionRows(questions);
+
+}
+
+
+/* ===========================================================
+   BUILD TABLE HEADER
+=========================================================== */
+
+function buildTableHeader() {
+
+    const table = document.getElementById("scopeTable");
+
+    const thead = table.querySelector("thead");
+
+    thead.innerHTML = "";
+
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+
+        <th style="width:140px;">Category</th>
+
+        <th style="width:180px;">Sub Category</th>
+
+        <th>Question</th>
+
+    `;
+
+    selectedRooms.forEach(room => {
+
+        const th = document.createElement("th");
+
+        th.className = "room-column";
+
+        th.innerText = room;
+
+        row.appendChild(th);
+
+    });
+
+    const last = document.createElement("th");
+
+    last.style.width = "300px";
+
+    last.innerText = "Drawing Requirement";
+
+    row.appendChild(last);
+
+    thead.appendChild(row);
+
+}
+
+
+/* ===========================================================
+   BUILD QUESTION ROWS
+=========================================================== */
+
+function buildQuestionRows(questions) {
+
+    const tbody = document.getElementById("tableBody");
+
+    tbody.innerHTML = "";
+
+    questions.forEach(question => {
+
+        const tr = document.createElement("tr");
+
+        /* Category */
+
+        tr.innerHTML += `
+
+            <td>${question.category}</td>
+
+            <td>${question.subcategory}</td>
+
+            <td class="question-cell">
+
+                ${question.question}
+
+            </td>
+
+        `;
+
+        /* Dynamic Room Columns */
+
+        selectedRooms.forEach(room => {
+
+            const td = document.createElement("td");
+
+            td.className = "response-cell";
+
+            td.dataset.question = question.id;
+
+            td.dataset.room = room;
+
+            td.dataset.level = question.level;
+
+            td.innerHTML = getCellDisplay(question.id, room);
+
+            td.addEventListener("click", () => {
+
+                openResponsePopup(
+
+                    question,
+
+                    room
+
+                );
+
+            });
+
+            tr.appendChild(td);
+
+        });
+
+        /* Drawing Requirement */
+
+        const guide = document.createElement("td");
+
+        guide.className = "guideline-cell";
+
+        guide.innerText = question.drawingRequirement;
+
+        tr.appendChild(guide);
+
+        tbody.appendChild(tr);
+
+    });
+
+}
+
+
+/* ===========================================================
+   CELL DISPLAY
+=========================================================== */
+
+function getCellDisplay(questionId, room) {
+
+    if (!responses[questionId]) {
+
+        return "";
+
+    }
+
+    if (!responses[questionId][room]) {
+
+        return "";
+
+    }
+
+    return "✔";
+
+}
+
+
+/* ===========================================================
+   CATEGORY PROGRESS
+=========================================================== */
+
+function updateCategoryProgress(questionList) {
+
+    let total = 0;
+
+    let completed = 0;
+
+    questionList.forEach(question => {
+
+        total++;
+
+        if (responses[question.id]) {
+
+            completed++;
+
+        }
+
+    });
+
+    document.getElementById("categoryProgress").innerText =
+
+        `${completed} / ${total} Completed`;
+
+}
+
+
+/* ===========================================================
+   PLACE HOLDER
+   PART 3
+=========================================================== */
+
+function openResponsePopup(question, room) {
+
+    console.log(question);
+
+    console.log(room);
 
 }
