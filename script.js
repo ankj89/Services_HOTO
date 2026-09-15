@@ -596,87 +596,52 @@ function buildRoomCell(questionId, room, data){
     return `
 
     <div class="cell-editor"
+
          data-question="${questionId}"
+
          data-room="${room}">
 
-        <div class="cell-section">
 
-            <div class="cell-label">
+        <div class="cell-group">
+
+            <div class="cell-title">
 
                 Scope
 
             </div>
 
-            <label>
+            <div class="segment-group"
 
-                <input
-                    type="radio"
-                    name="${questionId}_${room}_scope"
-                    value="Yes"
-                    ${data.scope==="Yes" ? "checked" : ""}>
+                 data-field="scope">
 
-                Yes
+                ${segmentButton("Yes",data.scope)}
 
-            </label>
+                ${segmentButton("No",data.scope)}
 
-            <label>
+                ${segmentButton("Cx",data.scope)}
 
-                <input
-                    type="radio"
-                    name="${questionId}_${room}_scope"
-                    value="No"
-                    ${data.scope==="No" ? "checked" : ""}>
-
-                No
-
-            </label>
-
-            <label>
-
-                <input
-                    type="radio"
-                    name="${questionId}_${room}_scope"
-                    value="Cx"
-                    ${data.scope==="Cx" ? "checked" : ""}>
-
-                Cx
-
-            </label>
+            </div>
 
         </div>
 
 
-        <div class="cell-section">
+        <div class="cell-group">
 
-            <div class="cell-label">
+            <div class="cell-title">
 
                 Drawing
 
             </div>
 
-            <label>
+            <div class="segment-group"
 
-                <input
-                    type="radio"
-                    name="${questionId}_${room}_drawing"
-                    value="Yes"
-                    ${data.drawing==="Yes" ? "checked" : ""}>
+                 data-field="drawing">
 
-                Yes
+                ${segmentButton("Yes",data.drawing)}
 
-            </label>
+                ${segmentButton("No",data.drawing)}
 
-            <label>
-
-                <input
-                    type="radio"
-                    name="${questionId}_${room}_drawing"
-                    value="No"
-                    ${data.drawing==="No" ? "checked" : ""}>
-
-                No
-
-            </label>
+            </div>
 
         </div>
 
@@ -690,113 +655,100 @@ function buildRoomCell(questionId, room, data){
 /* ===========================================================
    WALL LEVEL CELL
 =========================================================== */
-
 function buildWallCell(questionId, room, data){
 
     return `
 
     <div class="cell-editor"
+
          data-question="${questionId}"
+
          data-room="${room}">
 
-        <div class="cell-section">
 
-            <div class="cell-label">
+        <div class="cell-group">
+
+            <div class="cell-title">
 
                 Scope
 
             </div>
 
-            <label>
+            <div class="segment-group"
 
-                <input
-                    type="radio"
-                    name="${questionId}_${room}_scope"
-                    value="Yes"
-                    ${data.scope==="Yes" ? "checked" : ""}>
+                 data-field="scope">
 
-                Yes
+                ${segmentButton("Yes",data.scope)}
 
-            </label>
+                ${segmentButton("No",data.scope)}
 
-            <label>
+                ${segmentButton("Cx",data.scope)}
 
-                <input
-                    type="radio"
-                    name="${questionId}_${room}_scope"
-                    value="No"
-                    ${data.scope==="No" ? "checked" : ""}>
-
-                No
-
-            </label>
-
-            <label>
-
-                <input
-                    type="radio"
-                    name="${questionId}_${room}_scope"
-                    value="Cx"
-                    ${data.scope==="Cx" ? "checked" : ""}>
-
-                Cx
-
-            </label>
+            </div>
 
         </div>
 
 
-        <div class="cell-section">
+        <div class="cell-group">
 
-            <div class="cell-label">
+            <div class="cell-title">
 
                 Drawing
 
             </div>
 
-            <label>
+            <div class="segment-group"
 
-                <input
-                    type="radio"
-                    name="${questionId}_${room}_drawing"
-                    value="Yes"
-                    ${data.drawing==="Yes" ? "checked" : ""}>
+                 data-field="drawing">
 
-                Yes
+                ${segmentButton("Yes",data.drawing)}
 
-            </label>
-
-            <label>
-
-                <input
-                    type="radio"
-                    name="${questionId}_${room}_drawing"
-                    value="No"
-                    ${data.drawing==="No" ? "checked" : ""}>
-
-                No
-
-            </label>
-
-        </div>
-
-
-        <div class="cell-section">
-
-            <div class="cell-label">
-
-                Elevation
+                ${segmentButton("No",data.drawing)}
 
             </div>
-
-            <input
-                type="text"
-                class="elevation-input"
-                value="${data.elevation || ""}">
 
         </div>
 
     </div>
+    <div class="cell-group">
+
+    <div class="cell-title">
+
+        Elevation
+
+    </div>
+
+    <input
+
+        class="elevation-input"
+
+        value="${data.elevation || ""}">
+
+</div>
+
+    `;
+
+   
+
+}
+
+function segmentButton(value,current){
+
+    return `
+
+    <button
+
+        type="button"
+
+        class="segment-btn
+
+            ${value===current ? "selected" : ""}"
+
+        data-value="${value}">
+
+        ${value}
+
+    </button>
 
     `;
 
@@ -841,34 +793,51 @@ function initialiseInlineEditors(){
 function attachCellEvents(editor){
 
     editor
-        .querySelectorAll("input")
-        .forEach(control=>{
 
-            control.addEventListener(
+    .querySelectorAll(".segment-btn")
 
-                "change",
+    .forEach(btn=>{
 
-                ()=>{
+        btn.addEventListener("click",()=>{
 
-                    saveCell(editor);
+            const group=
 
-                }
+                btn.parentElement;
 
-            );
+            group
 
-            control.addEventListener(
+                .querySelectorAll(".segment-btn")
 
-                "keyup",
+                .forEach(item=>
 
-                ()=>{
+                    item.classList.remove("selected")
 
-                    saveCell(editor);
+                );
 
-                }
+            btn.classList.add("selected");
 
-            );
+            saveCell(editor);
 
         });
+
+    });
+
+
+    const elevation=
+
+        editor.querySelector(".elevation-input");
+
+    if(elevation){
+
+        elevation.addEventListener(
+
+            "keyup",
+
+            ()=>saveCell(editor)
+
+        );
+
+    }
 
 }
 
@@ -892,29 +861,25 @@ function saveCell(editor){
 
     responses[questionId][room]={
 
-        scope:getSelectedValue(
+    scope:getSegmentValue(
 
-            editor,
+        editor,
 
-            "_scope"
+        "scope"
 
-        ),
+    ),
 
-        drawing:getSelectedValue(
+    drawing:getSegmentValue(
 
-            editor,
+        editor,
 
-            "_drawing"
+        "drawing"
 
-        ),
+    ),
 
-        elevation:getElevationValue(
+    elevation:getElevationValue(editor)
 
-            editor
-
-        )
-
-    };
+};
 
 
     saveApplication();
@@ -932,7 +897,23 @@ function saveCell(editor){
     );
 
 }
+function getSegmentValue(editor,field){
 
+    const selected=
+
+        editor.querySelector(
+
+            `.segment-group[data-field="${field}"] .selected`
+
+        );
+
+    if(selected)
+
+        return selected.dataset.value;
+
+    return "";
+
+}
 /* ===========================================================
    RADIO VALUE
 =========================================================== */
