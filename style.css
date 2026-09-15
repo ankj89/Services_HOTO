@@ -451,3 +451,427 @@ main{
     background:#eef2f5;
 
 }
+
+/* ==========================================================
+   HOTO LAYOUT
+==========================================================*/
+
+.hoto-layout{
+
+    display:grid;
+
+    grid-template-columns:260px 1fr;
+
+    gap:20px;
+
+    height:calc(100vh - 150px);
+
+}
+
+
+/* ==========================================================
+   SIDEBAR
+==========================================================*/
+
+.sidebar{
+
+    background:white;
+
+    border-radius:10px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.05);
+
+    overflow:auto;
+
+    padding:20px;
+
+}
+
+
+.trade-wrapper{
+
+    margin-bottom:20px;
+
+}
+
+
+.trade-header{
+
+    font-weight:700;
+
+    color:#1f4e79;
+
+    margin-bottom:8px;
+
+    font-size:15px;
+
+    border-bottom:1px solid #e5e5e5;
+
+    padding-bottom:6px;
+
+}
+
+
+.category-list{
+
+    list-style:none;
+
+}
+
+
+.category-list li{
+
+    padding:10px 12px;
+
+    border-radius:6px;
+
+    cursor:pointer;
+
+    margin-bottom:4px;
+
+    transition:.2s;
+
+}
+
+
+.category-list li:hover{
+
+    background:#eef5fb;
+
+}
+
+
+.category-list li.active{
+
+    background:#1f4e79;
+
+    color:white;
+
+}
+
+
+/* ==========================================================
+   CONTENT
+==========================================================*/
+
+.content{
+
+    background:white;
+
+    border-radius:10px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.05);
+
+    display:flex;
+
+    flex-direction:column;
+
+    overflow:hidden;
+
+}
+
+
+.content-header{
+
+    padding:18px 20px;
+
+    border-bottom:1px solid #d9d9d9;
+
+    background:white;
+
+}
+
+
+.content-header h2{
+
+    font-size:22px;
+
+    margin-bottom:5px;
+
+}
+
+
+#categoryProgress{
+
+    color:#6c757d;
+
+    font-size:13px;
+
+}
+
+
+/* ==========================================================
+   TABLE CONTAINER
+==========================================================*/
+
+.table-container{
+
+    flex:1;
+
+    overflow:auto;
+
+}
+
+
+/* ==========================================================
+   TABLE
+==========================================================*/
+
+#scopeTable{
+
+    border-collapse:collapse;
+
+    width:max-content;
+
+    min-width:100%;
+
+    table-layout:fixed;
+
+    font-size:13px;
+
+}
+
+
+#scopeTable thead{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:50;
+
+}
+
+
+#scopeTable th{
+
+    background:#1f4e79;
+
+    color:white;
+
+    border:1px solid #d6dce2;
+
+    padding:10px;
+
+    text-align:center;
+
+    font-weight:600;
+
+}
+
+
+#scopeTable td{
+
+    border:1px solid #e0e5ea;
+
+    padding:8px;
+
+    vertical-align:top;
+
+    background:white;
+
+}
+
+
+/* ==========================================================
+   STICKY COLUMNS
+==========================================================*/
+
+#scopeTable th:nth-child(1),
+#scopeTable td:nth-child(1){
+
+    position:sticky;
+
+    left:0;
+
+    width:140px;
+
+    background:#f7f9fb;
+
+    z-index:20;
+
+}
+
+
+#scopeTable th:nth-child(2),
+#scopeTable td:nth-child(2){
+
+    position:sticky;
+
+    left:140px;
+
+    width:180px;
+
+    background:#f7f9fb;
+
+    z-index:20;
+
+}
+
+
+#scopeTable th:nth-child(3),
+#scopeTable td:nth-child(3){
+
+    position:sticky;
+
+    left:320px;
+
+    width:420px;
+
+    background:white;
+
+    z-index:20;
+
+}
+
+
+#scopeTable thead th:nth-child(1),
+#scopeTable thead th:nth-child(2),
+#scopeTable thead th:nth-child(3){
+
+    z-index:100;
+
+}
+
+
+/* ==========================================================
+   QUESTION COLUMN
+==========================================================*/
+
+.question-cell{
+
+    font-weight:500;
+
+    min-width:420px;
+
+    line-height:1.45;
+
+}
+
+
+/* ==========================================================
+   CATEGORY COLUMN
+==========================================================*/
+
+#scopeTable td:first-child{
+
+    font-weight:600;
+
+}
+
+
+/* ==========================================================
+   SUB CATEGORY
+==========================================================*/
+
+#scopeTable td:nth-child(2){
+
+    color:#555;
+
+}
+
+
+/* ==========================================================
+   ROOM HEADER
+==========================================================*/
+
+.room-column{
+
+    min-width:120px;
+
+}
+
+
+/* ==========================================================
+   RESPONSE CELL
+==========================================================*/
+
+.response-cell{
+
+    width:120px;
+
+    min-width:120px;
+
+    text-align:center;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+    font-size:18px;
+
+    font-weight:bold;
+
+}
+
+
+.response-cell:hover{
+
+    background:#eef5fb !important;
+
+}
+
+
+/* ==========================================================
+   DRAWING REQUIREMENT
+==========================================================*/
+
+.guideline-cell{
+
+    width:320px;
+
+    min-width:320px;
+
+    color:#666;
+
+    font-size:12px;
+
+    line-height:1.45;
+
+    background:#fcfcfc !important;
+
+}
+
+
+/* ==========================================================
+   ALTERNATE ROWS
+==========================================================*/
+
+#scopeTable tbody tr:nth-child(even) td{
+
+    background:#fcfdff;
+
+}
+
+
+/* ==========================================================
+   ROW HOVER
+==========================================================*/
+
+#scopeTable tbody tr:hover td{
+
+    background:#f4f9ff;
+
+}
+
+
+/* ==========================================================
+   EMPTY RESPONSE
+==========================================================*/
+
+.response-cell:empty{
+
+    background:#fffefb;
+
+}
+
+
+/* ==========================================================
+   COMPLETED CELL
+==========================================================*/
+
+.response-cell:not(:empty){
+
+    color:#2e7d32;
+
+}
