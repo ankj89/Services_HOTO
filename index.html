@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scope Capture System</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script defer src="questions.js"></script>
+    <script defer src="script.js"></script>
+</head>
+
+<body>
+
+    <header class="app-header">
+        <div class="logo">
+            <h2>Scope Capture System</h2>
+            <span>Interior Project HOTO</span>
+        </div>
+
+        <div class="project-summary" id="projectSummary">
+            New Project
+        </div>
+    </header>
+
+    <nav class="top-nav">
+
+        <button class="tab-btn active"
+            data-tab="projectTab">
+            Project Details
+        </button>
+
+        <button class="tab-btn"
+            data-tab="roomsTab">
+            Room Selection
+        </button>
+
+        <button class="tab-btn"
+            data-tab="hotoTab">
+            HOTO
+        </button>
+
+    </nav>
+
+    <main>
+
+        <!-- ======================================================= -->
+        <!-- PROJECT DETAILS -->
+        <!-- ======================================================= -->
+
+        <section id="projectTab" class="tab-content active">
+
+            <div class="page-title">
+                Project Details
+            </div>
+
+            <div class="form-grid">
+
+                <div class="field">
+                    <label>Project Name</label>
+                    <input type="text" id="projectName">
+                </div>
+
+                <div class="field">
+                    <label>Client Name</label>
+                    <input type="text" id="clientName">
+                </div>
+
+                <div class="field">
+                    <label>Project Type</label>
+
+                    <select id="projectType">
+                        <option>Apartment</option>
+                        <option>Villa</option>
+                        <option>Commercial</option>
+                    </select>
+
+                </div>
+
+                <div class="field">
+                    <label>Configuration</label>
+
+                    <select id="configuration">
+                        <option>1 BHK</option>
+                        <option>2 BHK</option>
+                        <option>3 BHK</option>
+                        <option>4 BHK</option>
+                        <option>Villa</option>
+                        <option>Commercial</option>
+                    </select>
+
+                </div>
+
+                <div class="field">
+                    <label>Designer</label>
+                    <input type="text" id="designer">
+                </div>
+
+                <div class="field">
+                    <label>QS</label>
+                    <input type="text" id="qs">
+                </div>
+
+                <div class="field full-width">
+                    <label>Project Address</label>
+                    <textarea id="address"></textarea>
+                </div>
+
+                <div class="field full-width">
+                    <label>Remarks</label>
+                    <textarea id="projectRemarks"></textarea>
+                </div>
+
+            </div>
+
+            <div class="page-footer">
+
+                <button id="projectNextBtn"
+                    class="primary-btn">
+                    Continue →
+                </button>
+
+            </div>
+
+        </section>
+
+        <!-- ======================================================= -->
+        <!-- ROOM SELECTION -->
+        <!-- ======================================================= -->
+
+        <section id="roomsTab" class="tab-content">
+
+            <div class="page-title">
+
+                Select Applicable Rooms
+
+            </div>
+
+            <div id="roomContainer"
+                class="room-grid">
+
+                <!-- Generated using JS -->
+
+            </div>
+
+            <div class="page-footer">
+
+                <button id="roomBackBtn"
+                    class="secondary-btn">
+
+                    ← Back
+
+                </button>
+
+                <button id="roomNextBtn"
+                    class="primary-btn">
+
+                    Generate HOTO →
+
+                </button>
+
+            </div>
+
+        </section>
+
+        <!-- ======================================================= -->
+        <!-- HOTO -->
+        <!-- ======================================================= -->
+
+        <section id="hotoTab" class="tab-content">
+
+            <div class="hoto-layout">
+
+                <!-- LEFT PANEL -->
+
+                <aside class="sidebar">
+
+                    <h3>Electrical</h3>
+
+                    <ul id="categoryMenu">
+
+                        <!-- Generated using JS -->
+
+                    </ul>
+
+                </aside>
+
+                <!-- RIGHT PANEL -->
+
+                <section class="content">
+
+                    <div class="content-header">
+
+                        <div>
+
+                            <h2 id="categoryTitle">
+
+                                Lighting
+
+                            </h2>
+
+                            <span id="categoryProgress">
+
+                                0 / 0 Completed
+
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="table-container">
+
+                        <table id="scopeTable">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th width="140">
+
+                                        Category
+
+                                    </th>
+
+                                    <th width="180">
+
+                                        Sub Category
+
+                                    </th>
+
+                                    <th>
+
+                                        Question
+
+                                    </th>
+
+                                    <!-- Room columns inserted dynamically -->
+
+                                    <th width="300">
+
+                                        Drawing Guideline
+
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="tableBody">
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ======================================================= -->
+    <!-- CELL POPUP -->
+    <!-- ======================================================= -->
+
+    <div id="popupOverlay"
+        class="popup-overlay hidden">
+
+        <div class="popup">
+
+            <div class="popup-header">
+
+                <h3 id="popupQuestion">
+
+                    Question
+
+                </h3>
+
+            </div>
+
+            <div class="popup-body"
+                id="popupBody">
+
+                <!-- Generated by JS
+                     based on room / wall type -->
+
+            </div>
+
+            <div class="popup-footer">
+
+                <button id="popupCancel"
+                    class="secondary-btn">
+
+                    Cancel
+
+                </button>
+
+                <button id="popupSave"
+                    class="primary-btn">
+
+                    Save
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
