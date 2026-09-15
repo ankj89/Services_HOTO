@@ -616,14 +616,438 @@ function updateCategoryProgress(questionList) {
 
 
 /* ===========================================================
-   PLACE HOLDER
    PART 3
+   RESPONSE POPUP
+=========================================================== */
+
+let currentQuestion = null;
+let currentRoom = null;
+
+
+/* ===========================================================
+   OPEN POPUP
 =========================================================== */
 
 function openResponsePopup(question, room) {
 
-    console.log(question);
+    currentQuestion = question;
+    currentRoom = room;
 
-    console.log(room);
+    document
+        .getElementById("popupOverlay")
+        .classList.remove("hidden");
+
+    document
+        .getElementById("popupQuestion")
+        .innerText =
+        room + " • " + question.question;
+
+    renderPopup(question, room);
 
 }
+
+
+/* ===========================================================
+   RENDER POPUP
+=========================================================== */
+
+function renderPopup(question, room) {
+
+    const body =
+        document.getElementById("popupBody");
+
+    let existing = {};
+
+    if (
+        responses[question.id] &&
+        responses[question.id][room]
+    ) {
+
+        existing = responses[question.id][room];
+
+    }
+
+    if (question.level === "wall") {
+
+        body.innerHTML = buildWallPopup(existing);
+
+    }
+
+    else {
+
+        body.innerHTML = buildRoomPopup(existing);
+
+    }
+
+}
+
+
+/* ===========================================================
+   ROOM POPUP
+=========================================================== */
+
+function buildRoomPopup(data) {
+
+    return `
+
+    <div class="popup-section">
+
+        <label>Scope in Room</label>
+
+        <div class="radio-group">
+
+            <label>
+
+                <input
+                    type="radio"
+                    name="scope"
+                    value="Yes"
+                    ${data.scope=="Yes"?"checked":""}
+                >
+
+                Yes
+
+            </label>
+
+            <label>
+
+                <input
+                    type="radio"
+                    name="scope"
+                    value="No"
+                    ${data.scope=="No"?"checked":""}
+                >
+
+                No
+
+            </label>
+
+        </div>
+
+    </div>
+
+
+    <div class="popup-section">
+
+        <label>
+
+            Shown in Drawing Plan
+
+        </label>
+
+        <div class="radio-group">
+
+            <label>
+
+                <input
+                    type="radio"
+                    name="drawing"
+                    value="Yes"
+                    ${data.drawing=="Yes"?"checked":""}
+                >
+
+                Yes
+
+            </label>
+
+            <label>
+
+                <input
+                    type="radio"
+                    name="drawing"
+                    value="No"
+                    ${data.drawing=="No"?"checked":""}
+                >
+
+                No
+
+            </label>
+
+        </div>
+
+    </div>
+
+
+    <div class="popup-section">
+
+        <label>
+
+            Scope Ownership
+
+        </label>
+
+        <select id="ownership">
+
+            <option value="Company"
+                ${data.ownership=="Company"?"selected":""}>
+                Company
+            </option>
+
+            <option value="Customer"
+                ${data.ownership=="Customer"?"selected":""}>
+                Customer
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="popup-section">
+
+        <label>
+
+            Remarks
+
+        </label>
+
+        <textarea id="remarks">${data.remarks || ""}</textarea>
+
+    </div>
+
+    `;
+
+}
+
+
+
+/* ===========================================================
+   WALL POPUP
+=========================================================== */
+
+function buildWallPopup(data){
+
+    return `
+
+    <div class="popup-section">
+
+        <label>Scope in Room</label>
+
+        <div class="radio-group">
+
+            <label>
+
+                <input
+                    type="radio"
+                    name="scope"
+                    value="Yes"
+                    ${data.scope=="Yes"?"checked":""}
+                >
+
+                Yes
+
+            </label>
+
+            <label>
+
+                <input
+                    type="radio"
+                    name="scope"
+                    value="No"
+                    ${data.scope=="No"?"checked":""}
+                >
+
+                No
+
+            </label>
+
+        </div>
+
+    </div>
+
+
+    <div class="popup-section">
+
+        <label>
+
+            Shown in Drawing Elevation
+
+        </label>
+
+        <div class="radio-group">
+
+            <label>
+
+                <input
+                    type="radio"
+                    name="drawing"
+                    value="Yes"
+                    ${data.drawing=="Yes"?"checked":""}
+                >
+
+                Yes
+
+            </label>
+
+            <label>
+
+                <input
+                    type="radio"
+                    name="drawing"
+                    value="No"
+                    ${data.drawing=="No"?"checked":""}
+                >
+
+                No
+
+            </label>
+
+        </div>
+
+    </div>
+
+
+    <div class="popup-section">
+
+        <label>
+
+            Elevation Number
+
+        </label>
+
+        <input
+            id="elevation"
+            value="${data.elevation || ""}"
+        >
+
+    </div>
+
+
+    <div class="popup-section">
+
+        <label>
+
+            Scope Ownership
+
+        </label>
+
+        <select id="ownership">
+
+            <option value="Company"
+                ${data.ownership=="Company"?"selected":""}>
+                Company
+            </option>
+
+            <option value="Customer"
+                ${data.ownership=="Customer"?"selected":""}>
+                Customer
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="popup-section">
+
+        <label>
+
+            Remarks
+
+        </label>
+
+        <textarea id="remarks">${data.remarks || ""}</textarea>
+
+    </div>
+
+    `;
+
+}
+
+
+
+/* ===========================================================
+   BUTTON EVENTS
+=========================================================== */
+
+document
+.getElementById("popupCancel")
+.addEventListener("click",closePopup);
+
+
+document
+.getElementById("popupSave")
+.addEventListener("click",savePopup);
+
+
+
+/* ===========================================================
+   SAVE
+=========================================================== */
+
+function savePopup(){
+
+    if(!responses[currentQuestion.id]){
+
+        responses[currentQuestion.id]={};
+
+    }
+
+    const obj={
+
+        scope:getRadioValue("scope"),
+
+        drawing:getRadioValue("drawing"),
+
+        ownership:document.getElementById("ownership").value,
+
+        remarks:document.getElementById("remarks").value
+
+    };
+
+    if(currentQuestion.level=="wall"){
+
+        obj.elevation=document.getElementById("elevation").value;
+
+    }
+
+    responses[currentQuestion.id][currentRoom]=obj;
+
+    closePopup();
+
+    renderQuestions(
+
+        activeTrade,
+
+        activeCategory
+
+    );
+
+}
+
+
+
+/* ===========================================================
+   CLOSE
+=========================================================== */
+
+function closePopup(){
+
+    document
+    .getElementById("popupOverlay")
+    .classList.add("hidden");
+
+}
+
+
+
+/* ===========================================================
+   RADIO VALUE
+=========================================================== */
+
+function getRadioValue(name){
+
+    const item=document.querySelector(
+
+        `input[name="${name}"]:checked`
+
+    );
+
+    if(item)
+
+        return item.value;
+
+    return "";
+
+}
+
