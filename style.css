@@ -878,43 +878,107 @@ main{
 
 
 
-
-
-/* ==========================================================
-   RADIO GROUP
-==========================================================*/
-
-.radio-group{
+.cell-editor{
 
     display:flex;
 
-    gap:25px;
+    flex-direction:column;
 
-    margin-top:8px;
+    gap:12px;
+
+    min-width:170px;
 
 }
 
 
-.radio-group label{
+.cell-group{
 
     display:flex;
 
-    align-items:center;
+    flex-direction:column;
 
-    gap:8px;
+    gap:6px;
 
-    font-weight:500;
+}
+
+
+.cell-title{
+
+    font-size:11px;
+
+    font-weight:600;
+
+    color:#6b7280;
+
+    text-transform:uppercase;
+
+    letter-spacing:.4px;
+
+}
+
+
+.segment-group{
+
+    display:flex;
+
+    gap:6px;
+
+    flex-wrap:wrap;
+
+}
+
+
+.segment-btn{
+
+    border:1px solid #d6dce2;
+
+    background:white;
+
+    border-radius:5px;
+
+    padding:4px 10px;
 
     cursor:pointer;
 
+    font-size:12px;
+
+    transition:.2s;
+
+}
+
+
+.segment-btn:hover{
+
+    border-color:#1f4e79;
+
 }
 
 
-.radio-group input{
+.segment-btn.selected{
 
-    transform:scale(1.15);
+    background:#1f4e79;
+
+    color:white;
+
+    border-color:#1f4e79;
 
 }
+
+
+.elevation-input{
+
+    width:100%;
+
+    padding:6px;
+
+    border:1px solid #d6dce2;
+
+    border-radius:5px;
+
+    font-size:12px;
+
+}
+
 
 
 /* ==========================================================
