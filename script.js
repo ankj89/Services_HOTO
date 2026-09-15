@@ -494,6 +494,10 @@ function buildTableHeader() {
    BUILD QUESTION ROWS
 =========================================================== */
 
+/* ===========================================================
+   BUILD QUESTION ROWS
+=========================================================== */
+
 function buildQuestionRows(questions) {
 
     const tbody = document.getElementById("tableBody");
@@ -504,23 +508,23 @@ function buildQuestionRows(questions) {
 
         const tr = document.createElement("tr");
 
-        /* Category */
+
+        /* ----------------------------------------
+           CATEGORY
+        ---------------------------------------- */
 
         tr.innerHTML += `
-
             <td>${question.category}</td>
-
             <td>${question.subcategory}</td>
-
             <td class="question-cell">
-
                 ${question.question}
-
             </td>
-
         `;
 
-        /* Dynamic Room Columns */
+
+        /* ----------------------------------------
+           ROOM CELLS
+        ---------------------------------------- */
 
         selectedRooms.forEach(room => {
 
@@ -529,436 +533,505 @@ function buildQuestionRows(questions) {
             td.className = "response-cell";
 
             td.dataset.question = question.id;
-
             td.dataset.room = room;
-
             td.dataset.level = question.level;
 
-            td.innerHTML = getCellDisplay(question.id, room);
-
-            td.addEventListener("click", () => {
-
-                openResponsePopup(
-
-                    question,
-
-                    room
-
-                );
-
-            });
+            td.innerHTML = createCellEditor(
+                question,
+                room
+            );
 
             tr.appendChild(td);
 
         });
 
-        /* Drawing Requirement */
+
+        /* ----------------------------------------
+           DRAWING REQUIREMENT
+        ---------------------------------------- */
 
         const guide = document.createElement("td");
 
         guide.className = "guideline-cell";
 
-        guide.innerText = question.drawingRequirement;
+        guide.innerHTML = question.drawingRequirement || "";
 
         tr.appendChild(guide);
+
 
         tbody.appendChild(tr);
 
     });
 
+
+    initialiseInlineEditors();
+
+}
+
+/* ===========================================================
+   INLINE CELL RENDERER
+=========================================================== */
+
+function createCellEditor(question, room){
+
+    const data = getResponse(question.id, room);
+
+    if(question.level === "wall"){
+
+        return buildWallCell(question.id, room, data);
+
+    }
+
+    return buildRoomCell(question.id, room, data);
+
 }
 
 
 /* ===========================================================
-   CELL DISPLAY
+   ROOM LEVEL CELL
 =========================================================== */
 
-function getCellDisplay(questionId, room) {
+function buildRoomCell(questionId, room, data){
 
-    if (!responses[questionId]) {
+    return `
 
-        return "";
+    <div class="cell-editor"
+         data-question="${questionId}"
+         data-room="${room}">
 
-    }
+        <div class="cell-section">
 
-    if (!responses[questionId][room]) {
+            <div class="cell-label">
 
-        return "";
+                Scope
 
-    }
+            </div>
 
-    return "✔";
+            <label>
+
+                <input
+                    type="radio"
+                    name="${questionId}_${room}_scope"
+                    value="Yes"
+                    ${data.scope==="Yes" ? "checked" : ""}>
+
+                Yes
+
+            </label>
+
+            <label>
+
+                <input
+                    type="radio"
+                    name="${questionId}_${room}_scope"
+                    value="No"
+                    ${data.scope==="No" ? "checked" : ""}>
+
+                No
+
+            </label>
+
+            <label>
+
+                <input
+                    type="radio"
+                    name="${questionId}_${room}_scope"
+                    value="Cx"
+                    ${data.scope==="Cx" ? "checked" : ""}>
+
+                Cx
+
+            </label>
+
+        </div>
+
+
+        <div class="cell-section">
+
+            <div class="cell-label">
+
+                Drawing
+
+            </div>
+
+            <label>
+
+                <input
+                    type="radio"
+                    name="${questionId}_${room}_drawing"
+                    value="Yes"
+                    ${data.drawing==="Yes" ? "checked" : ""}>
+
+                Yes
+
+            </label>
+
+            <label>
+
+                <input
+                    type="radio"
+                    name="${questionId}_${room}_drawing"
+                    value="No"
+                    ${data.drawing==="No" ? "checked" : ""}>
+
+                No
+
+            </label>
+
+        </div>
+
+    </div>
+
+    `;
 
 }
+
+
+/* ===========================================================
+   WALL LEVEL CELL
+=========================================================== */
+
+function buildWallCell(questionId, room, data){
+
+    return `
+
+    <div class="cell-editor"
+         data-question="${questionId}"
+         data-room="${room}">
+
+        <div class="cell-section">
+
+            <div class="cell-label">
+
+                Scope
+
+            </div>
+
+            <label>
+
+                <input
+                    type="radio"
+                    name="${questionId}_${room}_scope"
+                    value="Yes"
+                    ${data.scope==="Yes" ? "checked" : ""}>
+
+                Yes
+
+            </label>
+
+            <label>
+
+                <input
+                    type="radio"
+                    name="${questionId}_${room}_scope"
+                    value="No"
+                    ${data.scope==="No" ? "checked" : ""}>
+
+                No
+
+            </label>
+
+            <label>
+
+                <input
+                    type="radio"
+                    name="${questionId}_${room}_scope"
+                    value="Cx"
+                    ${data.scope==="Cx" ? "checked" : ""}>
+
+                Cx
+
+            </label>
+
+        </div>
+
+
+        <div class="cell-section">
+
+            <div class="cell-label">
+
+                Drawing
+
+            </div>
+
+            <label>
+
+                <input
+                    type="radio"
+                    name="${questionId}_${room}_drawing"
+                    value="Yes"
+                    ${data.drawing==="Yes" ? "checked" : ""}>
+
+                Yes
+
+            </label>
+
+            <label>
+
+                <input
+                    type="radio"
+                    name="${questionId}_${room}_drawing"
+                    value="No"
+                    ${data.drawing==="No" ? "checked" : ""}>
+
+                No
+
+            </label>
+
+        </div>
+
+
+        <div class="cell-section">
+
+            <div class="cell-label">
+
+                Elevation
+
+            </div>
+
+            <input
+                type="text"
+                class="elevation-input"
+                value="${data.elevation || ""}">
+
+        </div>
+
+    </div>
+
+    `;
+
+}
+/* ===========================================================
+   GET RESPONSE
+=========================================================== */
+
+function getResponse(questionId, room){
+
+    if(!responses[questionId]){
+
+        return {};
+
+    }
+
+    return responses[questionId][room] || {};
+
+}
+
+/* ===========================================================
+   INLINE CELL EVENTS
+=========================================================== */
+
+function initialiseInlineEditors(){
+
+    document
+        .querySelectorAll(".cell-editor")
+        .forEach(editor=>{
+
+            attachCellEvents(editor);
+
+        });
+
+}
+
+
+/* ===========================================================
+   ATTACH EVENTS
+=========================================================== */
+
+function attachCellEvents(editor){
+
+    editor
+        .querySelectorAll("input")
+        .forEach(control=>{
+
+            control.addEventListener(
+
+                "change",
+
+                ()=>{
+
+                    saveCell(editor);
+
+                }
+
+            );
+
+            control.addEventListener(
+
+                "keyup",
+
+                ()=>{
+
+                    saveCell(editor);
+
+                }
+
+            );
+
+        });
+
+}
+
+/* ===========================================================
+   SAVE CELL
+=========================================================== */
+
+function saveCell(editor){
+
+    const questionId = editor.dataset.question;
+
+    const room = editor.dataset.room;
+
+
+    if(!responses[questionId]){
+
+        responses[questionId]={};
+
+    }
+
+
+    responses[questionId][room]={
+
+        scope:getSelectedValue(
+
+            editor,
+
+            "_scope"
+
+        ),
+
+        drawing:getSelectedValue(
+
+            editor,
+
+            "_drawing"
+
+        ),
+
+        elevation:getElevationValue(
+
+            editor
+
+        )
+
+    };
+
+
+    saveApplication();
+
+    updateCategoryProgress(
+
+        QUESTION_BANK.filter(q=>
+
+            q.trade===activeTrade &&
+
+            q.category===activeCategory
+
+        )
+
+    );
+
+}
+
+/* ===========================================================
+   RADIO VALUE
+=========================================================== */
+
+function getSelectedValue(editor,suffix){
+
+    const radio=
+
+        editor.querySelector(
+
+            `input[name$="${suffix}"]:checked`
+
+        );
+
+    if(radio)
+
+        return radio.value;
+
+    return "";
+
+}
+
+
+/* ===========================================================
+   ELEVATION
+=========================================================== */
+
+function getElevationValue(editor){
+
+    const box=
+
+        editor.querySelector(
+
+            ".elevation-input"
+
+        );
+
+    if(box)
+
+        return box.value;
+
+    return "";
+
+}
+
 
 
 /* ===========================================================
    CATEGORY PROGRESS
 =========================================================== */
 
-function updateCategoryProgress(questionList) {
+function updateCategoryProgress(questionList){
 
     let total = 0;
 
     let completed = 0;
 
-    questionList.forEach(question => {
+    questionList.forEach(question=>{
 
-        total++;
+        selectedRooms.forEach(room=>{
 
-        if (responses[question.id]) {
+            total++;
 
-            completed++;
+            if(
 
-        }
+                responses[question.id] &&
+
+                responses[question.id][room]
+
+            ){
+
+                completed++;
+
+            }
+
+        });
 
     });
 
-    document.getElementById("categoryProgress").innerText =
-
-        `${completed} / ${total} Completed`;
-
-}
-
-
-/* ===========================================================
-   PART 3
-   RESPONSE POPUP
-=========================================================== */
-
-let currentQuestion = null;
-let currentRoom = null;
-
-
-/* ===========================================================
-   OPEN POPUP
-=========================================================== */
-
-function openResponsePopup(question, room) {
-
-    currentQuestion = question;
-    currentRoom = room;
-
     document
-        .getElementById("popupOverlay")
-        .classList.remove("hidden");
+        .getElementById("categoryProgress")
+        .innerText=
 
-    document
-        .getElementById("popupQuestion")
-        .innerText =
-        room + " • " + question.question;
-
-    renderPopup(question, room);
+        completed+" / "+total+" Completed";
 
 }
 
 
-/* ===========================================================
-   RENDER POPUP
-=========================================================== */
 
-function renderPopup(question, room) {
 
-    const body =
-        document.getElementById("popupBody");
 
-    let existing = {};
 
-    if (
-        responses[question.id] &&
-        responses[question.id][room]
-    ) {
 
-        existing = responses[question.id][room];
 
-    }
 
-    if (question.level === "wall") {
 
-        body.innerHTML = buildWallPopup(existing);
 
-    }
 
-    else {
 
-        body.innerHTML = buildRoomPopup(existing);
-
-    }
-
-}
-
-
-/* ===========================================================
-   ROOM POPUP
-=========================================================== */
-
-function buildRoomPopup(data) {
-
-    return `
-
-    <div class="popup-section">
-
-        <label>Scope in Room</label>
-
-        <div class="radio-group">
-
-            <label>
-
-                <input
-                    type="radio"
-                    name="scope"
-                    value="Yes"
-                    ${data.scope=="Yes"?"checked":""}
-                >
-
-                Yes
-
-            </label>
-
-            <label>
-
-                <input
-                    type="radio"
-                    name="scope"
-                    value="No"
-                    ${data.scope=="No"?"checked":""}
-                >
-
-                No
-
-            </label>
-
-        </div>
-
-    </div>
-
-
-    <div class="popup-section">
-
-        <label>
-
-            Shown in Drawing Plan
-
-        </label>
-
-        <div class="radio-group">
-
-            <label>
-
-                <input
-                    type="radio"
-                    name="drawing"
-                    value="Yes"
-                    ${data.drawing=="Yes"?"checked":""}
-                >
-
-                Yes
-
-            </label>
-
-            <label>
-
-                <input
-                    type="radio"
-                    name="drawing"
-                    value="No"
-                    ${data.drawing=="No"?"checked":""}
-                >
-
-                No
-
-            </label>
-
-        </div>
-
-    </div>
-
-
-    <div class="popup-section">
-
-        <label>
-
-            Scope Ownership
-
-        </label>
-
-        <select id="ownership">
-
-            <option value="Company"
-                ${data.ownership=="Company"?"selected":""}>
-                Company
-            </option>
-
-            <option value="Customer"
-                ${data.ownership=="Customer"?"selected":""}>
-                Customer
-            </option>
-
-        </select>
-
-    </div>
-
-
-    <div class="popup-section">
-
-        <label>
-
-            Remarks
-
-        </label>
-
-        <textarea id="remarks">${data.remarks || ""}</textarea>
-
-    </div>
-
-    `;
-
-}
-
-
-
-/* ===========================================================
-   WALL POPUP
-=========================================================== */
-
-function buildWallPopup(data){
-
-    return `
-
-    <div class="popup-section">
-
-        <label>Scope in Room</label>
-
-        <div class="radio-group">
-
-            <label>
-
-                <input
-                    type="radio"
-                    name="scope"
-                    value="Yes"
-                    ${data.scope=="Yes"?"checked":""}
-                >
-
-                Yes
-
-            </label>
-
-            <label>
-
-                <input
-                    type="radio"
-                    name="scope"
-                    value="No"
-                    ${data.scope=="No"?"checked":""}
-                >
-
-                No
-
-            </label>
-
-        </div>
-
-    </div>
-
-
-    <div class="popup-section">
-
-        <label>
-
-            Shown in Drawing Elevation
-
-        </label>
-
-        <div class="radio-group">
-
-            <label>
-
-                <input
-                    type="radio"
-                    name="drawing"
-                    value="Yes"
-                    ${data.drawing=="Yes"?"checked":""}
-                >
-
-                Yes
-
-            </label>
-
-            <label>
-
-                <input
-                    type="radio"
-                    name="drawing"
-                    value="No"
-                    ${data.drawing=="No"?"checked":""}
-                >
-
-                No
-
-            </label>
-
-        </div>
-
-    </div>
-
-
-    <div class="popup-section">
-
-        <label>
-
-            Elevation Number
-
-        </label>
-
-        <input
-            id="elevation"
-            value="${data.elevation || ""}"
-        >
-
-    </div>
-
-
-    <div class="popup-section">
-
-        <label>
-
-            Scope Ownership
-
-        </label>
-
-        <select id="ownership">
-
-            <option value="Company"
-                ${data.ownership=="Company"?"selected":""}>
-                Company
-            </option>
-
-            <option value="Customer"
-                ${data.ownership=="Customer"?"selected":""}>
-                Customer
-            </option>
-
-        </select>
-
-    </div>
-
-
-    <div class="popup-section">
-
-        <label>
-
-            Remarks
-
-        </label>
-
-        <textarea id="remarks">${data.remarks || ""}</textarea>
-
-    </div>
-
-    `;
-
-}
 
 
 
@@ -977,86 +1050,11 @@ document
 
 
 
-/* ===========================================================
-   SAVE
-=========================================================== */
-
-function savePopup(){
-
-    if(!responses[currentQuestion.id]){
-
-        responses[currentQuestion.id]={};
-
-    }
-
-    const obj={
-
-        scope:getRadioValue("scope"),
-
-        drawing:getRadioValue("drawing"),
-
-        ownership:document.getElementById("ownership").value,
-
-        remarks:document.getElementById("remarks").value
-
-    };
-
-    if(currentQuestion.level=="wall"){
-
-        obj.elevation=document.getElementById("elevation").value;
-
-    }
-
-    responses[currentQuestion.id][currentRoom]=obj;
-
-   saveApplication();
-    closePopup();
-
-    renderQuestions(
-
-        activeTrade,
-
-        activeCategory
-
-    );
-
-}
 
 
 
-/* ===========================================================
-   CLOSE
-=========================================================== */
-
-function closePopup(){
-
-    document
-    .getElementById("popupOverlay")
-    .classList.add("hidden");
-
-}
 
 
-
-/* ===========================================================
-   RADIO VALUE
-=========================================================== */
-
-function getRadioValue(name){
-
-    const item=document.querySelector(
-
-        `input[name="${name}"]:checked`
-
-    );
-
-    if(item)
-
-        return item.value;
-
-    return "";
-
-}
 
 /* ===========================================================
    PART 4
