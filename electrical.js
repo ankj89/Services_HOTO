@@ -11,7 +11,7 @@ category:"Lighting",
 subcategory:"General Lighting",
 question:"Is any modification to the existing lighting layout planned?",
 level:"room",
-drawingGuideline:"Ceiling plan shall reflect the final lighting layout."
+drawingRequirement:"Ceiling plan shall reflect the final lighting layout."
 },
 
 {
@@ -21,7 +21,7 @@ category:"Lighting",
 subcategory:"False Ceiling Lighting",
 question:"Is false ceiling lighting planned?",
 level:"room",
-drawingGuideline:"Ceiling plan shall identify all false ceiling lighting."
+drawingRequirement:"Ceiling plan shall identify all false ceiling lighting."
 },
 
 {
@@ -31,7 +31,7 @@ category:"Lighting",
 subcategory:"Cove Lighting",
 question:"Is cove lighting planned?",
 level:"room",
-drawingGuideline:"Ceiling plan shall identify all cove lighting."
+drawingRequirement:"Ceiling plan shall identify all cove lighting."
 },
 
 {
@@ -41,7 +41,7 @@ category:"Lighting",
 subcategory:"Profile Lighting",
 question:"Is profile lighting planned?",
 level:"room",
-drawingGuideline:"Ceiling plan shall identify all profile lighting."
+drawingRequirement:"Ceiling plan shall identify all profile lighting."
 },
 
 {
@@ -51,7 +51,7 @@ category:"Lighting",
 subcategory:"Track Lighting",
 question:"Are track lights planned?",
 level:"room",
-drawingGuideline:"Ceiling plan shall identify all track lights."
+drawingRequirement:"Ceiling plan shall identify all track lights."
 },
 
 {
@@ -61,7 +61,7 @@ category:"Lighting",
 subcategory:"Decorative Ceiling Lighting",
 question:"Are decorative ceiling lights planned (Chandelier / Pendant / Hanging Lights)?",
 level:"room",
-drawingGuideline:"Ceiling plan shall identify all decorative ceiling lights."
+drawingRequirement:"Ceiling plan shall identify all decorative ceiling lights."
 },
 
 {
@@ -71,7 +71,7 @@ category:"Lighting",
 subcategory:"Wall Lighting",
 question:"Are wall lights planned?",
 level:"wall",
-drawingGuideline:"Relevant elevations shall identify all wall lights."
+drawingRequirement:"Relevant elevations shall identify all wall lights."
 },
 
 {
@@ -81,7 +81,7 @@ category:"Lighting",
 subcategory:"Feature Lighting",
 question:"Is feature or back lighting planned on any wall or ceiling feature?",
 level:"wall",
-drawingGuideline:"Relevant drawings shall identify all feature lighting."
+drawingRequirement:"Relevant drawings shall identify all feature lighting."
 },
 
 {
@@ -91,7 +91,7 @@ category:"Lighting",
 subcategory:"Lighting Controls",
 question:"Is dimming or special lighting control planned?",
 level:"room",
-drawingGuideline:"Electrical layout shall indicate applicable lighting controls."
+drawingRequirement:"Electrical layout shall indicate applicable lighting controls."
 },
 
 {
@@ -101,7 +101,7 @@ category:"Lighting",
 subcategory:"Outdoor Lighting",
 question:"Is decorative outdoor lighting planned?",
 level:"room",
-drawingGuideline:"Relevant plans shall identify outdoor lighting."
+drawingRequirement:"Relevant plans shall identify outdoor lighting."
 },
 
 {
@@ -111,7 +111,7 @@ category:"Lighting",
 subcategory:"Others",
 question:"Are there any other lighting requirements not covered above?",
 level:"room",
-drawingGuideline:"Relevant drawings shall clearly indicate the requirement."
+drawingRequirement:"Relevant drawings shall clearly indicate the requirement."
 },
 
 /* ============================================================
@@ -125,7 +125,7 @@ category:"Power",
 subcategory:"Charging Points",
 question:"Are additional charging sockets required?",
 level:"wall",
-drawingGuideline:"Electrical layout shall identify all charging sockets."
+drawingRequirement:"Electrical layout shall identify all charging sockets."
 },
 
 {
@@ -135,7 +135,7 @@ category:"Power",
 subcategory:"General Purpose",
 question:"Are additional general-purpose sockets required?",
 level:"wall",
-drawingGuideline:"Electrical layout shall identify all additional sockets."
+drawingRequirement:"Electrical layout shall identify all additional sockets."
 },
 
 {
@@ -145,7 +145,7 @@ category:"Power",
 subcategory:"Heavy Duty",
 question:"Are any heavy-duty power points required?",
 level:"wall",
-drawingGuideline:"Electrical layout shall identify all heavy-duty power points."
+drawingRequirement:"Electrical layout shall identify all heavy-duty power points."
 },
 
 {
@@ -155,7 +155,7 @@ category:"Power",
 subcategory:"Switchboard Relocation",
 question:"Are any existing switchboards planned to be relocated?",
 level:"wall",
-drawingGuideline:"Electrical layout shall indicate existing and proposed switchboard locations."
+drawingRequirement:"Electrical layout shall indicate existing and proposed switchboard locations."
 },
 
 {
@@ -165,7 +165,7 @@ category:"Power",
 subcategory:"New Switchboards",
 question:"Are any additional switchboards required?",
 level:"wall",
-drawingGuideline:"Electrical layout shall identify new switchboard locations."
+drawingRequirement:"Electrical layout shall identify new switchboard locations."
 },
 
 {
@@ -175,7 +175,7 @@ category:"Power",
 subcategory:"Two-way Switching",
 question:"Is two-way switching required anywhere?",
 level:"wall",
-drawingGuideline:"Electrical layout shall indicate applicable switching."
+drawingRequirement:"Electrical layout shall indicate applicable switching."
 },
 
 {
@@ -185,7 +185,7 @@ category:"Power",
 subcategory:"Bedside Switching",
 question:"Are bedside charging or switching provisions required?",
 level:"wall",
-drawingGuideline:"Bedroom elevations shall indicate bedside switching locations."
+drawingRequirement:"Bedroom elevations shall indicate bedside switching locations."
 },
 
 {
@@ -195,7 +195,7 @@ category:"Power",
 subcategory:"Festival Lighting",
 question:"Are dedicated power points required for decorative or festival lighting?",
 level:"wall",
-drawingGuideline:"Electrical layout shall identify decorative lighting sockets."
+drawingRequirement:"Electrical layout shall identify decorative lighting sockets."
 },
 
 {
@@ -205,7 +205,7 @@ category:"Power",
 subcategory:"Entertainment Power",
 question:"Are dedicated power points required for TV, workstation, router or similar equipment?",
 level:"wall",
-drawingGuideline:"Electrical layout shall identify all dedicated power points."
+drawingRequirement:"Electrical layout shall identify all dedicated power points."
 },
 
 {
@@ -215,7 +215,7 @@ category:"Power",
 subcategory:"Others",
 question:"Are there any other power requirements not covered above?",
 level:"wall",
-drawingGuideline:"Relevant drawings shall clearly indicate the requirement."
+drawingRequirement:"Relevant drawings shall clearly indicate the requirement."
 },
 
 /* ============================================================
@@ -229,7 +229,7 @@ category:"Appliances",
 subcategory:"Dishwasher",
 question:"Will a dishwasher be installed?",
 level:"room",
-drawingGuideline:"Kitchen layout shall identify dishwasher location."
+drawingRequirement:"Kitchen layout shall identify dishwasher location."
 },
 
 {
@@ -239,7 +239,7 @@ category:"Appliances",
 subcategory:"Washing Machine",
 question:"Will a washing machine be installed?",
 level:"room",
-drawingGuideline:"Utility layout shall identify washing machine location."
+drawingRequirement:"Utility layout shall identify washing machine location."
 },
 
 {
@@ -249,7 +249,7 @@ category:"Appliances",
 subcategory:"Clothes Dryer",
 question:"Will a clothes dryer be installed?",
 level:"room",
-drawingGuideline:"Utility layout shall identify dryer location."
+drawingRequirement:"Utility layout shall identify dryer location."
 },
 
 {
@@ -259,7 +259,7 @@ category:"Appliances",
 subcategory:"Refrigerator",
 question:"Will a refrigerator be installed?",
 level:"room",
-drawingGuideline:"Kitchen layout shall identify refrigerator location."
+drawingRequirement:"Kitchen layout shall identify refrigerator location."
 },
 
 {
@@ -269,7 +269,7 @@ category:"Appliances",
 subcategory:"Built-in Appliances",
 question:"Will built-in appliances (Microwave / Oven / OTG etc.) be installed?",
 level:"room",
-drawingGuideline:"Kitchen layout shall identify appliance locations."
+drawingRequirement:"Kitchen layout shall identify appliance locations."
 },
 
 {
@@ -279,7 +279,7 @@ category:"Appliances",
 subcategory:"Hob",
 question:"Will a hob or induction cooktop be installed?",
 level:"room",
-drawingGuideline:"Kitchen layout shall identify hob location."
+drawingRequirement:"Kitchen layout shall identify hob location."
 },
 
 {
@@ -289,7 +289,7 @@ category:"Appliances",
 subcategory:"Chimney",
 question:"Will a chimney be installed?",
 level:"room",
-drawingGuideline:"Kitchen layout shall identify chimney location."
+drawingRequirement:"Kitchen layout shall identify chimney location."
 },
 
 {
@@ -299,7 +299,7 @@ category:"Appliances",
 subcategory:"Water Purifier",
 question:"Will a water purifier be installed?",
 level:"room",
-drawingGuideline:"Kitchen layout shall identify purifier location."
+drawingRequirement:"Kitchen layout shall identify purifier location."
 },
 
 {
@@ -309,7 +309,7 @@ category:"Appliances",
 subcategory:"Air Conditioner",
 question:"Will air conditioners be installed?",
 level:"room",
-drawingGuideline:"Layout shall identify indoor and outdoor AC locations."
+drawingRequirement:"Layout shall identify indoor and outdoor AC locations."
 },
 
 {
@@ -319,7 +319,7 @@ category:"Appliances",
 subcategory:"Geyser",
 question:"Will geysers be installed?",
 level:"room",
-drawingGuideline:"Bathroom layout shall identify geyser location."
+drawingRequirement:"Bathroom layout shall identify geyser location."
 },
 
 {
@@ -329,7 +329,7 @@ category:"Appliances",
 subcategory:"Others",
 question:"Are there any other appliances requiring electrical provision?",
 level:"room",
-drawingGuideline:"Relevant drawings shall identify appliance locations."
+drawingRequirement:"Relevant drawings shall identify appliance locations."
 },
 
 /* ============================================================
@@ -343,7 +343,7 @@ category:"Furniture Integration",
 subcategory:"Wardrobe Lighting",
 question:"Is wardrobe lighting planned?",
 level:"wall",
-drawingGuideline:"Wardrobe elevations shall identify lighting provisions."
+drawingRequirement:"Wardrobe elevations shall identify lighting provisions."
 },
 
 {
@@ -353,7 +353,7 @@ category:"Furniture Integration",
 subcategory:"Display/Crockery Lighting",
 question:"Is lighting planned within display or crockery units?",
 level:"wall",
-drawingGuideline:"Relevant furniture elevations shall identify lighting."
+drawingRequirement:"Relevant furniture elevations shall identify lighting."
 },
 
 {
@@ -363,7 +363,7 @@ category:"Furniture Integration",
 subcategory:"TV Unit Lighting",
 question:"Is lighting planned within the TV unit?",
 level:"wall",
-drawingGuideline:"TV unit drawings shall identify lighting provisions."
+drawingRequirement:"TV unit drawings shall identify lighting provisions."
 },
 
 {
@@ -373,7 +373,7 @@ category:"Furniture Integration",
 subcategory:"Study Unit Lighting",
 question:"Is lighting planned within the study/workstation?",
 level:"wall",
-drawingGuideline:"Study furniture drawings shall identify lighting."
+drawingRequirement:"Study furniture drawings shall identify lighting."
 },
 
 {
@@ -383,7 +383,7 @@ category:"Furniture Integration",
 subcategory:"Furniture Power",
 question:"Are power or charging points required within furniture?",
 level:"wall",
-drawingGuideline:"Furniture drawings shall identify power point locations."
+drawingRequirement:"Furniture drawings shall identify power point locations."
 },
 
 {
@@ -393,7 +393,7 @@ category:"Furniture Integration",
 subcategory:"Furniture Sensors",
 question:"Is sensor-based lighting planned within furniture?",
 level:"wall",
-drawingGuideline:"Relevant furniture drawings shall identify sensor lighting."
+drawingRequirement:"Relevant furniture drawings shall identify sensor lighting."
 },
 
 {
@@ -403,7 +403,7 @@ category:"Furniture Integration",
 subcategory:"Others",
 question:"Are there any other furniture-integrated electrical requirements?",
 level:"wall",
-drawingGuideline:"Relevant furniture drawings shall identify the requirement."
+drawingRequirement:"Relevant furniture drawings shall identify the requirement."
 },
 
 /* ============================================================
@@ -417,7 +417,7 @@ category:"Security & Automation",
 subcategory:"CCTV",
 question:"Is CCTV planned?",
 level:"room",
-drawingGuideline:"Layout shall identify camera locations."
+drawingRequirement:"Layout shall identify camera locations."
 },
 
 {
@@ -427,7 +427,7 @@ category:"Security & Automation",
 subcategory:"Video Door Bell",
 question:"Is a video door bell planned?",
 level:"room",
-drawingGuideline:"Layout shall identify entrance device location."
+drawingRequirement:"Layout shall identify entrance device location."
 },
 
 {
@@ -437,7 +437,7 @@ category:"Security & Automation",
 subcategory:"Digital Lock",
 question:"Is a digital door lock planned?",
 level:"room",
-drawingGuideline:"Entrance drawings shall identify digital lock."
+drawingRequirement:"Entrance drawings shall identify digital lock."
 },
 
 {
@@ -447,7 +447,7 @@ category:"Security & Automation",
 subcategory:"Home Automation",
 question:"Is home automation planned?",
 level:"room",
-drawingGuideline:"Electrical layout shall identify automation provisions."
+drawingRequirement:"Electrical layout shall identify automation provisions."
 },
 
 {
@@ -457,7 +457,7 @@ category:"Security & Automation",
 subcategory:"Motion Sensors",
 question:"Are motion sensors planned?",
 level:"room",
-drawingGuideline:"Layout shall identify sensor locations."
+drawingRequirement:"Layout shall identify sensor locations."
 },
 
 {
@@ -467,7 +467,7 @@ category:"Security & Automation",
 subcategory:"Motorized Curtains",
 question:"Are motorized curtains or blinds planned?",
 level:"room",
-drawingGuideline:"Relevant drawings shall identify curtain motor locations."
+drawingRequirement:"Relevant drawings shall identify curtain motor locations."
 },
 
 {
@@ -477,7 +477,7 @@ category:"Security & Automation",
 subcategory:"Others",
 question:"Are there any other security or automation requirements?",
 level:"room",
-drawingGuideline:"Relevant drawings shall identify the requirement."
+drawingRequirement:"Relevant drawings shall identify the requirement."
 },
 
 /* ============================================================
@@ -491,7 +491,7 @@ category:"Coordination",
 subcategory:"AC Coordination",
 question:"Are the indoor and outdoor AC unit locations finalized?",
 level:"room",
-drawingGuideline:"Drawings shall identify indoor and outdoor AC locations."
+drawingRequirement:"Drawings shall identify indoor and outdoor AC locations."
 },
 
 {
@@ -501,7 +501,7 @@ category:"Coordination",
 subcategory:"Exhaust Fans",
 question:"Are exhaust fans planned?",
 level:"room",
-drawingGuideline:"Relevant drawings shall identify exhaust fan locations."
+drawingRequirement:"Relevant drawings shall identify exhaust fan locations."
 },
 
 {
@@ -511,7 +511,7 @@ category:"Coordination",
 subcategory:"Internet / Router",
 question:"Is a dedicated location planned for internet/router equipment?",
 level:"room",
-drawingGuideline:"Layout shall identify router location."
+drawingRequirement:"Layout shall identify router location."
 },
 
 {
@@ -521,7 +521,7 @@ category:"Coordination",
 subcategory:"UPS / Inverter",
 question:"Is an inverter or UPS planned?",
 level:"room",
-drawingGuideline:"Electrical layout shall identify equipment location."
+drawingRequirement:"Electrical layout shall identify equipment location."
 },
 
 {
@@ -531,7 +531,7 @@ category:"Coordination",
 subcategory:"Future Provision",
 question:"Is provision required for any future electrical requirements?",
 level:"room",
-drawingGuideline:"Relevant drawings shall identify future provisions."
+drawingRequirement:"Relevant drawings shall identify future provisions."
 },
 
 {
@@ -541,7 +541,7 @@ category:"Coordination",
 subcategory:"Builder Coordination",
 question:"Are there any builder-provided electrical services that need to be retained or coordinated?",
 level:"room",
-drawingGuideline:"Drawings shall identify retained builder services."
+drawingRequirement:"Drawings shall identify retained builder services."
 },
 
 {
@@ -551,7 +551,7 @@ category:"Coordination",
 subcategory:"Customer Systems",
 question:"Are there any customer-owned systems requiring electrical coordination?",
 level:"room",
-drawingGuideline:"Relevant drawings shall identify these systems."
+drawingRequirement:"Relevant drawings shall identify these systems."
 },
 
 {
@@ -561,7 +561,7 @@ category:"Coordination",
 subcategory:"Others",
 question:"Are there any other coordination requirements impacting electrical works?",
 level:"room",
-drawingGuideline:"Relevant drawings shall identify the requirement."
+drawingRequirement:"Relevant drawings shall identify the requirement."
 }
 
 ];
