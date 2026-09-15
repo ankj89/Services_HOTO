@@ -67,6 +67,8 @@ function initialiseApplication(){
 
     initialiseQuestionBank();
 
+loadApplication();
+
 }
 
 
@@ -259,6 +261,8 @@ function saveProject(){
 
     showTab("roomsTab");
 
+   saveApplication();
+
 }
 
 
@@ -296,6 +300,8 @@ function generateHOTO(){
     renderQuestions(activeTrade,activeCategory);
 
     showTab("hotoTab");
+
+   saveApplication();
 
 }
 
@@ -1003,6 +1009,7 @@ function savePopup(){
 
     responses[currentQuestion.id][currentRoom]=obj;
 
+   saveApplication();
     closePopup();
 
     renderQuestions(
@@ -1051,3 +1058,181 @@ function getRadioValue(name){
 
 }
 
+/* ===========================================================
+   PART 4
+   LOCAL STORAGE
+=========================================================== */
+
+const STORAGE_KEY = "ScopeCaptureProject";
+
+
+/* ===========================================================
+   SAVE APPLICATION
+=========================================================== */
+
+function saveApplication(){
+
+    const appData={
+
+        project,
+
+        selectedRooms,
+
+        responses,
+
+        activeTrade,
+
+        activeCategory
+
+    };
+
+    localStorage.setItem(
+
+        STORAGE_KEY,
+
+        JSON.stringify(appData)
+
+    );
+
+}
+
+
+/* ===========================================================
+   LOAD APPLICATION
+=========================================================== */
+
+function loadApplication(){
+
+    const saved=
+
+        localStorage.getItem(STORAGE_KEY);
+
+    if(!saved)
+
+        return;
+
+    try{
+
+        const appData=JSON.parse(saved);
+
+        Object.assign(project,appData.project);
+
+        selectedRooms=appData.selectedRooms || [];
+
+        responses=appData.responses || {};
+
+        activeTrade=appData.activeTrade || activeTrade;
+
+        activeCategory=appData.activeCategory || activeCategory;
+
+        populateProjectScreen();
+
+        populateRoomSelection();
+
+    }
+
+    catch(e){
+
+        console.error(e);
+
+    }
+
+}
+
+
+/* ===========================================================
+   POPULATE PROJECT DETAILS
+=========================================================== */
+
+function populateProjectScreen(){
+
+    document.getElementById("projectName").value=project.projectName || "";
+
+    document.getElementById("clientName").value=project.clientName || "";
+
+    document.getElementById("projectType").value=project.projectType || "Apartment";
+
+    document.getElementById("configuration").value=project.configuration || "3 BHK";
+
+    document.getElementById("designer").value=project.designer || "";
+
+    document.getElementById("qs").value=project.qs || "";
+
+    document.getElementById("address").value=project.address || "";
+
+    document.getElementById("projectRemarks").value=project.remarks || "";
+
+    document.getElementById("projectSummary").innerHTML=
+
+        `<strong>${project.projectName || "New Project"}</strong>
+
+        <br>
+
+        ${project.clientName || ""}`;
+
+}
+
+
+/* ===========================================================
+   RESTORE ROOM SELECTION
+=========================================================== */
+
+function populateRoomSelection(){
+
+    if(selectedRooms.length===0)
+
+        return;
+
+    document
+
+    .querySelectorAll("#roomContainer input[type='checkbox']")
+
+    .forEach(box=>{
+
+        box.checked=
+
+            selectedRooms.includes(box.value);
+
+    });
+
+}
+
+
+/* ===========================================================
+   RESET PROJECT
+=========================================================== */
+
+function resetProject(){
+
+    if(
+
+        !confirm(
+
+            "Start a new project?"
+
+        )
+
+    )
+
+        return;
+
+    localStorage.removeItem(
+
+        STORAGE_KEY
+
+    );
+
+    location.reload();
+
+}
+
+
+/* ===========================================================
+   AUTO SAVE
+=========================================================== */
+
+function autoSave(){
+
+    saveApplication();
+
+}
