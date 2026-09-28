@@ -5,8 +5,8 @@
 
 const QUESTION_BANK = [
 
-    ...ELECTRICAL
-
+    ...ELECTRICAL,
+   ...CIVIL
     /*
     Future Datasets
 
