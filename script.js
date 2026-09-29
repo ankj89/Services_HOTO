@@ -682,7 +682,7 @@ function buildWallCell(questionId, room, data){
 
             <div class="cell-title">
 
-                Scope
+                LS Scope?
 
             </div>
 
@@ -705,7 +705,7 @@ function buildWallCell(questionId, room, data){
 
             <div class="cell-title">
 
-                Drawing
+                Drawings Provided?
 
             </div>
 
