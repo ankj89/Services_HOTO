@@ -307,40 +307,40 @@ drawingRequirement:"Show power point location in furniture elevation."
 =========================================================== */
 
 {
-id:"EL-APP-001",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Dishwasher",level:"room",question:"Is a new dishwasher planned?",drawingRequirement:"Show appliance location in layout plan."
+id:"EL-APP-001",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Dishwasher",level:"room",question:"Is Cx installiing a new dishwasher?",drawingRequirement:"Show appliance location in layout plan."
 },
 {
 id:"EL-APP-002",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Dishwasher",level:"room",question:"Is an existing dishwasher being relocated?",drawingRequirement:"Show revised appliance location."
 },
 {
-id:"EL-APP-003",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Washing Machine",level:"room",question:"Is a new washing machine planned?",drawingRequirement:"Show appliance location."
+id:"EL-APP-003",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Washing Machine",level:"room",question:"Is Cx installing a new washing machine?",drawingRequirement:"Show appliance location."
 },
 {
 id:"EL-APP-004",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Washing Machine",level:"room",question:"Is an existing washing machine being relocated?",drawingRequirement:"Show revised appliance location."
 },
 {
-id:"EL-APP-005",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"RO",level:"room",question:"Is a new water purifier / RO planned?",drawingRequirement:"Show appliance location."
+id:"EL-APP-005",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"RO",level:"room",question:"Is Cx installing a new water purifier / RO?",drawingRequirement:"Show appliance location."
 },
 {
 id:"EL-APP-006",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"RO",level:"room",question:"Is an existing water purifier / RO being relocated?",drawingRequirement:"Show revised appliance location."
 },
 {
-id:"EL-APP-007",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Geyser",level:"room",question:"Will geysers be installed?",drawingRequirement:"Show geyser location."
+id:"EL-APP-007",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Geyser",level:"room",question:"Is Cx installing new geysers?",drawingRequirement:"Show geyser location."
 },
 {
 id:"EL-APP-008",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Geyser",level:"room",question:"Are existing geysers being relocated?",drawingRequirement:"Show revised geyser location."
 },
 {
-id:"EL-APP-009",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Dryer",level:"room",question:"Is a clothes dryer planned?",drawingRequirement:"Show appliance location."
+id:"EL-APP-009",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Dryer",level:"room",question:"Is Cx installing clothes dryer planned?",drawingRequirement:"Show appliance location."
 },
 {
-id:"EL-APP-010",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Refrigerator",level:"room",question:"Will a refrigerator be installed?",drawingRequirement:"Show appliance location."
+id:"EL-APP-010",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Refrigerator",level:"room",question:"Is Cx installing a refrigerator?",drawingRequirement:"Show appliance location."
 },
 {
-id:"EL-APP-011",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Cooking Appliances",level:"room",question:"Is a microwave, oven or OTG planned?",drawingRequirement:"Show appliance location."
+id:"EL-APP-011",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Cooking Appliances",level:"room",question:"Is Cx installing a microwave, oven or OTG?",drawingRequirement:"Show appliance location."
 },
 {
-id:"EL-APP-012",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Chimney",level:"room",question:"Will a chimney be installed?",drawingRequirement:"Show chimney location."
+id:"EL-APP-012",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Chimney",level:"room",question:"Is Cx installing chimney?",drawingRequirement:"Show chimney location."
 },
 {
 id:"EL-APP-013",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Exhaust",level:"room",question:"Are exhaust fans planned?",drawingRequirement:"Show exhaust fan location."
@@ -353,18 +353,20 @@ id:"EL-APP-014",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Fa
    AIR CONDITIONING
 =========================================================== */
 
+
 {
-id:"EL-AC-001",trade:"Electrical",category:"AC",subcategory:"General",level:"room",question:"Are the indoor and outdoor AC unit locations finalized?",drawingRequirement:"Show indoor and outdoor unit locations."
+id:"EL-AC-001",trade:"Electrical",category:"AC",subcategory:"Split AC",level:"wall",question:"Is Cx installing split AC units?",drawingRequirement:"Show indoor unit location and wall elevation."
 },
 {
-id:"EL-AC-002",trade:"Electrical",category:"AC",subcategory:"Split AC",level:"wall",question:"Are split AC units planned?",drawingRequirement:"Show indoor unit location and wall elevation."
+id:"EL-AC-002",trade:"Electrical",category:"AC",subcategory:"Cassette AC",level:"room",question:"Is Cx installing cassette AC ?",drawingRequirement:"Show cassette unit location in reflected ceiling plan."
 },
 {
-id:"EL-AC-003",trade:"Electrical",category:"AC",subcategory:"Cassette AC",level:"room",question:"Are cassette AC units planned?",drawingRequirement:"Show cassette unit location in reflected ceiling plan."
+id:"EL-AC-003",trade:"Electrical",category:"AC",subcategory:"Central AC",level:"room",question:"Is Cx installing centralized / ducted AC?",drawingRequirement:"Show grill locations and indoor unit."
 },
 {
-id:"EL-AC-004",trade:"Electrical",category:"AC",subcategory:"Central AC",level:"room",question:"Is centralized / ducted AC planned?",drawingRequirement:"Show grill locations and indoor unit."
+id:"EL-AC-004",trade:"Electrical",category:"AC",subcategory:"General",level:"room",question:"Are the indoor and outdoor unit locations finalized?",drawingRequirement:"Show indoor and outdoor unit locations."
 },
+   
 {
 id:"EL-AC-005",trade:"Electrical",category:"AC",subcategory:"Access",level:"room",question:"Are trap doors required in the false ceiling?",drawingRequirement:"Show trap door location in reflected ceiling plan."
 },
@@ -374,36 +376,40 @@ id:"EL-AC-005",trade:"Electrical",category:"AC",subcategory:"Access",level:"room
 =========================================================== */
 
 {
-id:"EL-SEC-001",trade:"Electrical",category:"Security systems",subcategory:"CCTV",level:"room",question:"Is CCTV planned?",drawingRequirement:"Show camera locations."
+id:"EL-SEC-001",trade:"Electrical",category:"Security systems",subcategory:"CCTV",level:"room",question:"Is Cx installing CCTV ?",drawingRequirement:"Show camera locations."
 },
 {
-id:"EL-SEC-002",trade:"Electrical",category:"Security systems",subcategory:"Door Bell",level:"wall",question:"Is a video doorbell planned?",drawingRequirement:"Show installation location."
+id:"EL-SEC-002",trade:"Electrical",category:"Security systems",subcategory:"Door Bell",level:"wall",question:"Is Cx instaling a video doorbell?",drawingRequirement:"Show installation location."
 },
 {
-id:"EL-SEC-003",trade:"Electrical",category:"Security systems",subcategory:"Door Lock",level:"wall",question:"Is a digital door lock planned?",drawingRequirement:"Show installation location."
+id:"EL-SEC-003",trade:"Electrical",category:"Security systems",subcategory:"Door Lock",level:"wall",question:"Is Cx installing digital door lock?",drawingRequirement:"Show installation location."
 },
 {
 id:"EL-SEC-004",trade:"Electrical",category:"Security systems",subcategory:"Automation",level:"room",question:"Is home automation planned?",drawingRequirement:"Show automation scope in drawings."
 },
 {
-id:"EL-SEC-005",trade:"Electrical",category:"Security systems",subcategory:"Curtains",level:"wall",question:"Are motorized curtains or blinds planned?",drawingRequirement:"Show motor location in elevation."
+id:"EL-SEC-005",trade:"Electrical",category:"Security systems",subcategory:"Curtains",level:"wall",question:"Is Cx installing motorized curtains or blinds?",drawingRequirement:"Show motor location in elevation."
+},
+   {
+id:"EL-OTH-006",trade:"Electrical",category:"Security systems",subcategory:"Router",level:"room",question:"Is a dedicated location planned for internet/router equipment?",drawingRequirement:"Show router location."
+},
+{
+id:"EL-OTH-001",trade:"Electrical",category:"Security systems",subcategory:"UPS",level:"room",question:"Is an inverter or UPS planned?",drawingRequirement:"Show UPS location."
 },
 
 /* ===========================================================
    OTHERS
 =========================================================== */
 
+
 {
-id:"EL-OTH-001",trade:"Electrical",category:"Others",subcategory:"Router",level:"room",question:"Is a dedicated location planned for internet/router equipment?",drawingRequirement:"Show router location."
+id:"EL-OTH-001",trade:"Electrical",category:"Others",subcategory:"UPS",level:"room",question:"Is an inverter or UPS planned?",drawingRequirement:"Show UPS location."
 },
 {
-id:"EL-OTH-002",trade:"Electrical",category:"Others",subcategory:"UPS",level:"room",question:"Is an inverter or UPS planned?",drawingRequirement:"Show UPS location."
+id:"EL-OTH-002",trade:"Electrical",category:"Others",subcategory:"Builder Scope",level:"room",question:"Are there any builder-provided electrical services that need to be retained or coordinated?",drawingRequirement:"Show retained services in drawings."
 },
 {
-id:"EL-OTH-003",trade:"Electrical",category:"Others",subcategory:"Builder Scope",level:"room",question:"Are there any builder-provided electrical services that need to be retained or coordinated?",drawingRequirement:"Show retained services in drawings."
-},
-{
-id:"EL-OTH-004",trade:"Electrical",category:"Others",subcategory:"Customer Scope",level:"room",question:"Are there any customer-owned systems requiring electrical coordination?",drawingRequirement:"Show coordination requirements in drawings."
+id:"EL-OTH-003",trade:"Electrical",category:"Others",subcategory:"Customer Scope",level:"room",question:"Are there any customer-owned systems requiring electrical coordination?",drawingRequirement:"Show coordination requirements in drawings."
 }
 
 ];
