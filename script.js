@@ -9,7 +9,7 @@
    APPLICATION STATE
 =========================================================== */
 
-const project = {};x
+const project = {};
 
 let selectedRooms = [];
 
