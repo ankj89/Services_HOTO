@@ -472,17 +472,17 @@ function buildTableHeader() {
 
     `;
 
-    selectedRooms.forEach(room => {
+   selectedRooms.forEach(room => {
 
-        const th = document.createElement("th");
+    const th = document.createElement("th");
 
-        th.className = "room-column";
+    th.className = "room-header";
 
-        th.innerText = room;
+    th.textContent = room;
 
-        row.appendChild(th);
+    headerRow.appendChild(th);
 
-    });
+});
 
     const last = document.createElement("th");
 
@@ -515,18 +515,62 @@ function buildQuestionRows(questions) {
 
         const tr = document.createElement("tr");
 
-
         /* ----------------------------------------
            CATEGORY
         ---------------------------------------- */
 
-        tr.innerHTML += `
-            <td>${question.category}</td>
-            <td>${question.subcategory}</td>
-            <td class="question-cell">
-                ${question.question}
-            </td>
-        `;
+        const categoryCell = document.createElement("td");
+
+        categoryCell.className = "fixed-col col-category";
+
+        categoryCell.textContent = question.category;
+
+        tr.appendChild(categoryCell);
+
+
+        /* ----------------------------------------
+           SUB CATEGORY
+        ---------------------------------------- */
+
+        const subCategoryCell = document.createElement("td");
+
+        subCategoryCell.className =
+            "fixed-col col-subcategory";
+
+        subCategoryCell.textContent =
+            question.subcategory;
+
+        tr.appendChild(subCategoryCell);
+
+
+        /* ----------------------------------------
+           QUESTION
+        ---------------------------------------- */
+
+        const questionCell = document.createElement("td");
+
+        questionCell.className =
+            "fixed-col col-question question-cell";
+
+        questionCell.textContent =
+            question.question;
+
+        tr.appendChild(questionCell);
+
+
+        /* ----------------------------------------
+           DRAWING REQUIREMENT
+        ---------------------------------------- */
+
+        const drawingCell = document.createElement("td");
+
+        drawingCell.className =
+            "fixed-col col-drawing guideline-cell";
+
+        drawingCell.textContent =
+            question.drawingRequirement || "";
+
+        tr.appendChild(drawingCell);
 
 
         /* ----------------------------------------
@@ -537,33 +581,26 @@ function buildQuestionRows(questions) {
 
             const td = document.createElement("td");
 
-            td.className = "response-cell";
+            td.className = "response-cell room-cell";
 
-            td.dataset.question = question.id;
-            td.dataset.room = room;
-            td.dataset.level = question.level;
+            td.dataset.question =
+                question.id;
 
-            td.innerHTML = createCellEditor(
-                question,
-                room
-            );
+            td.dataset.room =
+                room;
+
+            td.dataset.level =
+                question.level;
+
+            td.innerHTML =
+                createCellEditor(
+                    question,
+                    room
+                );
 
             tr.appendChild(td);
 
         });
-
-
-        /* ----------------------------------------
-           DRAWING REQUIREMENT
-        ---------------------------------------- */
-
-        const guide = document.createElement("td");
-
-        guide.className = "guideline-cell";
-
-        guide.innerHTML = question.drawingRequirement || "";
-
-        tr.appendChild(guide);
 
 
         tbody.appendChild(tr);
