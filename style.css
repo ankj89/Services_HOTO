@@ -2084,3 +2084,42 @@ button:disabled{
     position: relative;
 
 }
+/* ==========================================================
+   QUESTION SUBTEXT
+========================================================== */
+
+.question-main {
+
+    font-weight: 600;
+
+    line-height: 1.4;
+
+    margin-bottom: 12px;
+
+}
+
+
+.question-subtext {
+
+    margin-top: 10px;
+
+    padding-top: 10px;
+
+    border-top: 1px solid #e5e7eb;
+
+    font-size: 12px;
+
+    font-weight: 400;
+
+    line-height: 1.5;
+
+    color: #687384;
+
+}
+
+
+.subtext-item {
+
+    margin-bottom: 3px;
+
+}
