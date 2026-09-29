@@ -9,7 +9,7 @@ const QUESTION_BANK = [
    ...CIVIL,
    ...CARPENTRY,
 
-    ...FALSECEILING,
+    ...FALSE_CEILING,
 
     ...PLUMBING,
 
