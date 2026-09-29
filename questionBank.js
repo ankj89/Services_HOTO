@@ -6,7 +6,14 @@
 const QUESTION_BANK = [
 
     ...ELECTRICAL,
-   ...CIVIL
+   ...CIVIL,
+   ...CARPENTRY,
+
+    ...FALSECEILING,
+
+    ...PLUMBING,
+
+    ...PAINTING
     /*
     Future Datasets
 
