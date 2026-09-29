@@ -467,8 +467,7 @@ function buildTableHeaders() {
 
     const questionHeader = document.createElement("th");
 
-    questionHeader.className =
-        "col-question fixed-col";
+    questionHeader.className = "question-header";
 
     questionHeader.textContent = "Question";
 
@@ -479,11 +478,9 @@ function buildTableHeaders() {
 
     const drawingHeader = document.createElement("th");
 
-    drawingHeader.className =
-        "col-drawing fixed-col";
+    drawingHeader.className = "drawing-header";
 
-    drawingHeader.textContent =
-        "Drawing Requirement";
+    drawingHeader.textContent = "Drawing Requirement";
 
     headerRow.appendChild(drawingHeader);
 
@@ -492,11 +489,9 @@ function buildTableHeaders() {
 
     selectedRooms.forEach(room => {
 
-        const roomHeader =
-            document.createElement("th");
+        const roomHeader = document.createElement("th");
 
-        roomHeader.className =
-            "room-header";
+        roomHeader.className = "room-header";
 
         roomHeader.textContent = room;
 
@@ -520,39 +515,31 @@ function buildTableHeaders() {
 
 function buildQuestionRows(questions) {
 
-    const tbody =
-        document.getElementById("tableBody");
+    const tbody = document.getElementById("tableBody");
 
     tbody.innerHTML = "";
 
-
     questions.forEach(question => {
 
-        const tr =
-            document.createElement("tr");
+        const tr = document.createElement("tr");
 
 
         // QUESTION
 
-        const questionCell =
-            document.createElement("td");
+        const questionCell = document.createElement("td");
 
-        questionCell.className =
-            "fixed-col col-question question-cell";
+        questionCell.className = "question-cell";
 
-        questionCell.textContent =
-            question.question;
+        questionCell.textContent = question.question;
 
         tr.appendChild(questionCell);
 
 
         // DRAWING REQUIREMENT
 
-        const drawingCell =
-            document.createElement("td");
+        const drawingCell = document.createElement("td");
 
-        drawingCell.className =
-            "fixed-col col-drawing guideline-cell";
+        drawingCell.className = "drawing-cell";
 
         drawingCell.textContent =
             question.drawingRequirement || "";
@@ -560,30 +547,24 @@ function buildQuestionRows(questions) {
         tr.appendChild(drawingCell);
 
 
-        // ROOMS
+        // ROOM CELLS
 
         selectedRooms.forEach(room => {
 
-            const td =
-                document.createElement("td");
+            const td = document.createElement("td");
 
-            td.className =
-                "response-cell room-cell";
+            td.className = "room-cell";
 
-            td.dataset.question =
-                question.id;
+            td.dataset.question = question.id;
 
-            td.dataset.room =
-                room;
+            td.dataset.room = room;
 
-            td.dataset.level =
-                question.level;
+            td.dataset.level = question.level;
 
-            td.innerHTML =
-                createCellEditor(
-                    question,
-                    room
-                );
+            td.innerHTML = createCellEditor(
+                question,
+                room
+            );
 
             tr.appendChild(td);
 
