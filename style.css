@@ -1266,58 +1266,17 @@ button:disabled{
 }
 
 /* ==========================================================
-   HOTO V2 - ROOM MATRIX LAYOUT
-   Override existing HOTO table styles
+   HOTO - CLEAN ROOM MATRIX
 ========================================================== */
-
-
-/* ----------------------------------------------------------
-   TABLE CONTAINER
----------------------------------------------------------- */
 
 .table-container {
 
-    flex: 1;
+    width: 100%;
 
     overflow-x: auto;
     overflow-y: auto;
 
     position: relative;
-
-    width: 100%;
-
-    scrollbar-width: auto;
-
-}
-
-
-/* Make horizontal scrollbar clearly visible */
-
-.table-container::-webkit-scrollbar {
-
-    width: 10px;
-
-    height: 14px;
-
-}
-
-.table-container::-webkit-scrollbar-track {
-
-    background: #eef2f5;
-
-}
-
-.table-container::-webkit-scrollbar-thumb {
-
-    background: #8d99a6;
-
-    border-radius: 8px;
-
-}
-
-.table-container::-webkit-scrollbar-thumb:hover {
-
-    background: #667482;
 
 }
 
@@ -1342,73 +1301,40 @@ button:disabled{
 
 
 /* ----------------------------------------------------------
-   COLUMN WIDTHS
+   QUESTION
 ---------------------------------------------------------- */
-
-/*
-    Category             90px
-    Sub Category        120px
-    Question            300px
-    Drawing Requirement 190px
-    Room                155px each
-*/
-
-
-#scopeTable .col-category {
-
-    width: 90px;
-
-    min-width: 90px;
-
-    max-width: 90px;
-
-}
-
-
-#scopeTable .col-subcategory {
-
-    width: 120px;
-
-    min-width: 120px;
-
-    max-width: 120px;
-
-}
-
 
 #scopeTable .col-question {
 
-    width: 300px;
+    width: 390px;
 
-    min-width: 300px;
+    min-width: 390px;
 
-    max-width: 300px;
+    max-width: 390px;
 
 }
 
+
+/* ----------------------------------------------------------
+   DRAWING REQUIREMENT
+---------------------------------------------------------- */
 
 #scopeTable .col-drawing {
 
-    width: 190px;
+    width: 230px;
 
-    min-width: 190px;
+    min-width: 230px;
 
-    max-width: 190px;
-
-}
-
-
-#scopeTable .room-header {
-
-    width: 155px;
-
-    min-width: 155px;
-
-    max-width: 155px;
+    max-width: 230px;
 
 }
 
 
+/* ----------------------------------------------------------
+   ROOMS
+---------------------------------------------------------- */
+
+#scopeTable .room-header,
 #scopeTable .room-cell {
 
     width: 155px;
@@ -1421,27 +1347,14 @@ button:disabled{
 
 
 /* ----------------------------------------------------------
-   TABLE HEADER
+   HEADER
 ---------------------------------------------------------- */
-
-#scopeTable thead {
-
-    position: sticky;
-
-    top: 0;
-
-    z-index: 50;
-
-}
-
 
 #scopeTable thead th {
 
     height: 46px;
 
     padding: 8px;
-
-    white-space: normal;
 
     text-align: center;
 
@@ -1451,20 +1364,7 @@ button:disabled{
 
 
 /* ----------------------------------------------------------
-   BODY CELLS
----------------------------------------------------------- */
-
-#scopeTable td {
-
-    padding: 8px;
-
-    vertical-align: top;
-
-}
-
-
-/* ----------------------------------------------------------
-   FIXED CONTEXT COLUMNS
+   FIXED QUESTION + DRAWING
 ---------------------------------------------------------- */
 
 #scopeTable .fixed-col {
@@ -1478,102 +1378,40 @@ button:disabled{
 }
 
 
-/* Category */
+/* QUESTION POSITION */
 
-#scopeTable .col-category {
+#scopeTable .col-question {
 
     left: 0;
 
 }
 
 
-/* Sub Category */
-
-#scopeTable .col-subcategory {
-
-    left: 90px;
-
-}
-
-
-/* Question */
-
-#scopeTable .col-question {
-
-    left: 210px;
-
-}
-
-
-/* Drawing Requirement */
+/* DRAWING POSITION */
 
 #scopeTable .col-drawing {
 
-    left: 510px;
+    left: 390px;
 
 }
 
 
 /* ----------------------------------------------------------
-   FIXED COLUMN HEADER LAYER
+   HEADER FIXED COLUMNS
 ---------------------------------------------------------- */
 
-#scopeTable thead .col-category,
-#scopeTable thead .col-subcategory,
 #scopeTable thead .col-question,
 #scopeTable thead .col-drawing {
+
+    background: #1f4e79;
+
+    color: white;
 
     position: sticky !important;
 
     top: 0;
 
     z-index: 100;
-
-    background: #1f4e79;
-
-    color: white;
-
-}
-
-
-/* ----------------------------------------------------------
-   QUESTION
----------------------------------------------------------- */
-
-#scopeTable .question-cell {
-
-    font-weight: 500;
-
-    line-height: 1.4;
-
-    white-space: normal;
-
-    word-wrap: break-word;
-
-}
-
-
-/* ----------------------------------------------------------
-   DRAWING REQUIREMENT
----------------------------------------------------------- */
-
-#scopeTable .guideline-cell {
-
-    width: 190px;
-
-    min-width: 190px;
-
-    max-width: 190px;
-
-    color: #666;
-
-    font-size: 11px;
-
-    line-height: 1.35;
-
-    white-space: normal;
-
-    background: #fafafa;
 
 }
 
@@ -1590,15 +1428,49 @@ button:disabled{
 
     font-weight: 600;
 
-    text-align: center;
-
     white-space: nowrap;
 
 }
 
 
 /* ----------------------------------------------------------
-   ROOM CELLS
+   QUESTION TEXT
+---------------------------------------------------------- */
+
+#scopeTable .question-cell {
+
+    font-weight: 500;
+
+    line-height: 1.4;
+
+    white-space: normal;
+
+    word-wrap: break-word;
+
+}
+
+
+/* ----------------------------------------------------------
+   DRAWING TEXT
+---------------------------------------------------------- */
+
+#scopeTable .guideline-cell {
+
+    color: #666;
+
+    font-size: 11px;
+
+    line-height: 1.35;
+
+    white-space: normal;
+
+    background: #fafafa;
+
+}
+
+
+/* ----------------------------------------------------------
+   ROOM CELL
 ---------------------------------------------------------- */
 
 #scopeTable .room-cell {
@@ -1613,7 +1485,7 @@ button:disabled{
 
 
 /* ----------------------------------------------------------
-   CELL EDITOR
+   RESPONSE EDITOR
 ---------------------------------------------------------- */
 
 #scopeTable .cell-editor {
@@ -1632,41 +1504,7 @@ button:disabled{
 
 
 /* ----------------------------------------------------------
-   CELL GROUP
----------------------------------------------------------- */
-
-#scopeTable .cell-group {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 4px;
-
-}
-
-
-/* ----------------------------------------------------------
-   CELL LABEL
----------------------------------------------------------- */
-
-#scopeTable .cell-title {
-
-    font-size: 10px;
-
-    font-weight: 700;
-
-    color: #6b7280;
-
-    text-transform: uppercase;
-
-    letter-spacing: .4px;
-
-}
-
-
-/* ----------------------------------------------------------
-   SEGMENT BUTTONS
+   BUTTON GROUP
 ---------------------------------------------------------- */
 
 #scopeTable .segment-group {
@@ -1682,11 +1520,11 @@ button:disabled{
 
 #scopeTable .segment-btn {
 
-    padding: 4px 7px;
+    flex: 1;
 
     min-width: 0;
 
-    flex: 1;
+    padding: 5px 6px;
 
     border: 1px solid #d6dce2;
 
@@ -1698,16 +1536,7 @@ button:disabled{
 
     font-size: 11px;
 
-    line-height: 1.2;
-
     white-space: nowrap;
-
-}
-
-
-#scopeTable .segment-btn:hover {
-
-    border-color: #1f4e79;
 
 }
 
@@ -1724,26 +1553,34 @@ button:disabled{
 
 
 /* ----------------------------------------------------------
-   ELEVATION
+   SCROLL BAR
 ---------------------------------------------------------- */
 
-#scopeTable .elevation-input {
+.table-container::-webkit-scrollbar {
 
-    width: 100%;
+    height: 14px;
 
-    padding: 5px 6px;
+}
 
-    border: 1px solid #d6dce2;
 
-    border-radius: 5px;
+.table-container::-webkit-scrollbar-track {
 
-    font-size: 11px;
+    background: #e5e9ed;
+
+}
+
+
+.table-container::-webkit-scrollbar-thumb {
+
+    background: #7d8995;
+
+    border-radius: 8px;
 
 }
 
 
 /* ----------------------------------------------------------
-   ROOM SCROLL HINT
+   SCROLL HINT
 ---------------------------------------------------------- */
 
 .room-scroll-hint {
@@ -1764,121 +1601,13 @@ button:disabled{
 
     font-size: 12px;
 
-    color: #596575;
-
 }
 
 
-.room-scroll-hint > span:first-child {
-
-    font-weight: 600;
-
-    color: #34495e;
-
-}
-
-
-.room-scroll-hint .scroll-message {
+.scroll-message {
 
     color: #1f4e79;
 
     font-weight: 600;
-
-}
-
-
-/* ----------------------------------------------------------
-   REMOVE OLD RESPONSE-CELL WIDTH
----------------------------------------------------------- */
-
-#scopeTable .response-cell {
-
-    width: 155px;
-
-    min-width: 155px;
-
-    max-width: 155px;
-
-}
-
-
-/* ----------------------------------------------------------
-   ALTERNATE ROWS
----------------------------------------------------------- */
-
-#scopeTable tbody tr:nth-child(even) .fixed-col {
-
-    background: #fcfdff;
-
-}
-
-
-/* ----------------------------------------------------------
-   HOVER
----------------------------------------------------------- */
-
-#scopeTable tbody tr:hover .fixed-col {
-
-    background: #f4f9ff;
-
-}
-
-
-/* ----------------------------------------------------------
-   MOBILE / SMALL SCREEN
----------------------------------------------------------- */
-
-@media(max-width: 900px) {
-
-    #scopeTable .col-category {
-
-        width: 80px;
-
-        min-width: 80px;
-
-        max-width: 80px;
-
-    }
-
-    #scopeTable .col-subcategory {
-
-        width: 105px;
-
-        min-width: 105px;
-
-        max-width: 105px;
-
-    }
-
-    #scopeTable .col-question {
-
-        width: 260px;
-
-        min-width: 260px;
-
-        max-width: 260px;
-
-    }
-
-    #scopeTable .col-drawing {
-
-        width: 170px;
-
-        min-width: 170px;
-
-        max-width: 170px;
-
-    }
-
-    #scopeTable .room-header,
-    #scopeTable .room-cell {
-
-        width: 145px;
-
-        min-width: 145px;
-
-        max-width: 145px;
-
-    }
 
 }
