@@ -1304,30 +1304,13 @@ button:disabled{
    QUESTION
 ---------------------------------------------------------- */
 
-#scopeTable .col-question {
-
-    width: 390px;
-
-    min-width: 390px;
-
-    max-width: 390px;
-
-}
 
 
 /* ----------------------------------------------------------
    DRAWING REQUIREMENT
 ---------------------------------------------------------- */
 
-#scopeTable .col-drawing {
 
-    width: 230px;
-
-    min-width: 230px;
-
-    max-width: 230px;
-
-}
 
 
 /* ----------------------------------------------------------
@@ -1367,24 +1350,12 @@ button:disabled{
    FIXED QUESTION + DRAWING
 ---------------------------------------------------------- */
 
-#scopeTable .fixed-col {
 
-    position: sticky !important;
-
-    background: white;
-
-    z-index: 20;
-
-}
 
 
 /* QUESTION POSITION */
 
-#scopeTable .col-question {
 
-    left: 0;
-
-}
 
 
 /* DRAWING POSITION */
@@ -1936,5 +1907,180 @@ button:disabled{
     background: #1f4e79 !important;
 
     color: #ffffff !important;
+
+
+}
+
+/* ==========================================================
+   HOTO MATRIX - FINAL STICKY COLUMN FIX
+========================================================== */
+
+#scopeTable {
+    width: max-content !important;
+    min-width: 0 !important;
+    table-layout: fixed !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+}
+
+
+/* ==========================================================
+   QUESTION COLUMN
+========================================================== */
+
+#scopeTable th.question-header,
+#scopeTable td.question-cell {
+
+    width: 390px !important;
+    min-width: 390px !important;
+    max-width: 390px !important;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ==========================================================
+   DRAWING REQUIREMENT COLUMN
+========================================================== */
+
+#scopeTable th.drawing-header,
+#scopeTable td.drawing-cell {
+
+    width: 230px !important;
+    min-width: 230px !important;
+    max-width: 230px !important;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ==========================================================
+   ROOM COLUMNS
+========================================================== */
+
+#scopeTable th.room-header,
+#scopeTable td.room-cell {
+
+    width: 155px !important;
+    min-width: 155px !important;
+    max-width: 155px !important;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ==========================================================
+   FREEZE QUESTION
+========================================================== */
+
+#scopeTable th.question-header,
+#scopeTable td.question-cell {
+
+    position: sticky !important;
+
+    left: 0 !important;
+
+    z-index: 30 !important;
+
+}
+
+
+/* ==========================================================
+   FREEZE DRAWING REQUIREMENT
+========================================================== */
+
+#scopeTable th.drawing-header,
+#scopeTable td.drawing-cell {
+
+    position: sticky !important;
+
+    left: 390px !important;
+
+    z-index: 30 !important;
+
+}
+
+
+/* ==========================================================
+   HEADER LAYER
+========================================================== */
+
+#scopeTable thead th {
+
+    position: sticky;
+
+    top: 0;
+
+    background: #1f4e79 !important;
+
+    color: white !important;
+
+    z-index: 20;
+
+}
+
+
+/* Sticky header + sticky columns need highest layer */
+
+#scopeTable thead th.question-header,
+#scopeTable thead th.drawing-header {
+
+    z-index: 100 !important;
+
+}
+
+
+/* ==========================================================
+   IMPORTANT:
+   ROOM HEADERS MUST NOT BECOME STICKY HORIZONTALLY
+========================================================== */
+
+#scopeTable thead th.room-header {
+
+    position: sticky !important;
+
+    top: 0 !important;
+
+    left: auto !important;
+
+    z-index: 20 !important;
+
+}
+
+
+/* ==========================================================
+   OPAQUE BACKGROUND FOR FROZEN COLUMNS
+========================================================== */
+
+#scopeTable tbody td.question-cell {
+
+    background: #ffffff !important;
+
+}
+
+
+#scopeTable tbody td.drawing-cell {
+
+    background: #fafafa !important;
+
+}
+
+
+/* ==========================================================
+   TABLE SCROLLER
+========================================================== */
+
+.table-container {
+
+    width: 100% !important;
+
+    overflow-x: auto !important;
+
+    overflow-y: auto !important;
+
+    position: relative;
 
 }
