@@ -15,6 +15,10 @@ category:"Lighting",
 subcategory:"False Ceiling",
 level:"room",
 question:"Is false ceiling lighting planned?",
+   subtext: [
+        "Only electrical provisioning and installation",
+        "Supply of light in Cx scope"
+    ],
 drawingRequirement:"Show lighting layout in reflected ceiling plan."
 },
 
@@ -25,6 +29,10 @@ category:"Lighting",
 subcategory:"False Ceiling",
 level:"room",
 question:"Is cove lighting planned in the false ceiling?",
+      subtext: [
+        "Only electrical provisioning and installation",
+        "Supply of light in Cx scope"
+    ],
 drawingRequirement:"Show cove lighting layout in reflected ceiling plan."
 },
 
@@ -35,6 +43,10 @@ category:"Lighting",
 subcategory:"False Ceiling",
 level:"room",
 question:"Is profile lighting planned in the false ceiling?",
+      subtext: [
+        "Only electrical provisioning and installation",
+        "Supply of light in Cx scope"
+    ],
 drawingRequirement:"Show profile lighting layout in reflected ceiling plan."
 },
 
@@ -45,6 +57,10 @@ category:"Lighting",
 subcategory:"False Ceiling",
 level:"room",
 question:"Are track lights planned in the false ceiling?",
+      subtext: [
+        "Only electrical provisioning and installation",
+        "Supply of light in Cx scope"
+    ],
 drawingRequirement:"Show track light layout in reflected ceiling plan."
 },
 
