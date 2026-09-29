@@ -452,7 +452,7 @@ function renderQuestions(trade, category) {
    BUILD TABLE HEADER
 =========================================================== */
 
-function buildTableHeaders() {
+function buildTableHeader() {
 
     const table = document.getElementById("scopeTable");
 
