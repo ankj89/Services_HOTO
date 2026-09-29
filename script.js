@@ -9,7 +9,7 @@
    APPLICATION STATE
 =========================================================== */
 
-const project = {};
+const project = {};x
 
 let selectedRooms = [];
 
@@ -441,7 +441,7 @@ function renderQuestions(trade, category) {
 
     updateCategoryProgress(questions);
 
-    buildTableHeader();
+    buildTableHeaders();
 
     buildQuestionRows(questions);
 
@@ -452,7 +452,7 @@ function renderQuestions(trade, category) {
    BUILD TABLE HEADER
 =========================================================== */
 
-function buildTableHeader() {
+function buildTableHeaders() {
 
     const table = document.getElementById("scopeTable");
 
@@ -463,36 +463,7 @@ function buildTableHeader() {
     const headerRow = document.createElement("tr");
 
 
-    /* =====================================================
-       CATEGORY
-    ===================================================== */
-
-    const categoryHeader = document.createElement("th");
-
-    categoryHeader.className = "col-category fixed-col";
-
-    categoryHeader.textContent = "Category";
-
-    headerRow.appendChild(categoryHeader);
-
-
-    /* =====================================================
-       SUB CATEGORY
-    ===================================================== */
-
-    const subCategoryHeader = document.createElement("th");
-
-    subCategoryHeader.className =
-        "col-subcategory fixed-col";
-
-    subCategoryHeader.textContent = "Sub Category";
-
-    headerRow.appendChild(subCategoryHeader);
-
-
-    /* =====================================================
-       QUESTION
-    ===================================================== */
+    // QUESTION
 
     const questionHeader = document.createElement("th");
 
@@ -504,9 +475,7 @@ function buildTableHeader() {
     headerRow.appendChild(questionHeader);
 
 
-    /* =====================================================
-       DRAWING REQUIREMENT
-    ===================================================== */
+    // DRAWING REQUIREMENT
 
     const drawingHeader = document.createElement("th");
 
@@ -519,9 +488,7 @@ function buildTableHeader() {
     headerRow.appendChild(drawingHeader);
 
 
-    /* =====================================================
-       ROOM COLUMNS
-    ===================================================== */
+    // ROOMS
 
     selectedRooms.forEach(room => {
 
@@ -538,10 +505,6 @@ function buildTableHeader() {
     });
 
 
-    /* =====================================================
-       ADD HEADER ROW
-    ===================================================== */
-
     thead.appendChild(headerRow);
 
 }
@@ -557,47 +520,22 @@ function buildTableHeader() {
 
 function buildQuestionRows(questions) {
 
-    const tbody = document.getElementById("tableBody");
+    const tbody =
+        document.getElementById("tableBody");
 
     tbody.innerHTML = "";
 
+
     questions.forEach(question => {
 
-        const tr = document.createElement("tr");
-
-        /* ----------------------------------------
-           CATEGORY
-        ---------------------------------------- */
-
-        const categoryCell = document.createElement("td");
-
-        categoryCell.className = "fixed-col col-category";
-
-        categoryCell.textContent = question.category;
-
-        tr.appendChild(categoryCell);
+        const tr =
+            document.createElement("tr");
 
 
-        /* ----------------------------------------
-           SUB CATEGORY
-        ---------------------------------------- */
+        // QUESTION
 
-        const subCategoryCell = document.createElement("td");
-
-        subCategoryCell.className =
-            "fixed-col col-subcategory";
-
-        subCategoryCell.textContent =
-            question.subcategory;
-
-        tr.appendChild(subCategoryCell);
-
-
-        /* ----------------------------------------
-           QUESTION
-        ---------------------------------------- */
-
-        const questionCell = document.createElement("td");
+        const questionCell =
+            document.createElement("td");
 
         questionCell.className =
             "fixed-col col-question question-cell";
@@ -608,11 +546,10 @@ function buildQuestionRows(questions) {
         tr.appendChild(questionCell);
 
 
-        /* ----------------------------------------
-           DRAWING REQUIREMENT
-        ---------------------------------------- */
+        // DRAWING REQUIREMENT
 
-        const drawingCell = document.createElement("td");
+        const drawingCell =
+            document.createElement("td");
 
         drawingCell.className =
             "fixed-col col-drawing guideline-cell";
@@ -623,15 +560,15 @@ function buildQuestionRows(questions) {
         tr.appendChild(drawingCell);
 
 
-        /* ----------------------------------------
-           ROOM CELLS
-        ---------------------------------------- */
+        // ROOMS
 
         selectedRooms.forEach(room => {
 
-            const td = document.createElement("td");
+            const td =
+                document.createElement("td");
 
-            td.className = "response-cell room-cell";
+            td.className =
+                "response-cell room-cell";
 
             td.dataset.question =
                 question.id;
