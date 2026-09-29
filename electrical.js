@@ -1,567 +1,409 @@
+/* ===========================================================
+   ELECTRICAL
+=========================================================== */
+
 const ELECTRICAL = [
 
-/* ============================================================
+/* ===========================================================
    LIGHTING
-============================================================ */
+=========================================================== */
 
 {
 id:"EL-LGT-001",
 trade:"Electrical",
 category:"Lighting",
-subcategory:"General Lighting",
-question:"Is any modification to the existing lighting layout planned?",
+subcategory:"False Ceiling",
 level:"room",
-drawingRequirement:"Ceiling plan shall reflect the final lighting layout."
+question:"Is false ceiling lighting planned?",
+drawingRequirement:"Show lighting layout in reflected ceiling plan."
 },
 
 {
 id:"EL-LGT-002",
 trade:"Electrical",
 category:"Lighting",
-subcategory:"False Ceiling Lighting",
-question:"Is false ceiling lighting planned?",
+subcategory:"False Ceiling",
 level:"room",
-drawingRequirement:"Ceiling plan shall identify all false ceiling lighting."
+question:"Is cove lighting planned in the false ceiling?",
+drawingRequirement:"Show cove lighting layout in reflected ceiling plan."
 },
 
 {
 id:"EL-LGT-003",
 trade:"Electrical",
 category:"Lighting",
-subcategory:"Cove Lighting",
-question:"Is cove lighting planned?",
+subcategory:"False Ceiling",
 level:"room",
-drawingRequirement:"Ceiling plan shall identify all cove lighting."
+question:"Is profile lighting planned in the false ceiling?",
+drawingRequirement:"Show profile lighting layout in reflected ceiling plan."
 },
 
 {
 id:"EL-LGT-004",
 trade:"Electrical",
 category:"Lighting",
-subcategory:"Profile Lighting",
-question:"Is profile lighting planned?",
+subcategory:"False Ceiling",
 level:"room",
-drawingRequirement:"Ceiling plan shall identify all profile lighting."
+question:"Are track lights planned in the false ceiling?",
+drawingRequirement:"Show track light layout in reflected ceiling plan."
 },
 
 {
 id:"EL-LGT-005",
 trade:"Electrical",
 category:"Lighting",
-subcategory:"Track Lighting",
-question:"Are track lights planned?",
+subcategory:"Decorative Lighting",
 level:"room",
-drawingRequirement:"Ceiling plan shall identify all track lights."
+question:"Are designer ceiling lights planned (chandelier / pendant / hanging lights)?",
+drawingRequirement:"Show fixture location in reflected ceiling plan."
 },
 
 {
 id:"EL-LGT-006",
 trade:"Electrical",
 category:"Lighting",
-subcategory:"Decorative Ceiling Lighting",
-question:"Are decorative ceiling lights planned (Chandelier / Pendant / Hanging Lights)?",
+subcategory:"Surface Lights",
 level:"room",
-drawingRequirement:"Ceiling plan shall identify all decorative ceiling lights."
+question:"Are surface-mounted lights planned?",
+drawingRequirement:"Show fixture location in reflected ceiling plan."
 },
 
 {
 id:"EL-LGT-007",
 trade:"Electrical",
 category:"Lighting",
-subcategory:"Wall Lighting",
-question:"Are wall lights planned?",
+subcategory:"Wall Lights",
 level:"wall",
-drawingRequirement:"Relevant elevations shall identify all wall lights."
+question:"Are wall lights planned?",
+drawingRequirement:"Show wall light location in elevation."
 },
 
 {
 id:"EL-LGT-008",
 trade:"Electrical",
 category:"Lighting",
-subcategory:"Feature Lighting",
-question:"Is feature or back lighting planned on any wall or ceiling feature?",
+subcategory:"Wall Panelling",
 level:"wall",
-drawingRequirement:"Relevant drawings shall identify all feature lighting."
+question:"Is backlighting or cove lighting planned in wall panelling?",
+drawingRequirement:"Show lighting detail in wall elevation."
 },
 
 {
 id:"EL-LGT-009",
 trade:"Electrical",
 category:"Lighting",
-subcategory:"Lighting Controls",
-question:"Is dimming or special lighting control planned?",
-level:"room",
-drawingRequirement:"Electrical layout shall indicate applicable lighting controls."
+subcategory:"Headboard",
+level:"wall",
+question:"Is backlighting or cove lighting planned in the headboard?",
+drawingRequirement:"Show lighting detail in headboard elevation."
 },
 
 {
 id:"EL-LGT-010",
 trade:"Electrical",
 category:"Lighting",
-subcategory:"Outdoor Lighting",
-question:"Is decorative outdoor lighting planned?",
-level:"room",
-drawingRequirement:"Relevant plans shall identify outdoor lighting."
+subcategory:"Cabinet",
+level:"wall",
+question:"Are cabinet lights planned in modular storage units?",
+drawingRequirement:"Show lighting detail in cabinet elevation."
 },
 
 {
 id:"EL-LGT-011",
 trade:"Electrical",
 category:"Lighting",
-subcategory:"Others",
-question:"Are there any other lighting requirements not covered above?",
-level:"room",
-drawingRequirement:"Relevant drawings shall clearly indicate the requirement."
+subcategory:"Cabinet",
+level:"wall",
+question:"Is backlighting or cove lighting planned in modular storage units?",
+drawingRequirement:"Show lighting detail in cabinet elevation."
 },
 
-/* ============================================================
-   POWER
-============================================================ */
+{
+id:"EL-LGT-012",
+trade:"Electrical",
+category:"Lighting",
+subcategory:"Wardrobe",
+level:"wall",
+question:"Are cabinet lights, backlighting or cove lighting planned in wardrobes?",
+drawingRequirement:"Show lighting detail in wardrobe elevation."
+},
+
+{
+id:"EL-LGT-013",
+trade:"Electrical",
+category:"Lighting",
+subcategory:"Display Units",
+level:"wall",
+question:"Is lighting planned within display, crockery or bar units?",
+drawingRequirement:"Show lighting detail in furniture elevation."
+},
+
+{
+id:"EL-LGT-014",
+trade:"Electrical",
+category:"Lighting",
+subcategory:"TV Unit",
+level:"wall",
+question:"Is lighting planned within the TV unit?",
+drawingRequirement:"Show lighting detail in TV unit elevation."
+},
+
+{
+id:"EL-LGT-015",
+trade:"Electrical",
+category:"Lighting",
+subcategory:"Partitions",
+level:"wall",
+question:"Is lighting planned within partitions?",
+drawingRequirement:"Show lighting detail in partition elevation."
+},
+
+{
+id:"EL-LGT-016",
+trade:"Electrical",
+category:"Lighting",
+subcategory:"Mandir",
+level:"wall",
+question:"Is lighting planned in the mandir unit?",
+drawingRequirement:"Show lighting detail in mandir elevation."
+},
+
+{
+id:"EL-LGT-017",
+trade:"Electrical",
+category:"Lighting",
+subcategory:"Staircase",
+level:"room",
+question:"Is lighting planned in the staircase area?",
+drawingRequirement:"Show lighting layout in plan and elevation."
+},
+
+/* ===========================================================
+   POWER / MODULE
+=========================================================== */
 
 {
 id:"EL-PWR-001",
 trade:"Electrical",
-category:"Power",
-subcategory:"Charging Points",
-question:"Are additional charging sockets required?",
+category:"Power/Module",
+subcategory:"Sockets",
 level:"wall",
-drawingRequirement:"Electrical layout shall identify all charging sockets."
+question:"Are additional 5A sockets required for general usage (mobile charging, etc.)?",
+drawingRequirement:"Show socket location in wall elevation."
 },
 
 {
 id:"EL-PWR-002",
 trade:"Electrical",
-category:"Power",
-subcategory:"General Purpose",
-question:"Are additional general-purpose sockets required?",
+category:"Power/Module",
+subcategory:"Sockets",
 level:"wall",
-drawingRequirement:"Electrical layout shall identify all additional sockets."
+question:"Are additional 15A sockets required for heavy-duty appliances (geyser, iron, heater, etc.)?",
+drawingRequirement:"Show socket location in wall elevation."
 },
 
 {
 id:"EL-PWR-003",
 trade:"Electrical",
-category:"Power",
-subcategory:"Heavy Duty",
-question:"Are any heavy-duty power points required?",
+category:"Power/Module",
+subcategory:"Sockets",
 level:"wall",
-drawingRequirement:"Electrical layout shall identify all heavy-duty power points."
+question:"Are any 32A power points required?",
+drawingRequirement:"Show power point location in wall elevation."
 },
 
 {
 id:"EL-PWR-004",
 trade:"Electrical",
-category:"Power",
-subcategory:"Switchboard Relocation",
-question:"Are any existing switchboards planned to be relocated?",
+category:"Power/Module",
+subcategory:"Switching",
 level:"wall",
-drawingRequirement:"Electrical layout shall indicate existing and proposed switchboard locations."
+question:"Is two-way switching required anywhere?",
+drawingRequirement:"Show switching arrangement in wall elevation."
 },
 
 {
 id:"EL-PWR-005",
 trade:"Electrical",
-category:"Power",
-subcategory:"New Switchboards",
-question:"Are any additional switchboards required?",
+category:"Power/Module",
+subcategory:"Bedroom",
 level:"wall",
-drawingRequirement:"Electrical layout shall identify new switchboard locations."
+question:"Are bedside charging and switch points required?",
+drawingRequirement:"Show location in wall elevation."
 },
 
 {
 id:"EL-PWR-006",
 trade:"Electrical",
-category:"Power",
-subcategory:"Two-way Switching",
-question:"Is two-way switching required anywhere?",
+category:"Power/Module",
+subcategory:"Balcony",
 level:"wall",
-drawingRequirement:"Electrical layout shall indicate applicable switching."
+question:"Are dedicated power points required for decorative or festival lighting in the balcony?",
+drawingRequirement:"Show point location in elevation."
 },
 
 {
 id:"EL-PWR-007",
 trade:"Electrical",
-category:"Power",
-subcategory:"Bedside Switching",
-question:"Are bedside charging or switching provisions required?",
+category:"Power/Module",
+subcategory:"Relocation",
 level:"wall",
-drawingRequirement:"Bedroom elevations shall indicate bedside switching locations."
+question:"Are relocations of existing electrical modules planned?",
+drawingRequirement:"Show revised module location in elevation."
 },
 
 {
 id:"EL-PWR-008",
 trade:"Electrical",
-category:"Power",
-subcategory:"Festival Lighting",
-question:"Are dedicated power points required for decorative or festival lighting?",
+category:"Power/Module",
+subcategory:"TV Unit",
 level:"wall",
-drawingRequirement:"Electrical layout shall identify decorative lighting sockets."
+question:"Are power points planned for the TV unit?",
+drawingRequirement:"Show power point location in TV unit elevation."
 },
 
 {
 id:"EL-PWR-009",
 trade:"Electrical",
-category:"Power",
-subcategory:"Entertainment Power",
-question:"Are dedicated power points required for TV, workstation, router or similar equipment?",
+category:"Power/Module",
+subcategory:"Study Unit",
 level:"wall",
-drawingRequirement:"Electrical layout shall identify all dedicated power points."
+question:"Are power points required for the study unit?",
+drawingRequirement:"Show power point location in study unit elevation."
 },
 
 {
 id:"EL-PWR-010",
 trade:"Electrical",
-category:"Power",
-subcategory:"Others",
-question:"Are there any other power requirements not covered above?",
+category:"Power/Module",
+subcategory:"Mandir",
 level:"wall",
-drawingRequirement:"Relevant drawings shall clearly indicate the requirement."
-},
-
-/* ============================================================
-   APPLIANCES
-============================================================ */
-
-{
-id:"EL-APP-001",
-trade:"Electrical",
-category:"Appliances",
-subcategory:"Dishwasher",
-question:"Will a dishwasher be installed?",
-level:"room",
-drawingRequirement:"Kitchen layout shall identify dishwasher location."
+question:"Are power points required in the mandir unit?",
+drawingRequirement:"Show power point location in mandir elevation."
 },
 
 {
-id:"EL-APP-002",
+id:"EL-PWR-011",
 trade:"Electrical",
-category:"Appliances",
-subcategory:"Washing Machine",
-question:"Will a washing machine be installed?",
-level:"room",
-drawingRequirement:"Utility layout shall identify washing machine location."
-},
-
-{
-id:"EL-APP-003",
-trade:"Electrical",
-category:"Appliances",
-subcategory:"Clothes Dryer",
-question:"Will a clothes dryer be installed?",
-level:"room",
-drawingRequirement:"Utility layout shall identify dryer location."
-},
-
-{
-id:"EL-APP-004",
-trade:"Electrical",
-category:"Appliances",
-subcategory:"Refrigerator",
-question:"Will a refrigerator be installed?",
-level:"room",
-drawingRequirement:"Kitchen layout shall identify refrigerator location."
-},
-
-{
-id:"EL-APP-005",
-trade:"Electrical",
-category:"Appliances",
-subcategory:"Built-in Appliances",
-question:"Will built-in appliances (Microwave / Oven / OTG etc.) be installed?",
-level:"room",
-drawingRequirement:"Kitchen layout shall identify appliance locations."
-},
-
-{
-id:"EL-APP-006",
-trade:"Electrical",
-category:"Appliances",
-subcategory:"Hob",
-question:"Will a hob or induction cooktop be installed?",
-level:"room",
-drawingRequirement:"Kitchen layout shall identify hob location."
-},
-
-{
-id:"EL-APP-007",
-trade:"Electrical",
-category:"Appliances",
-subcategory:"Chimney",
-question:"Will a chimney be installed?",
-level:"room",
-drawingRequirement:"Kitchen layout shall identify chimney location."
-},
-
-{
-id:"EL-APP-008",
-trade:"Electrical",
-category:"Appliances",
-subcategory:"Water Purifier",
-question:"Will a water purifier be installed?",
-level:"room",
-drawingRequirement:"Kitchen layout shall identify purifier location."
-},
-
-{
-id:"EL-APP-009",
-trade:"Electrical",
-category:"Appliances",
-subcategory:"Air Conditioner",
-question:"Will air conditioners be installed?",
-level:"room",
-drawingRequirement:"Layout shall identify indoor and outdoor AC locations."
-},
-
-{
-id:"EL-APP-010",
-trade:"Electrical",
-category:"Appliances",
-subcategory:"Geyser",
-question:"Will geysers be installed?",
-level:"room",
-drawingRequirement:"Bathroom layout shall identify geyser location."
-},
-
-{
-id:"EL-APP-011",
-trade:"Electrical",
-category:"Appliances",
-subcategory:"Others",
-question:"Are there any other appliances requiring electrical provision?",
-level:"room",
-drawingRequirement:"Relevant drawings shall identify appliance locations."
-},
-
-/* ============================================================
-   FURNITURE INTEGRATION
-============================================================ */
-
-{
-id:"EL-FUR-001",
-trade:"Electrical",
-category:"Furniture Integration",
-subcategory:"Wardrobe Lighting",
-question:"Is wardrobe lighting planned?",
+category:"Power/Module",
+subcategory:"Furniture",
 level:"wall",
-drawingRequirement:"Wardrobe elevations shall identify lighting provisions."
-},
-
-{
-id:"EL-FUR-002",
-trade:"Electrical",
-category:"Furniture Integration",
-subcategory:"Display/Crockery Lighting",
-question:"Is lighting planned within display or crockery units?",
-level:"wall",
-drawingRequirement:"Relevant furniture elevations shall identify lighting."
-},
-
-{
-id:"EL-FUR-003",
-trade:"Electrical",
-category:"Furniture Integration",
-subcategory:"TV Unit Lighting",
-question:"Is lighting planned within the TV unit?",
-level:"wall",
-drawingRequirement:"TV unit drawings shall identify lighting provisions."
-},
-
-{
-id:"EL-FUR-004",
-trade:"Electrical",
-category:"Furniture Integration",
-subcategory:"Study Unit Lighting",
-question:"Is lighting planned within the study/workstation?",
-level:"wall",
-drawingRequirement:"Study furniture drawings shall identify lighting."
-},
-
-{
-id:"EL-FUR-005",
-trade:"Electrical",
-category:"Furniture Integration",
-subcategory:"Furniture Power",
 question:"Are power or charging points required within furniture?",
+drawingRequirement:"Show power point location in furniture elevation."
+},
+
+{
+id:"EL-PWR-012",
+trade:"Electrical",
+category:"Power/Module",
+subcategory:"Furniture",
 level:"wall",
-drawingRequirement:"Furniture drawings shall identify power point locations."
+question:"Are any electronic furniture items (such as recliners) planned?",
+drawingRequirement:"Show power point location in furniture elevation."
 },
 
+/* ===========================================================
+   APPLIANCES / FIXTURES
+=========================================================== */
+
 {
-id:"EL-FUR-006",
-trade:"Electrical",
-category:"Furniture Integration",
-subcategory:"Furniture Sensors",
-question:"Is sensor-based lighting planned within furniture?",
-level:"wall",
-drawingRequirement:"Relevant furniture drawings shall identify sensor lighting."
+id:"EL-APP-001",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Dishwasher",level:"room",question:"Is a new dishwasher planned?",drawingRequirement:"Show appliance location in layout plan."
+},
+{
+id:"EL-APP-002",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Dishwasher",level:"room",question:"Is an existing dishwasher being relocated?",drawingRequirement:"Show revised appliance location."
+},
+{
+id:"EL-APP-003",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Washing Machine",level:"room",question:"Is a new washing machine planned?",drawingRequirement:"Show appliance location."
+},
+{
+id:"EL-APP-004",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Washing Machine",level:"room",question:"Is an existing washing machine being relocated?",drawingRequirement:"Show revised appliance location."
+},
+{
+id:"EL-APP-005",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"RO",level:"room",question:"Is a new water purifier / RO planned?",drawingRequirement:"Show appliance location."
+},
+{
+id:"EL-APP-006",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"RO",level:"room",question:"Is an existing water purifier / RO being relocated?",drawingRequirement:"Show revised appliance location."
+},
+{
+id:"EL-APP-007",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Geyser",level:"room",question:"Will geysers be installed?",drawingRequirement:"Show geyser location."
+},
+{
+id:"EL-APP-008",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Geyser",level:"room",question:"Are existing geysers being relocated?",drawingRequirement:"Show revised geyser location."
+},
+{
+id:"EL-APP-009",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Dryer",level:"room",question:"Is a clothes dryer planned?",drawingRequirement:"Show appliance location."
+},
+{
+id:"EL-APP-010",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Refrigerator",level:"room",question:"Will a refrigerator be installed?",drawingRequirement:"Show appliance location."
+},
+{
+id:"EL-APP-011",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Cooking Appliances",level:"room",question:"Is a microwave, oven or OTG planned?",drawingRequirement:"Show appliance location."
+},
+{
+id:"EL-APP-012",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Chimney",level:"room",question:"Will a chimney be installed?",drawingRequirement:"Show chimney location."
+},
+{
+id:"EL-APP-013",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Exhaust",level:"room",question:"Are exhaust fans planned?",drawingRequirement:"Show exhaust fan location."
+},
+{
+id:"EL-APP-014",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Fans",level:"room",question:"Are ceiling fan installations planned?",drawingRequirement:"Show fan locations."
 },
 
+/* ===========================================================
+   AIR CONDITIONING
+=========================================================== */
+
 {
-id:"EL-FUR-007",
-trade:"Electrical",
-category:"Furniture Integration",
-subcategory:"Others",
-question:"Are there any other furniture-integrated electrical requirements?",
-level:"wall",
-drawingRequirement:"Relevant furniture drawings shall identify the requirement."
+id:"EL-AC-001",trade:"Electrical",category:"AC",subcategory:"General",level:"room",question:"Are the indoor and outdoor AC unit locations finalized?",drawingRequirement:"Show indoor and outdoor unit locations."
+},
+{
+id:"EL-AC-002",trade:"Electrical",category:"AC",subcategory:"Split AC",level:"wall",question:"Are split AC units planned?",drawingRequirement:"Show indoor unit location and wall elevation."
+},
+{
+id:"EL-AC-003",trade:"Electrical",category:"AC",subcategory:"Cassette AC",level:"room",question:"Are cassette AC units planned?",drawingRequirement:"Show cassette unit location in reflected ceiling plan."
+},
+{
+id:"EL-AC-004",trade:"Electrical",category:"AC",subcategory:"Central AC",level:"room",question:"Is centralized / ducted AC planned?",drawingRequirement:"Show grill locations and indoor unit."
+},
+{
+id:"EL-AC-005",trade:"Electrical",category:"AC",subcategory:"Access",level:"room",question:"Are trap doors required in the false ceiling?",drawingRequirement:"Show trap door location in reflected ceiling plan."
 },
 
-/* ============================================================
-   SECURITY & AUTOMATION
-============================================================ */
+/* ===========================================================
+   SECURITY SYSTEMS
+=========================================================== */
 
 {
-id:"EL-SEC-001",
-trade:"Electrical",
-category:"Security & Automation",
-subcategory:"CCTV",
-question:"Is CCTV planned?",
-level:"room",
-drawingRequirement:"Layout shall identify camera locations."
+id:"EL-SEC-001",trade:"Electrical",category:"Security systems",subcategory:"CCTV",level:"room",question:"Is CCTV planned?",drawingRequirement:"Show camera locations."
+},
+{
+id:"EL-SEC-002",trade:"Electrical",category:"Security systems",subcategory:"Door Bell",level:"wall",question:"Is a video doorbell planned?",drawingRequirement:"Show installation location."
+},
+{
+id:"EL-SEC-003",trade:"Electrical",category:"Security systems",subcategory:"Door Lock",level:"wall",question:"Is a digital door lock planned?",drawingRequirement:"Show installation location."
+},
+{
+id:"EL-SEC-004",trade:"Electrical",category:"Security systems",subcategory:"Automation",level:"room",question:"Is home automation planned?",drawingRequirement:"Show automation scope in drawings."
+},
+{
+id:"EL-SEC-005",trade:"Electrical",category:"Security systems",subcategory:"Curtains",level:"wall",question:"Are motorized curtains or blinds planned?",drawingRequirement:"Show motor location in elevation."
 },
 
+/* ===========================================================
+   OTHERS
+=========================================================== */
+
 {
-id:"EL-SEC-002",
-trade:"Electrical",
-category:"Security & Automation",
-subcategory:"Video Door Bell",
-question:"Is a video door bell planned?",
-level:"room",
-drawingRequirement:"Layout shall identify entrance device location."
+id:"EL-OTH-001",trade:"Electrical",category:"Others",subcategory:"Router",level:"room",question:"Is a dedicated location planned for internet/router equipment?",drawingRequirement:"Show router location."
 },
-
 {
-id:"EL-SEC-003",
-trade:"Electrical",
-category:"Security & Automation",
-subcategory:"Digital Lock",
-question:"Is a digital door lock planned?",
-level:"room",
-drawingRequirement:"Entrance drawings shall identify digital lock."
+id:"EL-OTH-002",trade:"Electrical",category:"Others",subcategory:"UPS",level:"room",question:"Is an inverter or UPS planned?",drawingRequirement:"Show UPS location."
 },
-
 {
-id:"EL-SEC-004",
-trade:"Electrical",
-category:"Security & Automation",
-subcategory:"Home Automation",
-question:"Is home automation planned?",
-level:"room",
-drawingRequirement:"Electrical layout shall identify automation provisions."
+id:"EL-OTH-003",trade:"Electrical",category:"Others",subcategory:"Builder Scope",level:"room",question:"Are there any builder-provided electrical services that need to be retained or coordinated?",drawingRequirement:"Show retained services in drawings."
 },
-
 {
-id:"EL-SEC-005",
-trade:"Electrical",
-category:"Security & Automation",
-subcategory:"Motion Sensors",
-question:"Are motion sensors planned?",
-level:"room",
-drawingRequirement:"Layout shall identify sensor locations."
-},
-
-{
-id:"EL-SEC-006",
-trade:"Electrical",
-category:"Security & Automation",
-subcategory:"Motorized Curtains",
-question:"Are motorized curtains or blinds planned?",
-level:"room",
-drawingRequirement:"Relevant drawings shall identify curtain motor locations."
-},
-
-{
-id:"EL-SEC-007",
-trade:"Electrical",
-category:"Security & Automation",
-subcategory:"Others",
-question:"Are there any other security or automation requirements?",
-level:"room",
-drawingRequirement:"Relevant drawings shall identify the requirement."
-},
-
-/* ============================================================
-   COORDINATION
-============================================================ */
-
-{
-id:"EL-CO-001",
-trade:"Electrical",
-category:"Coordination",
-subcategory:"AC Coordination",
-question:"Are the indoor and outdoor AC unit locations finalized?",
-level:"room",
-drawingRequirement:"Drawings shall identify indoor and outdoor AC locations."
-},
-
-{
-id:"EL-CO-002",
-trade:"Electrical",
-category:"Coordination",
-subcategory:"Exhaust Fans",
-question:"Are exhaust fans planned?",
-level:"room",
-drawingRequirement:"Relevant drawings shall identify exhaust fan locations."
-},
-
-{
-id:"EL-CO-003",
-trade:"Electrical",
-category:"Coordination",
-subcategory:"Internet / Router",
-question:"Is a dedicated location planned for internet/router equipment?",
-level:"room",
-drawingRequirement:"Layout shall identify router location."
-},
-
-{
-id:"EL-CO-004",
-trade:"Electrical",
-category:"Coordination",
-subcategory:"UPS / Inverter",
-question:"Is an inverter or UPS planned?",
-level:"room",
-drawingRequirement:"Electrical layout shall identify equipment location."
-},
-
-{
-id:"EL-CO-005",
-trade:"Electrical",
-category:"Coordination",
-subcategory:"Future Provision",
-question:"Is provision required for any future electrical requirements?",
-level:"room",
-drawingRequirement:"Relevant drawings shall identify future provisions."
-},
-
-{
-id:"EL-CO-006",
-trade:"Electrical",
-category:"Coordination",
-subcategory:"Builder Coordination",
-question:"Are there any builder-provided electrical services that need to be retained or coordinated?",
-level:"room",
-drawingRequirement:"Drawings shall identify retained builder services."
-},
-
-{
-id:"EL-CO-007",
-trade:"Electrical",
-category:"Coordination",
-subcategory:"Customer Systems",
-question:"Are there any customer-owned systems requiring electrical coordination?",
-level:"room",
-drawingRequirement:"Relevant drawings shall identify these systems."
-},
-
-{
-id:"EL-CO-008",
-trade:"Electrical",
-category:"Coordination",
-subcategory:"Others",
-question:"Are there any other coordination requirements impacting electrical works?",
-level:"room",
-drawingRequirement:"Relevant drawings shall identify the requirement."
+id:"EL-OTH-004",trade:"Electrical",category:"Others",subcategory:"Customer Scope",level:"room",question:"Are there any customer-owned systems requiring electrical coordination?",drawingRequirement:"Show coordination requirements in drawings."
 }
 
 ];
