@@ -1611,3 +1611,274 @@ button:disabled{
     font-weight: 600;
 
 }
+/* ==========================================================
+   SIMPLE HOTO MATRIX
+========================================================== */
+
+.table-container {
+
+    width: 100%;
+
+    overflow-x: auto;
+    overflow-y: auto;
+
+}
+
+
+/* ----------------------------------------------------------
+   TABLE
+---------------------------------------------------------- */
+
+#scopeTable {
+
+    border-collapse: separate;
+
+    border-spacing: 0;
+
+    table-layout: fixed;
+
+    width: auto;
+
+    min-width: 0;
+
+}
+
+
+/* ----------------------------------------------------------
+   TWO FIXED COLUMNS
+---------------------------------------------------------- */
+
+#scopeTable .question-header,
+#scopeTable .question-cell {
+
+    width: 390px;
+
+    min-width: 390px;
+
+    max-width: 390px;
+
+}
+
+
+#scopeTable .drawing-header,
+#scopeTable .drawing-cell {
+
+    width: 230px;
+
+    min-width: 230px;
+
+    max-width: 230px;
+
+}
+
+
+/* ----------------------------------------------------------
+   ROOM COLUMNS
+---------------------------------------------------------- */
+
+#scopeTable .room-header,
+#scopeTable .room-cell {
+
+    width: 155px;
+
+    min-width: 155px;
+
+    max-width: 155px;
+
+}
+
+
+/* ----------------------------------------------------------
+   HEADER
+---------------------------------------------------------- */
+
+#scopeTable thead th {
+
+    height: 46px;
+
+    padding: 8px;
+
+    text-align: center;
+
+    background: #1f4e79;
+
+    color: white;
+
+    font-weight: 600;
+
+}
+
+
+/* ----------------------------------------------------------
+   QUESTION + DRAWING = FIXED
+---------------------------------------------------------- */
+
+#scopeTable .question-header,
+#scopeTable .question-cell {
+
+    position: sticky;
+
+    left: 0;
+
+    z-index: 20;
+
+}
+
+
+/* Drawing sits immediately after Question */
+
+#scopeTable .drawing-header,
+#scopeTable .drawing-cell {
+
+    position: sticky;
+
+    left: 390px;
+
+    z-index: 20;
+
+}
+
+
+/* ----------------------------------------------------------
+   FIXED HEADER LAYER
+---------------------------------------------------------- */
+
+#scopeTable thead .question-header,
+#scopeTable thead .drawing-header {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 50;
+
+}
+
+
+/* ----------------------------------------------------------
+   BODY
+---------------------------------------------------------- */
+
+#scopeTable td {
+
+    padding: 8px;
+
+    vertical-align: top;
+
+    background: white;
+
+    border-right: 1px solid #dce2e8;
+
+    border-bottom: 1px solid #dce2e8;
+
+}
+
+
+/* ----------------------------------------------------------
+   QUESTION
+---------------------------------------------------------- */
+
+#scopeTable .question-cell {
+
+    font-weight: 600;
+
+    line-height: 1.4;
+
+    white-space: normal;
+
+}
+
+
+/* ----------------------------------------------------------
+   DRAWING
+---------------------------------------------------------- */
+
+#scopeTable .drawing-cell {
+
+    font-size: 12px;
+
+    line-height: 1.4;
+
+    color: #555;
+
+    background: #fafafa;
+
+}
+
+
+/* ----------------------------------------------------------
+   ROOM CELLS
+---------------------------------------------------------- */
+
+#scopeTable .room-cell {
+
+    text-align: center;
+
+    vertical-align: top;
+
+}
+
+
+/* ----------------------------------------------------------
+   ROOM HEADER
+---------------------------------------------------------- */
+
+#scopeTable .room-header {
+
+    white-space: nowrap;
+
+}
+
+
+/* ----------------------------------------------------------
+   SCROLLBAR
+---------------------------------------------------------- */
+
+.table-container::-webkit-scrollbar {
+
+    height: 14px;
+
+}
+
+.table-container::-webkit-scrollbar-track {
+
+    background: #e5e9ed;
+
+}
+
+.table-container::-webkit-scrollbar-thumb {
+
+    background: #7d8995;
+
+    border-radius: 8px;
+
+}
+
+
+/* ----------------------------------------------------------
+   SCROLL MESSAGE
+---------------------------------------------------------- */
+
+.room-scroll-hint {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    padding: 8px 12px;
+
+    background: #f4f7fa;
+
+    border-bottom: 1px solid #dce2e8;
+
+    font-size: 12px;
+
+}
+
+.scroll-message {
+
+    font-weight: 600;
+
+    color: #1f4e79;
+
+}
