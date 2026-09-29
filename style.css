@@ -1882,3 +1882,59 @@ button:disabled{
     color: #1f4e79;
 
 }
+/* ==========================================================
+   FINAL HOTO HEADER OVERRIDE
+   Force ALL headers to blue
+========================================================== */
+
+#scopeTable thead th.question-header,
+#scopeTable thead th.drawing-header,
+#scopeTable thead th.room-header {
+
+    background: #1f4e79 !important;
+
+    color: #ffffff !important;
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 100;
+
+}
+
+
+/* First two fixed headers */
+
+#scopeTable thead th.question-header {
+
+    left: 0;
+
+}
+
+
+#scopeTable thead th.drawing-header {
+
+    left: 390px;
+
+}
+
+
+/* Room headers are NOT sticky horizontally */
+
+#scopeTable thead th.room-header {
+
+    left: auto;
+
+}
+
+
+/* Make sure first room is also blue */
+
+#scopeTable thead th.room-header:first-of-type {
+
+    background: #1f4e79 !important;
+
+    color: #ffffff !important;
+
+}
