@@ -528,11 +528,31 @@ function buildQuestionRows(questions) {
 
         const questionCell = document.createElement("td");
 
-        questionCell.className = "question-cell";
+questionCell.className = "question-cell";
 
-        questionCell.textContent = question.question;
+let questionHTML = `
+    <div class="question-main">
+        ${question.question}
+    </div>
+`;
 
-        tr.appendChild(questionCell);
+if (question.subtext && question.subtext.length) {
+
+    questionHTML += `
+        <div class="question-subtext">
+            ${question.subtext.map(item => `
+                <div class="subtext-item">
+                    • ${item}
+                </div>
+            `).join("")}
+        </div>
+    `;
+
+}
+
+questionCell.innerHTML = questionHTML;
+
+tr.appendChild(questionCell);
 
 
         // DRAWING REQUIREMENT
