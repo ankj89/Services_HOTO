@@ -34,7 +34,6 @@ const DEFAULT_ROOMS = [
     "Master Bedroom",
     "Bedroom 2",
     "Bedroom 3",
-    "Study",
     "Puja",
     "Balcony",
     "Terrace",
@@ -188,7 +187,7 @@ function renderRoomSelection(){
             <input
                 type="checkbox"
                 value="${room}"
-                checked>
+         >
 
             <span>${room}</span>
 
