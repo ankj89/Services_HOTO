@@ -618,7 +618,7 @@ function buildRoomCell(questionId, room, data){
 
             <div class="cell-title">
 
-                Scope
+               LS Scope ?
 
             </div>
 
@@ -641,7 +641,7 @@ function buildRoomCell(questionId, room, data){
 
             <div class="cell-title">
 
-                Drawing
+                Drawing Provided?
 
             </div>
 
