@@ -44,7 +44,7 @@ const DEFAULT_ROOMS = [
 
 ];
 
-
+let customRooms = [];
 /* ===========================================================
    APPLICATION START
 =========================================================== */
@@ -170,27 +170,30 @@ function showTab(tabId){
    ROOM SELECTION
 =========================================================== */
 
-function renderRoomSelection(){
+function renderRoomSelection() {
 
-    const container=document.getElementById("roomContainer");
+    const container = document.getElementById("roomContainer");
 
-    container.innerHTML="";
+    container.innerHTML = "";
 
-    DEFAULT_ROOMS.forEach(room=>{
+    const rooms = [
+        ...DEFAULT_ROOMS,
+        ...customRooms
+    ];
 
-        const label=document.createElement("label");
+    rooms.forEach(room => {
 
-        label.className="room-item";
+        const label = document.createElement("label");
 
-        label.innerHTML=`
+        label.className = "room-item";
 
+        label.innerHTML = `
             <input
+                class="room-checkbox"
                 type="checkbox"
-                value="${room}"
-         >
+                value="${room}">
 
             <span>${room}</span>
-
         `;
 
         container.appendChild(label);
@@ -1002,7 +1005,34 @@ function updateCategoryProgress(questionList){
 
 
 
+function addCustomRoom(){
 
+    const roomName = prompt("Enter Room Name");
+
+    if(!roomName) return;
+
+    const name = roomName.trim();
+
+    if(name==="") return;
+
+    const allRooms=[
+        ...DEFAULT_ROOMS,
+        ...customRooms
+    ];
+
+    if(allRooms.includes(name)){
+
+        alert("Room already exists.");
+
+        return;
+
+    }
+
+    customRooms.push(name);
+
+    renderRoomSelection();
+
+}
 
 
 
@@ -1030,7 +1060,9 @@ document
 
 
 
-
+document
+.getElementById("addRoomBtn")
+.addEventListener("click", addCustomRoom);
 
 
 
