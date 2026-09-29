@@ -452,7 +452,7 @@ function renderQuestions(trade, category) {
    BUILD TABLE HEADER
 =========================================================== */
 
-function buildTableHeader() {
+function buildTableHeaders() {
 
     const table = document.getElementById("scopeTable");
 
@@ -460,39 +460,89 @@ function buildTableHeader() {
 
     thead.innerHTML = "";
 
-    const row = document.createElement("tr");
+    const headerRow = document.createElement("tr");
 
-    row.innerHTML = `
 
-        <th style="width:140px;">Category</th>
+    /* =====================================================
+       CATEGORY
+    ===================================================== */
 
-        <th style="width:180px;">Sub Category</th>
+    const categoryHeader = document.createElement("th");
 
-        <th>Question</th>
+    categoryHeader.className = "col-category fixed-col";
 
-    `;
+    categoryHeader.textContent = "Category";
 
-   selectedRooms.forEach(room => {
+    headerRow.appendChild(categoryHeader);
 
-    const th = document.createElement("th");
 
-    th.className = "room-header";
+    /* =====================================================
+       SUB CATEGORY
+    ===================================================== */
 
-    th.textContent = room;
+    const subCategoryHeader = document.createElement("th");
 
-    headerRow.appendChild(th);
+    subCategoryHeader.className =
+        "col-subcategory fixed-col";
 
-});
+    subCategoryHeader.textContent = "Sub Category";
 
-    const last = document.createElement("th");
+    headerRow.appendChild(subCategoryHeader);
 
-    last.style.width = "300px";
 
-    last.innerText = "Drawing Requirement";
+    /* =====================================================
+       QUESTION
+    ===================================================== */
 
-    row.appendChild(last);
+    const questionHeader = document.createElement("th");
 
-    thead.appendChild(row);
+    questionHeader.className =
+        "col-question fixed-col";
+
+    questionHeader.textContent = "Question";
+
+    headerRow.appendChild(questionHeader);
+
+
+    /* =====================================================
+       DRAWING REQUIREMENT
+    ===================================================== */
+
+    const drawingHeader = document.createElement("th");
+
+    drawingHeader.className =
+        "col-drawing fixed-col";
+
+    drawingHeader.textContent =
+        "Drawing Requirement";
+
+    headerRow.appendChild(drawingHeader);
+
+
+    /* =====================================================
+       ROOM COLUMNS
+    ===================================================== */
+
+    selectedRooms.forEach(room => {
+
+        const roomHeader =
+            document.createElement("th");
+
+        roomHeader.className =
+            "room-header";
+
+        roomHeader.textContent = room;
+
+        headerRow.appendChild(roomHeader);
+
+    });
+
+
+    /* =====================================================
+       ADD HEADER ROW
+    ===================================================== */
+
+    thead.appendChild(headerRow);
 
 }
 
