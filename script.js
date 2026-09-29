@@ -73,7 +73,7 @@ loadApplication();
 
 
 /* ===========================================================
-   INITIALISE QUESTION BANK
+    QUESTION BANK
 =========================================================== */
 
 function initialiseQuestionBank(){
@@ -224,6 +224,11 @@ function initialiseButtons(){
     document
         .getElementById("roomNextBtn")
         .addEventListener("click",generateHOTO);
+   
+document
+.getElementById("addRoomBtn")
+.addEventListener("click", addCustomRoom);
+
 
 }
 
@@ -1059,10 +1064,6 @@ document
 .addEventListener("click",savePopup);
 
 
-
-document
-.getElementById("addRoomBtn")
-.addEventListener("click", addCustomRoom);
 
 
 
