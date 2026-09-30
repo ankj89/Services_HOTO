@@ -1,15 +1,122 @@
-/* ==========================================================
-   EXPORT ENGINE
-========================================================== */
+/* ============================================================
+   SCOPE CAPTURE SYSTEM
+   EXPORT.JS
+   Excel + PDF Export
+============================================================ */
 
 
-/* ----------------------------------------------------------
-   CONVERT HOTO RESPONSE TO OUTPUT TEXT
----------------------------------------------------------- */
+/* ============================================================
+   PROJECT INFORMATION
+============================================================ */
 
-function formatScopeResponse(scope, elevation) {
+function getProjectInformation() {
+
+    return {
+        projectId:
+            project.projectId ||
+            document.getElementById("projectId")?.value ||
+            "",
+
+        clientName:
+            project.clientName ||
+            document.getElementById("clientName")?.value ||
+            "",
+
+        city:
+            project.city ||
+            document.getElementById("city")?.value ||
+            "",
+
+        bu:
+            project.bu ||
+            document.getElementById("bu")?.value ||
+            "",
+
+        designerMailId:
+            project.designerMailId ||
+            document.getElementById("designerMailId")?.value ||
+            "",
+
+        rfvId:
+            project.rfvId ||
+            document.getElementById("rfvId")?.value ||
+            "",
+
+        driveLink:
+            project.driveLink ||
+            document.getElementById("driveLink")?.value ||
+            "",
+
+        remarks:
+            project.remarks ||
+            document.getElementById("remarks")?.value ||
+            ""
+    };
+}
+
+
+/* ============================================================
+   GET RESPONSE
+============================================================ */
+
+function getQuestionResponse(question, room) {
+
+    const questionResponses =
+        responses[question.id];
+
+    if (!questionResponses) {
+
+        return {
+            scope: "",
+            drawing: "",
+            elevation: ""
+        };
+
+    }
+
+    const roomResponse =
+        questionResponses[room];
+
+    if (!roomResponse) {
+
+        return {
+            scope: "",
+            drawing: "",
+            elevation: ""
+        };
+
+    }
+
+    return {
+
+        scope:
+            roomResponse.scope || "",
+
+        drawing:
+            roomResponse.drawing || "",
+
+        elevation:
+            roomResponse.elevation || ""
+
+    };
+
+}
+
+
+/* ============================================================
+   FORMAT ROOM RESPONSE
+============================================================ */
+
+function formatScopeResponse(
+    scope,
+    drawing,
+    elevation
+) {
 
     let result = "";
+
+
+    /* SCOPE */
 
     if (scope === "Yes") {
 
@@ -26,12 +133,27 @@ function formatScopeResponse(scope, elevation) {
         result = "Not in Scope";
 
     }
-    else {
 
-        result = "";
+
+    /* DRAWING */
+
+    if (drawing === "Yes") {
+
+        result +=
+            (result ? "\n" : "") +
+            "Dwg - Yes";
+
+    }
+    else if (drawing === "No") {
+
+        result +=
+            (result ? "\n" : "") +
+            "Dwg - No";
 
     }
 
+
+    /* ELEVATION */
 
     if (
         elevation &&
@@ -39,29 +161,34 @@ function formatScopeResponse(scope, elevation) {
     ) {
 
         result +=
-            "\nElv - " +
+            (result ? "\n" : "") +
+            "Elv - " +
             elevation.toString().trim();
 
     }
 
-    return result;
 
+    return result;
 }
+
+
+/* ============================================================
+   BUILD HOTO EXPORT DATA
+============================================================ */
 
 function buildExportData() {
 
     const rows = [];
-
 
     QUESTION_BANK.forEach(question => {
 
         const row = {
 
             category:
-                question.category,
+                question.category || "",
 
             question:
-                question.question,
+                question.question || "",
 
             rooms: {}
 
@@ -80,6 +207,7 @@ function buildExportData() {
             row.rooms[room] =
                 formatScopeResponse(
                     response.scope,
+                    response.drawing,
                     response.elevation
                 );
 
@@ -92,160 +220,103 @@ function buildExportData() {
 
 
     return rows;
-
 }
 
-function getQuestionResponse(question, room) {
 
-    const questionResponses =
-        responses[question.id];
-
-    if (!questionResponses) {
-
-        return {
-            scope: "",
-            elevation: ""
-        };
-
-    }
-
-    const roomResponse =
-        questionResponses[room];
-
-    if (!roomResponse) {
-
-        return {
-            scope: "",
-            elevation: ""
-        };
-
-    }
-
-    return {
-
-        scope: roomResponse.scope || "",
-
-        elevation: roomResponse.elevation || ""
-
-    };
-
-}
+/* ============================================================
+   EXCEL
+============================================================ */
 
 function exportExcel() {
 
-    const data =
-        buildExportData();
+    if (
+        typeof XLSX === "undefined"
+    ) {
 
-    const headers = [
-        "Category",
-        "Question",
-        ...selectedRooms
-    ];
+        alert(
+            "Excel library is not loaded."
+        );
 
+        return;
 
-    const excelRows = data.map(row => {
-
-        const output = [
-            row.category,
-            row.question
-        ];
+    }
 
 
-        selectedRooms.forEach(room => {
-
-            output.push(
-                row.rooms[room] || ""
-            );
-
-        });
+    const workbook =
+        XLSX.utils.book_new();
 
 
-        return output;
+    /* --------------------------------------------------------
+       SHEET 1 — PROJECT INFORMATION
+    -------------------------------------------------------- */
 
-    });
-
-
-    const worksheet =
-        XLSX.utils.aoa_to_sheet([
-            headers,
-            ...excelRows
-        ]);
+    const info =
+        getProjectInformation();
 
 
-    /* ------------------------------------------------------
-       COLUMN WIDTHS
-    ------------------------------------------------------ */
+    const projectData = [
 
-    worksheet["!cols"] = [
+        ["Project Information", ""],
 
-        {
-            wch: 18
-        },
+        ["Project ID", info.projectId],
 
-        {
-            wch: 55
-        },
+        ["Client Name", info.clientName],
 
-        ...selectedRooms.map(() => ({
-            wch: 22
-        }))
+        ["City", info.city],
+
+        ["BU", info.bu],
+
+        ["Designer Mail ID", info.designerMailId],
+
+        ["RFV ID", info.rfvId],
+
+        [
+            "Drive Link (line diagrams, 3D, etc)",
+            info.driveLink
+        ],
+
+        ["Any Remarks", info.remarks]
 
     ];
 
 
-    /* ------------------------------------------------------
-       ROW HEIGHTS
-    ------------------------------------------------------ */
-
-    worksheet["!rows"] =
-        excelRows.map(() => ({
-            hpt: 36
-        }));
-
-
-    /* ------------------------------------------------------
-       HEADER STYLE
-    ------------------------------------------------------ */
-
-    const range =
-        XLSX.utils.decode_range(
-            worksheet["!ref"]
+    const projectSheet =
+        XLSX.utils.aoa_to_sheet(
+            projectData
         );
 
 
+    projectSheet["!cols"] = [
+
+        { wch: 42 },
+
+        { wch: 80 }
+
+    ];
+
+
+    projectSheet["A1"].s = {
+
+        font: {
+            bold: true,
+            sz: 16
+        }
+
+    };
+
+
     for (
-        let col = range.s.c;
-        col <= range.e.c;
-        col++
+        let r = 0;
+        r < projectData.length;
+        r++
     ) {
 
-        const cell =
-            worksheet[
-                XLSX.utils.encode_cell({
-                    r: 0,
-                    c: col
-                })
-            ];
+        if (projectSheet[`A${r + 1}`]) {
 
-
-        if (cell) {
-
-            cell.s = {
+            projectSheet[`A${r + 1}`].s = {
 
                 font: {
-                    bold: true,
-                    color: "FFFFFF"
-                },
-
-                fill: {
-                    fgColor: {
-                        rgb: "1F4E79"
-                    }
-                },
-
-                alignment: {
-                    horizontal: "center",
-                    vertical: "center"
+                    bold: true
                 }
 
             };
@@ -255,49 +326,207 @@ function exportExcel() {
     }
 
 
-    /* ------------------------------------------------------
-       WORKBOOK
-    ------------------------------------------------------ */
-
-    const workbook =
-        XLSX.utils.book_new();
-
-
     XLSX.utils.book_append_sheet(
+
         workbook,
-        worksheet,
-        "HOTO"
+
+        projectSheet,
+
+        "Project Information"
+
     );
 
 
-    /* ------------------------------------------------------
-       PRINT SETTINGS
-    ------------------------------------------------------ */
+    /* --------------------------------------------------------
+       SHEET 2 — HOTO
+    -------------------------------------------------------- */
 
-    worksheet["!pageSetup"] = {
+    const exportRows =
+        buildExportData();
 
-        orientation: "landscape",
 
-        paperSize: 9,
+    const headers = [
 
-        fitToWidth: 1,
+        "Category",
 
-        fitToHeight: 0
+        "Question",
 
-    };
+        ...selectedRooms
+
+    ];
+
+
+    const hotoData = [
+
+        headers
+
+    ];
+
+
+    exportRows.forEach(row => {
+
+        hotoData.push([
+
+            row.category,
+
+            row.question,
+
+            ...selectedRooms.map(
+                room =>
+                    row.rooms[room] || ""
+            )
+
+        ]);
+
+    });
+
+
+    const hotoSheet =
+        XLSX.utils.aoa_to_sheet(
+            hotoData
+        );
+
+
+    /* COLUMN WIDTHS */
+
+    hotoSheet["!cols"] = [
+
+        {
+            wch: 24
+        },
+
+        {
+            wch: 65
+        },
+
+        ...selectedRooms.map(() => ({
+
+            wch: 24
+
+        }))
+
+    ];
+
+
+    /* WRAP TEXT */
+
+    const range =
+        XLSX.utils.decode_range(
+            hotoSheet["!ref"]
+        );
+
+
+    for (
+        let row = range.s.r;
+        row <= range.e.r;
+        row++
+    ) {
+
+        for (
+            let col = range.s.c;
+            col <= range.e.c;
+            col++
+        ) {
+
+            const cell =
+                hotoSheet[
+                    XLSX.utils.encode_cell({
+                        r: row,
+                        c: col
+                    })
+                ];
+
+
+            if (cell) {
+
+                cell.s = {
+
+                    alignment: {
+
+                        vertical: "top",
+
+                        wrapText: true
+
+                    }
+
+                };
+
+            }
+
+        }
+
+    }
+
+
+    XLSX.utils.book_append_sheet(
+
+        workbook,
+
+        hotoSheet,
+
+        "HOTO"
+
+    );
+
+
+    /* --------------------------------------------------------
+       FILE NAME
+    -------------------------------------------------------- */
+
+    const safeProjectId =
+        (
+            info.projectId ||
+            "Scope_Capture"
+        )
+        .toString()
+        .replace(
+            /[^a-zA-Z0-9_-]/g,
+            "_"
+        );
 
 
     XLSX.writeFile(
+
         workbook,
-        getExportFileName("xlsx")
+
+        `HOTO_${safeProjectId}.xlsx`
+
     );
 
 }
 
+
+/* ============================================================
+   PDF
+============================================================ */
+
 function exportPDF() {
 
-    const data =
-        buildExportData();
+    if (
+        typeof window.jspdf === "undefined"
+    ) {
+
+        alert(
+            "PDF library is not loaded."
+        );
+
+        return;
+
+    }
+
+
+    if (
+        typeof window.jspdf.jsPDF !==
+        "function"
+    ) {
+
+        alert(
+            "PDF library is not loaded correctly."
+        );
+
+        return;
+
+    }
 
 
     const {
@@ -317,59 +546,211 @@ function exportPDF() {
         });
 
 
-    const headers = [
-        "Category",
-        "Question",
-        ...selectedRooms
+    const info =
+        getProjectInformation();
+
+
+    /* ========================================================
+       PAGE 1 — PROJECT INFORMATION
+    ======================================================== */
+
+    doc.setFontSize(22);
+
+    doc.setFont(undefined, "bold");
+
+    doc.text(
+        "Scope Capture System",
+        14,
+        18
+    );
+
+
+    doc.setFontSize(12);
+
+    doc.setFont(undefined, "normal");
+
+    doc.text(
+        "Project Information",
+        14,
+        27
+    );
+
+
+    const projectInfoTable = [
+
+        [
+            "Project ID",
+            info.projectId
+        ],
+
+        [
+            "Client Name",
+            info.clientName
+        ],
+
+        [
+            "City",
+            info.city
+        ],
+
+        [
+            "BU",
+            info.bu
+        ],
+
+        [
+            "Designer Mail ID",
+            info.designerMailId
+        ],
+
+        [
+            "RFV ID",
+            info.rfvId
+        ],
+
+        [
+            "Drive Link (line diagrams, 3D, etc)",
+            info.driveLink
+        ],
+
+        [
+            "Any Remarks",
+            info.remarks
+        ]
+
     ];
 
 
-    const body =
-        data.map(row => {
+    doc.autoTable({
 
-            return [
+        startY: 35,
 
-                row.category,
+        head: [
 
-                row.question,
+            [
+                "Field",
+                "Project Information"
+            ]
 
-                ...selectedRooms.map(
-                    room =>
-                        row.rooms[room] || ""
-                )
+        ],
 
-            ];
+        body:
+            projectInfoTable,
 
-        });
+        theme: "grid",
+
+        styles: {
+
+            fontSize: 10,
+
+            cellPadding: 4,
+
+            valign: "top",
+
+            overflow: "linebreak"
+
+        },
+
+        headStyles: {
+
+            fontStyle: "bold"
+
+        },
+
+        columnStyles: {
+
+            0: {
+                cellWidth: 70
+            },
+
+            1: {
+                cellWidth: 200
+            }
+
+        }
+
+    });
+
+
+    /* ========================================================
+       HOTO PAGE
+    ======================================================== */
+
+    doc.addPage(
+        "a4",
+        "landscape"
+    );
+
+
+    const exportRows =
+        buildExportData();
+
+
+    const hotoHead = [
+
+        [
+            "Category",
+            "Question",
+            ...selectedRooms
+        ]
+
+    ];
+
+
+    const hotoBody =
+        exportRows.map(row => [
+
+            row.category,
+
+            row.question,
+
+            ...selectedRooms.map(
+                room =>
+                    row.rooms[room] || ""
+            )
+
+        ]);
 
 
     doc.setFontSize(16);
 
+    doc.setFont(undefined, "bold");
+
     doc.text(
-        "Interior Project HOTO",
-        14,
-        15
+        "HOTO Scope Matrix",
+        10,
+        12
     );
 
 
     doc.setFontSize(9);
 
+    doc.setFont(undefined, "normal");
+
     doc.text(
-        `Project: ${getProjectNameForExport()}`,
-        14,
-        22
+        `Project: ${
+            info.projectId || ""
+        }    |    Client: ${
+            info.clientName || ""
+        }    |    City: ${
+            info.city || ""
+        }`,
+        10,
+        19
     );
 
 
     doc.autoTable({
 
-        head: [headers],
+        startY: 24,
 
-        body: body,
+        head: hotoHead,
 
-        startY: 28,
+        body: hotoBody,
 
         theme: "grid",
+
+        repeatHeaders: true,
 
         styles: {
 
@@ -377,23 +758,15 @@ function exportPDF() {
 
             cellPadding: 2,
 
-            valign: "middle"
+            valign: "top",
+
+            overflow: "linebreak"
 
         },
 
         headStyles: {
 
-            fillColor: [
-                31,
-                78,
-                121
-            ],
-
-            textColor: 255,
-
-            fontStyle: "bold",
-
-            halign: "center"
+            fontStyle: "bold"
 
         },
 
@@ -404,7 +777,21 @@ function exportPDF() {
             },
 
             1: {
-                cellWidth: 75
+                cellWidth: 65
+            }
+
+        },
+
+        didParseCell: function(data) {
+
+            if (
+                data.section === "body" &&
+                data.column.index >= 2
+            ) {
+
+                data.cell.styles.cellWidth =
+                    28;
+
             }
 
         }
@@ -412,50 +799,106 @@ function exportPDF() {
     });
 
 
+    /* ========================================================
+       PAGE NUMBERS
+    ======================================================== */
+
+    const pageCount =
+        doc.internal.getNumberOfPages();
+
+
+    for (
+        let i = 1;
+        i <= pageCount;
+        i++
+    ) {
+
+        doc.setPage(i);
+
+        doc.setFontSize(8);
+
+        doc.setFont(undefined, "normal");
+
+        doc.text(
+
+            `Page ${i} of ${pageCount}`,
+
+            285,
+
+            202,
+
+            {
+                align: "right"
+            }
+
+        );
+
+    }
+
+
+    /* ========================================================
+       SAVE
+    ======================================================== */
+
+    const safeProjectId =
+        (
+            info.projectId ||
+            "Scope_Capture"
+        )
+        .toString()
+        .replace(
+            /[^a-zA-Z0-9_-]/g,
+            "_"
+        );
+
+
     doc.save(
-        getExportFileName("pdf")
+
+        `HOTO_${safeProjectId}.pdf`
+
     );
 
 }
 
-function getExportFileName(extension) {
 
-    const projectName =
-        document.getElementById("projectName")
-            ?.value
-            ?.trim() || "Project";
+/* ============================================================
+   BUTTON EVENTS
+============================================================ */
 
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
 
-    const cleanName =
-        projectName
-            .replace(/[^a-z0-9]/gi, "_");
-
-
-    return `HOTO_${cleanName}.${extension}`;
-
-}
-function getProjectNameForExport() {
-
-    return (
-        document
-            .getElementById("projectName")
-            ?.value
-            ?.trim()
-        || "Project"
-    );
-
-}
-document
-    .getElementById("exportExcelBtn")
-    .addEventListener(
-        "click",
-        exportExcel
-    );
+        const excelBtn =
+            document.getElementById(
+                "exportExcelBtn"
+            );
 
 
-document
-    .getElementById("exportPdfBtn")
-    .addEventListener(
-        "click",
-        exportPDF
-    );
+        const pdfBtn =
+            document.getElementById(
+                "exportPdfBtn"
+            );
+
+
+        if (excelBtn) {
+
+            excelBtn.addEventListener(
+                "click",
+                exportExcel
+            );
+
+        }
+
+
+        if (pdfBtn) {
+
+            pdfBtn.addEventListener(
+                "click",
+                exportPDF
+            );
+
+        }
+
+    }
+);
