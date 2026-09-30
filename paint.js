@@ -66,6 +66,17 @@ const PAINTING = [
     level: "wall",
     question: "Is any mural art, artwork or artistic paint finish planned?",
     drawingRequirement: "Show artwork wall location and identify artwork extent in elevations."
+},
+
+{
+    id: "PT-PNT-007",
+    trade: "Painting",
+    category: "Painting",
+    subcategory: "Painting",
+    level: "room",
+    question: "Is fresh painting planned?",
+    drawingRequirement: "Identify rooms and surfaces to be fresh painted."
 }
+   
 
 ];
