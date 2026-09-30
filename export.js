@@ -184,8 +184,8 @@ function buildExportData() {
 
         const row = {
 
-            category:
-                question.category || "",
+            trade:
+                question.trade || "",
 
             question:
                 question.question || "",
@@ -194,7 +194,6 @@ function buildExportData() {
 
         };
 
-
         selectedRooms.forEach(room => {
 
             const response =
@@ -202,7 +201,6 @@ function buildExportData() {
                     question,
                     room
                 );
-
 
             row.rooms[room] =
                 formatScopeResponse(
@@ -213,15 +211,12 @@ function buildExportData() {
 
         });
 
-
         rows.push(row);
 
     });
 
-
     return rows;
 }
-
 
 /* ============================================================
    EXCEL
@@ -347,7 +342,7 @@ function exportExcel() {
 
     const headers = [
 
-        "Category",
+        "Trade",
 
         "Question",
 
@@ -367,7 +362,7 @@ function exportExcel() {
 
         hotoData.push([
 
-            row.category,
+            row.trade,
 
             row.question,
 
@@ -689,7 +684,7 @@ function exportPDF() {
     const hotoHead = [
 
         [
-            "Category",
+            "Trade",
             "Question",
             ...selectedRooms
         ]
@@ -700,7 +695,7 @@ function exportPDF() {
     const hotoBody =
         exportRows.map(row => [
 
-            row.category,
+            row.trade,
 
             row.question,
 
