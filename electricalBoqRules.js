@@ -450,7 +450,7 @@ const ELECTRICAL_BOQ_RULES = {
             "New Board creation/relocation(as required)",
             "Additional 4 sqmm wiring from DB",
             "Pelmet(as required)",
-            "Core cutting(as required)
+            "Core cutting(as required)"
         ]
     },
 
@@ -461,7 +461,7 @@ const ELECTRICAL_BOQ_RULES = {
             "New board 15A or 32A",
             "Additional 4 sqmm wiring from DB",
             "Coordination with false ceiling for level",
-            "Core cutting(as required)
+            "Core cutting(as required)"
         ]
     },
 
@@ -472,7 +472,7 @@ const ELECTRICAL_BOQ_RULES = {
             "New board 15A or 32A",
             "Additional 4sqmm wiring from DB",
             "Coordination with false ceiling for level",
-            "Core cutting(as required)
+            "Core cutting(as required)"
         ]
     },
 
