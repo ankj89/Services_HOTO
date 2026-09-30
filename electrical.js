@@ -407,10 +407,10 @@ id:"EL-SEC-004",trade:"Electrical",category:"Security systems",subcategory:"Auto
 id:"EL-SEC-005",trade:"Electrical",category:"Security systems",subcategory:"Curtains",level:"wall",question:"Is Cx installing motorized curtains or blinds?",drawingRequirement:"Show motor location in elevation."
 },
    {
-id:"EL-OTH-006",trade:"Electrical",category:"Security systems",subcategory:"Router",level:"room",question:"Is a dedicated location planned for internet/router equipment?",drawingRequirement:"Show router location."
+id:"EL-SEC-006",trade:"Electrical",category:"Security systems",subcategory:"Router",level:"room",question:"Is a dedicated location planned for internet/router equipment?",drawingRequirement:"Show router location."
 },
 {
-id:"EL-OTH-001",trade:"Electrical",category:"Security systems",subcategory:"UPS",level:"room",question:"Is an inverter or UPS planned?",drawingRequirement:"Show UPS location."
+id:"EL-SEC-007",trade:"Electrical",category:"Security systems",subcategory:"UPS",level:"room",question:"Is an inverter or UPS planned?",drawingRequirement:"Show UPS location."
 },
 
 /* ===========================================================
