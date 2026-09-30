@@ -52,6 +52,15 @@ const PAINTING_BOQ_RULES = {
             "Supply and installation",
           "Punning as required"
         ]
+    },
+    
+    "PT-PNT-007": {
+        requirement: "Fresh Painting",
+        scope: "Painting|Painting",
+        boq: [
+            "Supply and installation",
+          "Punning for higher grade paint(Royal and above)"
+        ]
     }
 
 };
