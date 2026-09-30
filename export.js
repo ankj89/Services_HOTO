@@ -2,16 +2,17 @@
    SCOPE CAPTURE SYSTEM
    EXPORT.JS
    Excel + PDF Export
-============================================================ */
+   ============================================================ */
 
 
 /* ============================================================
    PROJECT INFORMATION
-============================================================ */
+   ============================================================ */
 
 function getProjectInformation() {
 
     return {
+
         projectId:
             project.projectId ||
             document.getElementById("projectId")?.value ||
@@ -51,13 +52,15 @@ function getProjectInformation() {
             project.remarks ||
             document.getElementById("remarks")?.value ||
             ""
+
     };
+
 }
 
 
 /* ============================================================
    GET RESPONSE
-============================================================ */
+   ============================================================ */
 
 function getQuestionResponse(question, room) {
 
@@ -105,7 +108,7 @@ function getQuestionResponse(question, room) {
 
 /* ============================================================
    FORMAT ROOM RESPONSE
-============================================================ */
+   ============================================================ */
 
 function formatScopeResponse(
     scope,
@@ -169,12 +172,13 @@ function formatScopeResponse(
 
 
     return result;
+
 }
 
 
 /* ============================================================
    BUILD HOTO EXPORT DATA
-============================================================ */
+   ============================================================ */
 
 function buildExportData() {
 
@@ -194,6 +198,7 @@ function buildExportData() {
 
         };
 
+
         selectedRooms.forEach(room => {
 
             const response =
@@ -211,16 +216,143 @@ function buildExportData() {
 
         });
 
+
         rows.push(row);
 
     });
 
+
     return rows;
+
 }
+
+
+/* ============================================================
+   BUILD ACTION SUMMARY
+   ============================================================
+
+   OUTPUT COLUMNS:
+
+   Room
+   Category
+   Requirement
+   BOQ Impact
+
+   RULES:
+
+   Yes / LS Scope
+       -> Run BOQ rule engine
+
+   Cx
+       -> Coordination with Cx
+
+   No
+       -> No row
+
+   One row per HOTO requirement.
+   ============================================================ */
+
+function buildActionSummary() {
+
+    const rows = [];
+
+
+    QUESTION_BANK.forEach(question => {
+
+        selectedRooms.forEach(room => {
+
+            const response =
+                getQuestionResponse(
+                    question,
+                    room
+                );
+
+
+            /* ------------------------------------------------
+               NO RESPONSE
+            ------------------------------------------------ */
+
+            if (!response.scope) {
+                return;
+            }
+
+
+            /* ------------------------------------------------
+               NO = NO ACTION SUMMARY ROW
+            ------------------------------------------------ */
+
+            if (response.scope === "No") {
+                return;
+            }
+
+
+            /* ------------------------------------------------
+               RUN COMMON BOQ RULE ENGINE
+            ------------------------------------------------ */
+
+            if (
+                typeof getActionSummaryRow !==
+                "function"
+            ) {
+
+                console.error(
+                    "getActionSummaryRow() is not available."
+                );
+
+                return;
+
+            }
+
+
+            const actionRow =
+                getActionSummaryRow(
+                    question,
+                    room,
+                    response.scope
+                );
+
+
+            if (!actionRow) {
+                return;
+            }
+
+
+            /* ------------------------------------------------
+               ACTION SUMMARY HAS EXACTLY 4 COLUMNS
+
+               Room
+               Category
+               Requirement
+               BOQ Impact
+
+               Trade is intentionally NOT exported.
+            ------------------------------------------------ */
+
+            rows.push([
+
+                actionRow.room || "",
+
+                actionRow.category || "",
+
+                actionRow.requirement || "",
+
+                actionRow.boqImpact || ""
+
+            ]);
+
+        });
+
+    });
+
+
+    return rows;
+
+}
+
 
 /* ============================================================
    EXCEL
-============================================================ */
+   ============================================================ */
 
 function exportExcel() {
 
@@ -241,9 +373,9 @@ function exportExcel() {
         XLSX.utils.book_new();
 
 
-    /* --------------------------------------------------------
+    /* ========================================================
        SHEET 1 — PROJECT INFORMATION
-    -------------------------------------------------------- */
+    ======================================================== */
 
     const info =
         getProjectInformation();
@@ -251,26 +383,50 @@ function exportExcel() {
 
     const projectData = [
 
-        ["Project Information", ""],
+        [
+            "Project Information",
+            ""
+        ],
 
-        ["Project ID", info.projectId],
+        [
+            "Project ID",
+            info.projectId
+        ],
 
-        ["Client Name", info.clientName],
+        [
+            "Client Name",
+            info.clientName
+        ],
 
-        ["City", info.city],
+        [
+            "City",
+            info.city
+        ],
 
-        ["BU", info.bu],
+        [
+            "BU",
+            info.bu
+        ],
 
-        ["Designer Mail ID", info.designerMailId],
+        [
+            "Designer Mail ID",
+            info.designerMailId
+        ],
 
-        ["RFV ID", info.rfvId],
+        [
+            "RFV ID",
+            info.rfvId
+        ],
 
         [
             "Drive Link (line diagrams, 3D, etc)",
             info.driveLink
         ],
 
-        ["Any Remarks", info.remarks]
+        [
+            "Any Remarks",
+            info.remarks
+        ]
 
     ];
 
@@ -283,21 +439,32 @@ function exportExcel() {
 
     projectSheet["!cols"] = [
 
-        { wch: 42 },
+        {
+            wch: 42
+        },
 
-        { wch: 80 }
+        {
+            wch: 80
+        }
 
     ];
 
 
-    projectSheet["A1"].s = {
+    if (projectSheet["A1"]) {
 
-        font: {
-            bold: true,
-            sz: 16
-        }
+        projectSheet["A1"].s = {
 
-    };
+            font: {
+
+                bold: true,
+
+                sz: 16
+
+            }
+
+        };
+
+    }
 
 
     for (
@@ -306,12 +473,20 @@ function exportExcel() {
         r++
     ) {
 
-        if (projectSheet[`A${r + 1}`]) {
+        if (
+            projectSheet[
+                `A${r + 1}`
+            ]
+        ) {
 
-            projectSheet[`A${r + 1}`].s = {
+            projectSheet[
+                `A${r + 1}`
+            ].s = {
 
                 font: {
+
                     bold: true
+
                 }
 
             };
@@ -332,9 +507,9 @@ function exportExcel() {
     );
 
 
-    /* --------------------------------------------------------
+    /* ========================================================
        SHEET 2 — HOTO
-    -------------------------------------------------------- */
+    ======================================================== */
 
     const exportRows =
         buildExportData();
@@ -367,8 +542,10 @@ function exportExcel() {
             row.question,
 
             ...selectedRooms.map(
+
                 room =>
                     row.rooms[room] || ""
+
             )
 
         ]);
@@ -405,46 +582,53 @@ function exportExcel() {
 
     /* WRAP TEXT */
 
-    const range =
-        XLSX.utils.decode_range(
-            hotoSheet["!ref"]
-        );
+    if (hotoSheet["!ref"]) {
 
+        const range =
+            XLSX.utils.decode_range(
+                hotoSheet["!ref"]
+            );
 
-    for (
-        let row = range.s.r;
-        row <= range.e.r;
-        row++
-    ) {
 
         for (
-            let col = range.s.c;
-            col <= range.e.c;
-            col++
+            let row = range.s.r;
+            row <= range.e.r;
+            row++
         ) {
 
-            const cell =
-                hotoSheet[
-                    XLSX.utils.encode_cell({
-                        r: row,
-                        c: col
-                    })
-                ];
+            for (
+                let col = range.s.c;
+                col <= range.e.c;
+                col++
+            ) {
+
+                const cell =
+                    hotoSheet[
+                        XLSX.utils.encode_cell({
+
+                            r: row,
+
+                            c: col
+
+                        })
+                    ];
 
 
-            if (cell) {
+                if (cell) {
 
-                cell.s = {
+                    cell.s = {
 
-                    alignment: {
+                        alignment: {
 
-                        vertical: "top",
+                            vertical: "top",
 
-                        wrapText: true
+                            wrapText: true
 
-                    }
+                        }
 
-                };
+                    };
+
+                }
 
             }
 
@@ -464,19 +648,152 @@ function exportExcel() {
     );
 
 
-    /* --------------------------------------------------------
+    /* ========================================================
+       SHEET 3 — ACTION SUMMARY
+    ======================================================== */
+
+    const actionSummaryRows =
+        buildActionSummary();
+
+
+    const actionSummaryData = [
+
+        [
+
+            "Room",
+
+            "Category",
+
+            "Requirement",
+
+            "BOQ Impact"
+
+        ],
+
+        ...actionSummaryRows
+
+    ];
+
+
+    const actionSummarySheet =
+        XLSX.utils.aoa_to_sheet(
+            actionSummaryData
+        );
+
+
+    /* COLUMN WIDTHS */
+
+    actionSummarySheet["!cols"] = [
+
+        {
+            wch: 24
+        },
+
+        {
+            wch: 30
+        },
+
+        {
+            wch: 60
+        },
+
+        {
+            wch: 80
+        }
+
+    ];
+
+
+    /* WRAP TEXT */
+
+    if (actionSummarySheet["!ref"]) {
+
+        const range =
+            XLSX.utils.decode_range(
+                actionSummarySheet["!ref"]
+            );
+
+
+        for (
+            let row = range.s.r;
+            row <= range.e.r;
+            row++
+        ) {
+
+            for (
+                let col = range.s.c;
+                col <= range.e.c;
+                col++
+            ) {
+
+                const cell =
+                    actionSummarySheet[
+                        XLSX.utils.encode_cell({
+
+                            r: row,
+
+                            c: col
+
+                        })
+                    ];
+
+
+                if (cell) {
+
+                    cell.s = {
+
+                        alignment: {
+
+                            vertical: "top",
+
+                            wrapText: true
+
+                        }
+
+                    };
+
+                }
+
+            }
+
+        }
+
+    }
+
+
+    XLSX.utils.book_append_sheet(
+
+        workbook,
+
+        actionSummarySheet,
+
+        "Action Summary"
+
+    );
+
+
+    /* ========================================================
        FILE NAME
-    -------------------------------------------------------- */
+    ======================================================== */
 
     const safeProjectId =
+
         (
+
             info.projectId ||
+
             "Scope_Capture"
+
         )
+
         .toString()
+
         .replace(
+
             /[^a-zA-Z0-9_-]/g,
+
             "_"
+
         );
 
 
@@ -493,7 +810,7 @@ function exportExcel() {
 
 /* ============================================================
    PDF
-============================================================ */
+   ============================================================ */
 
 function exportPDF() {
 
@@ -551,66 +868,106 @@ function exportPDF() {
 
     doc.setFontSize(22);
 
-    doc.setFont(undefined, "bold");
+    doc.setFont(
+        undefined,
+        "bold"
+    );
+
 
     doc.text(
+
         "Scope Capture System",
+
         14,
+
         18
+
     );
 
 
     doc.setFontSize(12);
 
-    doc.setFont(undefined, "normal");
+    doc.setFont(
+        undefined,
+        "normal"
+    );
+
 
     doc.text(
+
         "Project Information",
+
         14,
+
         27
+
     );
 
 
     const projectInfoTable = [
 
         [
+
             "Project ID",
+
             info.projectId
+
         ],
 
         [
+
             "Client Name",
+
             info.clientName
+
         ],
 
         [
+
             "City",
+
             info.city
+
         ],
 
         [
+
             "BU",
+
             info.bu
+
         ],
 
         [
+
             "Designer Mail ID",
+
             info.designerMailId
+
         ],
 
         [
+
             "RFV ID",
+
             info.rfvId
+
         ],
 
         [
+
             "Drive Link (line diagrams, 3D, etc)",
+
             info.driveLink
+
         ],
 
         [
+
             "Any Remarks",
+
             info.remarks
+
         ]
 
     ];
@@ -623,13 +980,17 @@ function exportPDF() {
         head: [
 
             [
+
                 "Field",
+
                 "Project Information"
+
             ]
 
         ],
 
         body:
+
             projectInfoTable,
 
         theme: "grid",
@@ -655,11 +1016,15 @@ function exportPDF() {
         columnStyles: {
 
             0: {
+
                 cellWidth: 70
+
             },
 
             1: {
+
                 cellWidth: 200
+
             }
 
         }
@@ -668,12 +1033,15 @@ function exportPDF() {
 
 
     /* ========================================================
-       HOTO PAGE
+       PAGE 2+ — HOTO
     ======================================================== */
 
     doc.addPage(
+
         "a4",
+
         "landscape"
+
     );
 
 
@@ -684,15 +1052,20 @@ function exportPDF() {
     const hotoHead = [
 
         [
+
             "Trade",
+
             "Question",
+
             ...selectedRooms
+
         ]
 
     ];
 
 
     const hotoBody =
+
         exportRows.map(row => [
 
             row.trade,
@@ -700,8 +1073,11 @@ function exportPDF() {
             row.question,
 
             ...selectedRooms.map(
+
                 room =>
+
                     row.rooms[room] || ""
+
             )
 
         ]);
@@ -709,20 +1085,39 @@ function exportPDF() {
 
     doc.setFontSize(16);
 
-    doc.setFont(undefined, "bold");
+    doc.setFont(
+
+        undefined,
+
+        "bold"
+
+    );
+
 
     doc.text(
+
         "HOTO Scope Matrix",
+
         10,
+
         12
+
     );
 
 
     doc.setFontSize(9);
 
-    doc.setFont(undefined, "normal");
+    doc.setFont(
+
+        undefined,
+
+        "normal"
+
+    );
+
 
     doc.text(
+
         `Project: ${
             info.projectId || ""
         }    |    Client: ${
@@ -730,8 +1125,11 @@ function exportPDF() {
         }    |    City: ${
             info.city || ""
         }`,
+
         10,
+
         19
+
     );
 
 
@@ -768,11 +1166,15 @@ function exportPDF() {
         columnStyles: {
 
             0: {
+
                 cellWidth: 28
+
             },
 
             1: {
+
                 cellWidth: 65
+
             }
 
         },
@@ -780,12 +1182,159 @@ function exportPDF() {
         didParseCell: function(data) {
 
             if (
+
                 data.section === "body" &&
+
                 data.column.index >= 2
+
             ) {
 
                 data.cell.styles.cellWidth =
                     28;
+
+            }
+
+        }
+
+    });
+
+
+    /* ========================================================
+       ACTION SUMMARY
+    ======================================================== */
+
+    const actionSummaryRows =
+        buildActionSummary();
+
+
+    doc.addPage(
+
+        "a4",
+
+        "landscape"
+
+    );
+
+
+    doc.setFontSize(16);
+
+    doc.setFont(
+
+        undefined,
+
+        "bold"
+
+    );
+
+
+    doc.text(
+
+        "Action Summary",
+
+        10,
+
+        12
+
+    );
+
+
+    doc.setFontSize(9);
+
+    doc.setFont(
+
+        undefined,
+
+        "normal"
+
+    );
+
+
+    doc.text(
+
+        `Project: ${
+            info.projectId || ""
+        }    |    Client: ${
+            info.clientName || ""
+        }    |    City: ${
+            info.city || ""
+        }`,
+
+        10,
+
+        19
+
+    );
+
+
+    doc.autoTable({
+
+        startY: 24,
+
+        head: [
+
+            [
+
+                "Room",
+
+                "Category",
+
+                "Requirement",
+
+                "BOQ Impact"
+
+            ]
+
+        ],
+
+        body:
+
+            actionSummaryRows,
+
+        theme: "grid",
+
+        repeatHeaders: true,
+
+        styles: {
+
+            fontSize: 8,
+
+            cellPadding: 3,
+
+            valign: "top",
+
+            overflow: "linebreak"
+
+        },
+
+        headStyles: {
+
+            fontStyle: "bold"
+
+        },
+
+        columnStyles: {
+
+            0: {
+
+                cellWidth: 35
+
+            },
+
+            1: {
+
+                cellWidth: 45
+
+            },
+
+            2: {
+
+                cellWidth: 75
+
+            },
+
+            3: {
+
+                cellWidth: 125
 
             }
 
@@ -812,7 +1361,11 @@ function exportPDF() {
 
         doc.setFontSize(8);
 
-        doc.setFont(undefined, "normal");
+        doc.setFont(
+            undefined,
+            "normal"
+        );
+
 
         doc.text(
 
@@ -823,7 +1376,9 @@ function exportPDF() {
             202,
 
             {
+
                 align: "right"
+
             }
 
         );
@@ -836,14 +1391,23 @@ function exportPDF() {
     ======================================================== */
 
     const safeProjectId =
+
         (
+
             info.projectId ||
+
             "Scope_Capture"
+
         )
+
         .toString()
+
         .replace(
+
             /[^a-zA-Z0-9_-]/g,
+
             "_"
+
         );
 
 
@@ -858,10 +1422,12 @@ function exportPDF() {
 
 /* ============================================================
    BUTTON EVENTS
-============================================================ */
+   ============================================================ */
 
 document.addEventListener(
+
     "DOMContentLoaded",
+
     function() {
 
         const excelBtn =
@@ -879,8 +1445,11 @@ document.addEventListener(
         if (excelBtn) {
 
             excelBtn.addEventListener(
+
                 "click",
+
                 exportExcel
+
             );
 
         }
@@ -889,11 +1458,15 @@ document.addEventListener(
         if (pdfBtn) {
 
             pdfBtn.addEventListener(
+
                 "click",
+
                 exportPDF
+
             );
 
         }
 
     }
+
 );
