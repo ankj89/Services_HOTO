@@ -237,38 +237,58 @@ document
    PROJECT DETAILS
 =========================================================== */
 
-function saveProject(){
+function saveProject() {
 
-    project.projectName=document.getElementById("projectName").value;
+    project.projectId =
+        document.getElementById("projectId").value;
 
-    project.clientName=document.getElementById("clientName").value;
+    project.clientName =
+        document.getElementById("clientName").value;
 
-    project.projectType=document.getElementById("projectType").value;
+    project.city =
+        document.getElementById("city").value;
 
-    project.configuration=document.getElementById("configuration").value;
+    project.bu =
+        document.getElementById("bu").value;
 
-    project.designer=document.getElementById("designer").value;
+    project.designerMailId =
+        document.getElementById("designerMailId").value;
 
-    project.qs=document.getElementById("qs").value;
+    project.rfvId =
+        document.getElementById("rfvId").value;
 
-    project.address=document.getElementById("address").value;
+    project.driveLink =
+        document.getElementById("driveLink").value;
 
-    project.remarks=document.getElementById("projectRemarks").value;
+    project.remarks =
+        document.getElementById("remarks").value;
 
 
-    document.getElementById("projectSummary").innerHTML=`
+    const summary =
+        document.getElementById(
+            "projectSummary"
+        );
 
-        <strong>${project.projectName || "New Project"}</strong>
+    if (summary) {
 
-        <br>
+        summary.innerHTML = `
 
-        ${project.clientName || ""}
+            <strong>
+                ${project.projectId || "New Project"}
+            </strong>
 
-    `;
+            <br>
+
+            ${project.clientName || ""}
+
+        `;
+
+    }
+
 
     showTab("roomsTab");
 
-   saveApplication();
+    saveApplication();
 
 }
 
@@ -1180,31 +1200,77 @@ function loadApplication(){
    POPULATE PROJECT DETAILS
 =========================================================== */
 
-function populateProjectScreen(){
+function populateProjectScreen() {
 
-    document.getElementById("projectName").value=project.projectName || "";
+    document.getElementById(
+        "projectId"
+    ).value =
+        project.projectId || "";
 
-    document.getElementById("clientName").value=project.clientName || "";
 
-    document.getElementById("projectType").value=project.projectType || "Apartment";
+    document.getElementById(
+        "clientName"
+    ).value =
+        project.clientName || "";
 
-    document.getElementById("configuration").value=project.configuration || "3 BHK";
 
-    document.getElementById("designer").value=project.designer || "";
+    document.getElementById(
+        "city"
+    ).value =
+        project.city || "";
 
-    document.getElementById("qs").value=project.qs || "";
 
-    document.getElementById("address").value=project.address || "";
+    document.getElementById(
+        "bu"
+    ).value =
+        project.bu || "";
 
-    document.getElementById("projectRemarks").value=project.remarks || "";
 
-    document.getElementById("projectSummary").innerHTML=
+    document.getElementById(
+        "designerMailId"
+    ).value =
+        project.designerMailId || "";
 
-        `<strong>${project.projectName || "New Project"}</strong>
 
-        <br>
+    document.getElementById(
+        "rfvId"
+    ).value =
+        project.rfvId || "";
 
-        ${project.clientName || ""}`;
+
+    document.getElementById(
+        "driveLink"
+    ).value =
+        project.driveLink || "";
+
+
+    document.getElementById(
+        "remarks"
+    ).value =
+        project.remarks || "";
+
+
+    const summary =
+        document.getElementById(
+            "projectSummary"
+        );
+
+
+    if (summary) {
+
+        summary.innerHTML = `
+
+            <strong>
+                ${project.projectId || "New Project"}
+            </strong>
+
+            <br>
+
+            ${project.clientName || ""}
+
+        `;
+
+    }
 
 }
 
