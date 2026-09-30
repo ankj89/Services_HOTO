@@ -265,22 +265,16 @@ function saveProject() {
 
 
     const summary =
-        document.getElementById(
-            "projectSummary"
-        );
+        document.getElementById("projectSummary");
 
     if (summary) {
 
         summary.innerHTML = `
-
             <strong>
                 ${project.projectId || "New Project"}
             </strong>
-
             <br>
-
             ${project.clientName || ""}
-
         `;
 
     }
