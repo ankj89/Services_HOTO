@@ -8,7 +8,11 @@ const FALSE_CEILING_BOQ_RULES = {
         requirement: "New POP False Ceiling",
         scope: "False Ceiling|False Ceiling",
         boq: [
-            "Supply and installation complete"
+            "Supply and installation complete",
+            "Cove as required",
+            "Fresh painting",
+            "Punning on true ceiling (for Non flat ceilings)"
+            
         ]
     },
 
@@ -16,7 +20,10 @@ const FALSE_CEILING_BOQ_RULES = {
         requirement: "New Gypsum False Ceiling",
         scope: "False Ceiling|False Ceiling",
         boq: [
-            "Supply and installation complete"
+            "Supply and installation complete",
+            "Cove as required",
+            "Fresh painting",
+            "Punning on true ceiling (for Non flat ceilings)"
         ]
     },
 
@@ -37,10 +44,11 @@ const FALSE_CEILING_BOQ_RULES = {
     },
 
     "FC-FC-005": {
-        requirement: "Sprinkler Pipes Covered within False Ceiling",
+        requirement: "Sprinkler Pipes Covered within False Ceiling/wall boxing",
         scope: "False Ceiling|False Ceiling",
         boq: [
-            "Supply and installation complete"
+            "Supply and installation complete",
+            "Fresh painting"
         ]
     },
 
