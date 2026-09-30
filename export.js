@@ -863,8 +863,113 @@ function exportPDF() {
 
 
     /* ========================================================
-       PAGE 1 — PROJECT INFORMATION
+       COVER PAGE
     ======================================================== */
+
+    doc.setFont(
+        undefined,
+        "bold"
+    );
+
+    doc.setFontSize(28);
+
+    doc.text(
+        "Services HOTO Document",
+        148.5,
+        70,
+        {
+            align: "center"
+        }
+    );
+
+
+    /* PID + CLIENT NAME */
+
+    doc.setFontSize(18);
+
+    doc.setFont(
+        undefined,
+        "normal"
+    );
+
+    const pid =
+        info.projectId ||
+        "PID";
+
+    const clientName =
+        info.clientName ||
+        "Cx Name";
+
+
+    doc.text(
+        `${pid} — ${clientName}`,
+        148.5,
+        85,
+        {
+            align: "center"
+        }
+    );
+
+
+    /* --------------------------------------------------------
+       CONTENTS
+    -------------------------------------------------------- */
+
+    doc.setFont(
+        undefined,
+        "bold"
+    );
+
+    doc.setFontSize(18);
+
+    doc.text(
+        "Contents",
+        148.5,
+        115,
+        {
+            align: "center"
+        }
+    );
+
+
+    doc.setFont(
+        undefined,
+        "normal"
+    );
+
+    doc.setFontSize(13);
+
+
+    const contentsX = 95;
+
+    doc.text(
+        "1.  Project Information",
+        contentsX,
+        130
+    );
+
+    doc.text(
+        "2.  HOTO Scope Matrix",
+        contentsX,
+        142
+    );
+
+    doc.text(
+        "3.  Action Summary",
+        contentsX,
+        154
+    );
+
+
+    /* ========================================================
+       PAGE 2 — PROJECT INFORMATION
+    ======================================================== */
+
+    doc.addPage(
+        "a4",
+        "landscape"
+    );
+
 
     doc.setFontSize(22);
 
@@ -875,99 +980,52 @@ function exportPDF() {
 
 
     doc.text(
-
-        "Scope Capture System",
-
-        14,
-
-        18
-
-    );
-
-
-    doc.setFontSize(12);
-
-    doc.setFont(
-        undefined,
-        "normal"
-    );
-
-
-    doc.text(
-
         "Project Information",
-
         14,
-
-        27
-
+        18
     );
 
 
     const projectInfoTable = [
 
         [
-
             "Project ID",
-
             info.projectId
-
         ],
 
         [
-
             "Client Name",
-
             info.clientName
-
         ],
 
         [
-
             "City",
-
             info.city
-
         ],
 
         [
-
             "BU",
-
             info.bu
-
         ],
 
         [
-
             "Designer Mail ID",
-
             info.designerMailId
-
         ],
 
         [
-
             "RFV ID",
-
             info.rfvId
-
         ],
 
         [
-
             "Drive Link (line diagrams, 3D, etc)",
-
             info.driveLink
-
         ],
 
         [
-
             "Any Remarks",
-
             info.remarks
-
         ]
 
     ];
@@ -975,22 +1033,18 @@ function exportPDF() {
 
     doc.autoTable({
 
-        startY: 35,
+        startY: 28,
 
         head: [
 
             [
-
                 "Field",
-
                 "Project Information"
-
             ]
 
         ],
 
         body:
-
             projectInfoTable,
 
         theme: "grid",
@@ -1033,15 +1087,13 @@ function exportPDF() {
 
 
     /* ========================================================
-       PAGE 2+ — HOTO
+       HOTO SCOPE MATRIX
+       PAGE 3+
     ======================================================== */
 
     doc.addPage(
-
         "a4",
-
         "landscape"
-
     );
 
 
@@ -1075,7 +1127,6 @@ function exportPDF() {
             ...selectedRooms.map(
 
                 room =>
-
                     row.rooms[room] || ""
 
             )
@@ -1086,33 +1137,23 @@ function exportPDF() {
     doc.setFontSize(16);
 
     doc.setFont(
-
         undefined,
-
         "bold"
-
     );
 
 
     doc.text(
-
         "HOTO Scope Matrix",
-
         10,
-
         12
-
     );
 
 
     doc.setFontSize(9);
 
     doc.setFont(
-
         undefined,
-
         "normal"
-
     );
 
 
@@ -1127,7 +1168,6 @@ function exportPDF() {
         }`,
 
         10,
-
         19
 
     );
@@ -1208,44 +1248,31 @@ function exportPDF() {
 
 
     doc.addPage(
-
         "a4",
-
         "landscape"
-
     );
 
 
     doc.setFontSize(16);
 
     doc.setFont(
-
         undefined,
-
         "bold"
-
     );
 
 
     doc.text(
-
         "Action Summary",
-
         10,
-
         12
-
     );
 
 
     doc.setFontSize(9);
 
     doc.setFont(
-
         undefined,
-
         "normal"
-
     );
 
 
@@ -1260,7 +1287,6 @@ function exportPDF() {
         }`,
 
         10,
-
         19
 
     );
@@ -1287,7 +1313,6 @@ function exportPDF() {
         ],
 
         body:
-
             actionSummaryRows,
 
         theme: "grid",
@@ -1345,6 +1370,7 @@ function exportPDF() {
 
     /* ========================================================
        PAGE NUMBERS
+       COVER PAGE INCLUDED
     ======================================================== */
 
     const pageCount =
