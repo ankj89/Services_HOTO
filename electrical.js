@@ -45,7 +45,7 @@ level:"room",
 question:"Is profile lighting planned in the false ceiling?",
       subtext: [
         "Only electrical provisioning and installation",
-        "Supply of light in Cx scope"
+        "Supply of lights,track,channels in Cx scope"
     ],
 drawingRequirement:"Show profile lighting layout in reflected ceiling plan."
 },
@@ -59,7 +59,7 @@ level:"room",
 question:"Are track lights planned in the false ceiling?",
       subtext: [
         "Only electrical provisioning and installation",
-        "Supply of light in Cx scope"
+        "Supply of lights,track,channels in Cx scope"
     ],
 drawingRequirement:"Show track light layout in reflected ceiling plan."
 },
@@ -80,7 +80,7 @@ trade:"Electrical",
 category:"Lighting",
 subcategory:"Surface Lights",
 level:"room",
-question:"Are surface-mounted lights planned?",
+question:"Are surface-mounted lights planned in ceiling?",
 drawingRequirement:"Show fixture location in reflected ceiling plan."
 },
 
@@ -90,7 +90,7 @@ trade:"Electrical",
 category:"Lighting",
 subcategory:"Wall Lights",
 level:"wall",
-question:"Are wall lights planned?",
+question:"Are wall lights planned (normal, decorative and/or profile)?",
 drawingRequirement:"Show wall light location in elevation."
 },
 
