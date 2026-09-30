@@ -8,7 +8,8 @@ const CARPENTRY_BOQ_RULES = {
         requirement: "Door Refurbishment",
         scope: "Carpentry|On site works",
         boq: [
-            "Supply and installation complete"
+            "Supply and installation complete",
+            "Door frame refurbishment"
         ]
     },
 
@@ -16,7 +17,9 @@ const CARPENTRY_BOQ_RULES = {
         requirement: "New Doors",
         scope: "Carpentry|On site works",
         boq: [
-            "Supply and installation complete"
+            "Supply and installation complete",
+            "Door frame new",
+            "Door frame refurbishment"
         ]
     },
 
@@ -24,7 +27,8 @@ const CARPENTRY_BOQ_RULES = {
         requirement: "Safety Door",
         scope: "Carpentry|On site works",
         boq: [
-            "Supply and installation complete"
+            "Supply and installation complete",
+            "Door frame refurbishment/Panelling"
         ]
     },
 
@@ -32,7 +36,8 @@ const CARPENTRY_BOQ_RULES = {
         requirement: "Camouflage / Concealed Door",
         scope: "Carpentry|On site works",
         boq: [
-            "Supply and installation complete"
+            "Supply and installation complete",
+            "Door frame refurbishment/Panelling"
         ]
     },
 
@@ -40,7 +45,7 @@ const CARPENTRY_BOQ_RULES = {
         requirement: "Wooden Trims - Installation Only",
         scope: "Carpentry|On site works",
         boq: [
-            "Installation",
+            "Only Installation",
             "Surface preparation / levelling of wall"
         ]
     },
@@ -49,7 +54,7 @@ const CARPENTRY_BOQ_RULES = {
         requirement: "PVC Trims - Installation Only",
         scope: "Carpentry|On site works",
         boq: [
-            "Installation",
+            "Only Installation",
             "Surface preparation / levelling of wall"
         ]
     },
@@ -115,7 +120,7 @@ const CARPENTRY_BOQ_RULES = {
         requirement: "AGT / 3D / Fluted Panelling",
         scope: "Carpentry|On site works",
         boq: [
-            "Base preparation"
+            "Base preparation and installtion"
         ]
     },
 
