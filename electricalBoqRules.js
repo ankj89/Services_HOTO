@@ -318,7 +318,7 @@ const ELECTRICAL_BOQ_RULES = {
         boq: [
             "New Board/Module 15A",
             "Plumbing point provision",
-            "Drain point provision
+            "Drain point provision"
         ]
     },
 
