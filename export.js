@@ -97,22 +97,35 @@ function buildExportData() {
 
 function getQuestionResponse(question, room) {
 
-    /*
-       CONNECT THIS TO YOUR EXISTING RESPONSE STORE.
+    const questionResponses =
+        responses[question.id];
 
-       Return:
+    if (!questionResponses) {
 
-       {
-           scope: "Yes",
-           elevation: "E3"
-       }
-    */
+        return {
+            scope: "",
+            elevation: ""
+        };
+
+    }
+
+    const roomResponse =
+        questionResponses[room];
+
+    if (!roomResponse) {
+
+        return {
+            scope: "",
+            elevation: ""
+        };
+
+    }
 
     return {
 
-        scope: "",
+        scope: roomResponse.scope || "",
 
-        elevation: ""
+        elevation: roomResponse.elevation || ""
 
     };
 
