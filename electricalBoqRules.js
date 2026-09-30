@@ -337,7 +337,7 @@ const ELECTRICAL_BOQ_RULES = {
         scope: "Electrical|Appliance/Fixtures",
         boq: [
             "New Board/Module 5A",
-            "Plumbing point provision,"
+            "Plumbing point provision",
             "Drain point provision"
         ]
     },
