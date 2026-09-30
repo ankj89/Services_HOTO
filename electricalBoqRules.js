@@ -69,7 +69,9 @@ const ELECTRICAL_BOQ_RULES = {
         boq: [
             "Primary point",
             "Secondary point",
-            "Installation of lights"
+            "Installation of lights",
+            "Punning with Bond-it",
+            "Rcc chisseling (with permission)"
         ]
     },
 
@@ -77,9 +79,10 @@ const ELECTRICAL_BOQ_RULES = {
         requirement: "Wall Lights",
         scope: "Electrical|Lighting",
         boq: [
-            "Primary point",
-            "Secondary point",
-            "Installation of lights"
+            "Primary point on wall",
+            "Secondary poin on wall",
+            "Installation of lights",
+            "Operating switch/module"
         ]
     },
 
@@ -90,7 +93,7 @@ const ELECTRICAL_BOQ_RULES = {
             "Primary point",
             "Secondary point",
             "Installation of lights",
-            "General point of wall panelling if RCC walls"
+            "Operating switch/module"
         ]
     },
 
@@ -101,7 +104,7 @@ const ELECTRICAL_BOQ_RULES = {
             "Primary point",
             "Secondary point",
             "Installation of lights",
-            "General point of wall panelling if RCC walls"
+            "Operating switch/module"    
         ]
     },
 
@@ -111,7 +114,8 @@ const ELECTRICAL_BOQ_RULES = {
         boq: [
             "Primary point",
             "Secondary point",
-            "Installation of lights"
+            "Installation of lights",
+            "Operating switch/module"
         ]
     },
 
@@ -121,7 +125,8 @@ const ELECTRICAL_BOQ_RULES = {
         boq: [
             "Primary point",
             "Secondary point",
-            "Installation of lights"
+            "Installation of lights",
+            "Operating switch/module"
         ]
     },
 
@@ -131,7 +136,8 @@ const ELECTRICAL_BOQ_RULES = {
         boq: [
             "Primary point",
             "Secondary point",
-            "Installation of lights"
+            "Installation of lights",
+            "Operating switch/module"
         ]
     },
 
@@ -141,17 +147,19 @@ const ELECTRICAL_BOQ_RULES = {
         boq: [
             "Primary point",
             "Secondary point",
-            "Installation of lights"
+            "Installation of lights",
+            "Operating switch/module"
         ]
     },
 
     "EL-LGT-014": {
-        requirement: "Lighting within TV Unit",
+        requirement: "Lighting within TV Unit/panelling",
         scope: "Electrical|Lighting",
         boq: [
             "Primary point",
             "Secondary point",
-            "Installation of lights"
+            "Installation of lights",
+            "Operating switch/module"
         ]
     },
 
@@ -161,7 +169,8 @@ const ELECTRICAL_BOQ_RULES = {
         boq: [
             "Primary point",
             "Secondary point",
-            "Installation of lights"
+            "Installation of lights",
+            "Operating switch/module"
         ]
     },
 
@@ -171,7 +180,8 @@ const ELECTRICAL_BOQ_RULES = {
         boq: [
             "Primary point",
             "Secondary point",
-            "Installation of lights"
+            "Installation of lights",
+            "Operating switch/module"
         ]
     },
 
@@ -181,7 +191,8 @@ const ELECTRICAL_BOQ_RULES = {
         boq: [
             "Primary point",
             "Secondary point",
-            "Installation of lights"
+            "Installation of lights",
+            "Operating switch/module"
         ]
     },
 
@@ -196,7 +207,7 @@ const ELECTRICAL_BOQ_RULES = {
         scope: "Electrical|Power/Module",
         boq: [
             "New Board/Module 5A",
-            "Additional wiring or circuit wiring"
+            "Additional wiring or circuit wiring(if required)"
         ]
     },
 
@@ -205,7 +216,7 @@ const ELECTRICAL_BOQ_RULES = {
         scope: "Electrical|Power/Module",
         boq: [
             "New Board/Module 15A",
-            "Additional wiring or circuit wiring"
+            "Additional wiring or circuit wiring(if required)"
         ]
     },
 
@@ -223,7 +234,7 @@ const ELECTRICAL_BOQ_RULES = {
         scope: "Electrical|Power/Module",
         boq: [
             "New Board/Module",
-            "Additional wiring or circuit wiring"
+            "Additional wiring or circuit wiring(if required)"
         ]
     },
 
@@ -231,8 +242,8 @@ const ELECTRICAL_BOQ_RULES = {
         requirement: "Bedside Charging / Switch Points",
         scope: "Electrical|Power/Module",
         boq: [
-            "New Board/Module 5A",
-            "Additional wiring or circuit wiring"
+            "New Board/Module 5A"
+            
         ]
     },
 
@@ -240,8 +251,7 @@ const ELECTRICAL_BOQ_RULES = {
         requirement: "Balcony Decorative / Festival Power Points",
         scope: "Electrical|Power/Module",
         boq: [
-            "New Board/Module 5A",
-            "Additional wiring or circuit wiring"
+            "New Board/Module 5A"
         ]
     },
 
@@ -249,8 +259,7 @@ const ELECTRICAL_BOQ_RULES = {
         requirement: "Relocation of Existing Electrical Modules",
         scope: "Electrical|Power/Module",
         boq: [
-            "Board Relocation 5A or 15A",
-            "Additional wiring or circuit wiring"
+            "Board Relocation 5A or 15A"
         ]
     },
 
@@ -258,10 +267,10 @@ const ELECTRICAL_BOQ_RULES = {
         requirement: "TV Unit Power Points",
         scope: "Electrical|Power/Module",
         boq: [
-            "New Board/Module 5A",
-            "New Board/Module 15A",
-            "Additional wiring or circuit wiring",
-            "General point of wall panelling if RCC walls"
+            "New Board/Module 5A/15A",
+            "HDMI + conduit laying"
+            
+          
         ]
     },
 
@@ -270,7 +279,7 @@ const ELECTRICAL_BOQ_RULES = {
         scope: "Electrical|Power/Module",
         boq: [
             "New Board/Module 5A",
-            "Additional wiring or circuit wiring"
+            "Additional wiring or circuit wiring (if required)"
         ]
     },
 
@@ -278,8 +287,7 @@ const ELECTRICAL_BOQ_RULES = {
         requirement: "Mandir Power Points",
         scope: "Electrical|Power/Module",
         boq: [
-            "New Board/Module 5A",
-            "Additional wiring or circuit wiring"
+            "New Board/Module 5A"
         ]
     },
 
@@ -287,8 +295,7 @@ const ELECTRICAL_BOQ_RULES = {
         requirement: "Power / Charging Points within Furniture",
         scope: "Electrical|Power/Module",
         boq: [
-            "New Board/Module 5A",
-            "Additional wiring or circuit wiring"
+            "New Board/Module 5A"
         ]
     },
 
@@ -296,8 +303,7 @@ const ELECTRICAL_BOQ_RULES = {
         requirement: "Electronic Furniture Items such as Recliners",
         scope: "Electrical|Power/Module",
         boq: [
-            "New Board/Module 5A",
-            "Additional wiring or circuit wiring"
+            "New Board/Module 5A"
         ]
     },
 
@@ -310,8 +316,9 @@ const ELECTRICAL_BOQ_RULES = {
         requirement: "New Dishwasher",
         scope: "Electrical|Appliance/Fixtures",
         boq: [
-            "New Board/Module",
-            "Plumbing point wherever necessary"
+            "New Board/Module 15A",
+            "Plumbing point provision",
+            "Drain point provision
         ]
     },
 
@@ -320,7 +327,8 @@ const ELECTRICAL_BOQ_RULES = {
         scope: "Electrical|Appliance/Fixtures",
         boq: [
             "Board relocation",
-            "Plumbing point wherever necessary"
+            "Plumbing point relocation",
+            "Drain point relocation"
         ]
     },
 
@@ -328,8 +336,9 @@ const ELECTRICAL_BOQ_RULES = {
         requirement: "New Washing Machine",
         scope: "Electrical|Appliance/Fixtures",
         boq: [
-            "New Board/Module",
-            "Plumbing point wherever necessary"
+            "New Board/Module 5A",
+            "Plumbing point provision,"
+            "Drain point provision"
         ]
     },
 
@@ -338,7 +347,8 @@ const ELECTRICAL_BOQ_RULES = {
         scope: "Electrical|Appliance/Fixtures",
         boq: [
             "Board relocation",
-            "Plumbing point wherever necessary"
+            "Plumbing point relocation or new",
+            "Drain point relocation or new"
         ]
     },
 
@@ -346,8 +356,8 @@ const ELECTRICAL_BOQ_RULES = {
         requirement: "New Water Purifier / RO",
         scope: "Electrical|Appliance/Fixtures",
         boq: [
-            "New Board/Module",
-            "Plumbing point wherever necessary"
+          "New Board/Module 5A",
+            "Plumbing point provision"
         ]
     },
 
@@ -356,7 +366,7 @@ const ELECTRICAL_BOQ_RULES = {
         scope: "Electrical|Appliance/Fixtures",
         boq: [
             "Board relocation",
-            "Plumbing point wherever necessary"
+            "Plumbing point relocation or new"
         ]
     },
 
@@ -364,8 +374,8 @@ const ELECTRICAL_BOQ_RULES = {
         requirement: "New Geysers",
         scope: "Electrical|Appliance/Fixtures",
         boq: [
-            "New Board/Module",
-            "Plumbing point wherever necessary"
+            "New Board/Module 15A",
+            "Plumbing point provision for hot and cold"
         ]
     },
 
@@ -374,7 +384,7 @@ const ELECTRICAL_BOQ_RULES = {
         scope: "Electrical|Appliance/Fixtures",
         boq: [
             "Board relocation",
-            "Plumbing point wherever necessary"
+            "Plumbing point relocation or new"
         ]
     },
 
@@ -382,7 +392,7 @@ const ELECTRICAL_BOQ_RULES = {
         requirement: "Clothes Dryer",
         scope: "Electrical|Appliance/Fixtures",
         boq: [
-            "New Board/Module",
+            "New Board/Module 15A",
             "Plumbing point wherever necessary"
         ]
     },
@@ -391,7 +401,7 @@ const ELECTRICAL_BOQ_RULES = {
         requirement: "Refrigerator",
         scope: "Electrical|Appliance/Fixtures",
         boq: [
-            "New Board/Module"
+            "New Board/Module 5/15A"
         ]
     },
 
@@ -399,7 +409,7 @@ const ELECTRICAL_BOQ_RULES = {
         requirement: "Microwave / Oven / OTG",
         scope: "Electrical|Appliance/Fixtures",
         boq: [
-            "New Board/Module"
+            "New Board/Module 15A"
         ]
     },
 
@@ -407,7 +417,7 @@ const ELECTRICAL_BOQ_RULES = {
         requirement: "Chimney",
         scope: "Electrical|Appliance/Fixtures",
         boq: [
-            "New Board/Module"
+            "New Board/Module 5A"
         ]
     },
 
@@ -415,7 +425,8 @@ const ELECTRICAL_BOQ_RULES = {
         requirement: "Exhaust Fans",
         scope: "Electrical|Appliance/Fixtures",
         boq: [
-            "New Board/Module"
+            "New Board/Module 5A",
+            "Installation"
         ]
     },
 
@@ -423,8 +434,8 @@ const ELECTRICAL_BOQ_RULES = {
         requirement: "Ceiling Fan Installations",
         scope: "Electrical|Appliance/Fixtures",
         boq: [
-            "New Board/Module",
-            "Ply packing or support"
+            "New point or relocation",
+            "Installation"
         ]
     },
 
@@ -436,8 +447,10 @@ const ELECTRICAL_BOQ_RULES = {
         requirement: "Split AC",
         scope: "Electrical|AC",
         boq: [
-            "Point creation",
-            "Additional wiring from DB"
+            "New Board creation/relocation(as required)",
+            "Additional 4 sqmm wiring from DB",
+            "Pelmet(as required)",
+            "Core cutting(as required)
         ]
     },
 
@@ -445,9 +458,10 @@ const ELECTRICAL_BOQ_RULES = {
         requirement: "Cassette AC",
         scope: "Electrical|AC",
         boq: [
-            "Point creation",
-            "Additional wiring from DB",
-            "Coordination with false ceiling"
+            "New board 15A or 32A",
+            "Additional 4 sqmm wiring from DB",
+            "Coordination with false ceiling for level",
+            "Core cutting(as required)
         ]
     },
 
@@ -455,9 +469,10 @@ const ELECTRICAL_BOQ_RULES = {
         requirement: "Centralized / Ducted AC",
         scope: "Electrical|AC",
         boq: [
-            "Point creation",
-            "Additional wiring from DB",
-            "Coordination with false ceiling"
+            "New board 15A or 32A",
+            "Additional 4sqmm wiring from DB",
+            "Coordination with false ceiling for level",
+            "Core cutting(as required)
         ]
     },
 
@@ -487,8 +502,8 @@ const ELECTRICAL_BOQ_RULES = {
         requirement: "CCTV",
         scope: "Electrical|Security systems",
         boq: [
-            "Only electrical provision",
-            "Power points"
+            "New Board 5A",
+            "Only conduit laying (for CAT6)"
         ]
     },
 
@@ -496,8 +511,8 @@ const ELECTRICAL_BOQ_RULES = {
         requirement: "Video Doorbell",
         scope: "Electrical|Security systems",
         boq: [
-            "Only electrical provision",
-            "Power points"
+            "Primary point on wall",
+            "New Board 5A(if required)"
         ]
     },
 
@@ -505,8 +520,9 @@ const ELECTRICAL_BOQ_RULES = {
         requirement: "Digital Door Lock",
         scope: "Electrical|Security systems",
         boq: [
-            "Only electrical provision",
-            "Power points"
+             "Primary point on wall",
+            "New Board 5A"
+            
         ]
     },
 
@@ -514,8 +530,8 @@ const ELECTRICAL_BOQ_RULES = {
         requirement: "Home Automation",
         scope: "Electrical|Security systems",
         boq: [
-            "Only electrical provision",
-            "Power points"
+             "Primary point on wall",
+            "New Board 5A or 15A"
         ]
     },
 
@@ -523,8 +539,8 @@ const ELECTRICAL_BOQ_RULES = {
         requirement: "Motorized Curtains / Blinds",
         scope: "Electrical|Security systems",
         boq: [
-            "Only electrical provision",
-            "Power points"
+            "Primary point on wall",
+            "New Board 5A"
         ]
     },
 
