@@ -107,6 +107,21 @@ function getQuestionResponse(question, room) {
 
 
 /* ============================================================
+   DRAWING STATUS
+   ============================================================ */
+
+function isDrawingMissing(drawing) {
+
+    return (
+        !drawing ||
+        drawing.toString().trim() === "" ||
+        drawing === "No"
+    );
+
+}
+
+
+/* ============================================================
    FORMAT ROOM RESPONSE
    ============================================================ */
 
@@ -119,7 +134,9 @@ function formatScopeResponse(
     let result = "";
 
 
-    /* SCOPE */
+    /* --------------------------------------------------------
+       SCOPE
+    -------------------------------------------------------- */
 
     if (scope === "Yes") {
 
@@ -138,7 +155,9 @@ function formatScopeResponse(
     }
 
 
-    /* DRAWING */
+    /* --------------------------------------------------------
+       DRAWING
+    -------------------------------------------------------- */
 
     if (drawing === "Yes") {
 
@@ -147,7 +166,7 @@ function formatScopeResponse(
             "Dwg - Yes";
 
     }
-    else if (drawing === "No") {
+    else {
 
         result +=
             (result ? "\n" : "") +
@@ -156,7 +175,9 @@ function formatScopeResponse(
     }
 
 
-    /* ELEVATION */
+    /* --------------------------------------------------------
+       ELEVATION
+    -------------------------------------------------------- */
 
     if (
         elevation &&
@@ -194,7 +215,9 @@ function buildExportData() {
             question:
                 question.question || "",
 
-            rooms: {}
+            rooms: {},
+
+            drawingMissing: {}
 
         };
 
@@ -207,11 +230,18 @@ function buildExportData() {
                     room
                 );
 
+
             row.rooms[room] =
                 formatScopeResponse(
                     response.scope,
                     response.drawing,
                     response.elevation
+                );
+
+
+            row.drawingMissing[room] =
+                isDrawingMissing(
+                    response.drawing
                 );
 
         });
@@ -231,17 +261,17 @@ function buildExportData() {
    BUILD ACTION SUMMARY
    ============================================================
 
-   OUTPUT COLUMNS:
+   EXACT OUTPUT COLUMNS:
 
    Room
    Category
    Requirement
    BOQ Impact
 
-   RULES:
+   Rules:
 
-   Yes / LS Scope
-       -> Run BOQ rule engine
+   Yes
+       -> BOQ rule engine
 
    Cx
        -> Coordination with Cx
@@ -249,7 +279,9 @@ function buildExportData() {
    No
        -> No row
 
-   One row per HOTO requirement.
+   Drawing missing
+       -> Highlight row
+       -> BOQ logic remains unchanged
    ============================================================ */
 
 function buildActionSummary() {
@@ -278,7 +310,7 @@ function buildActionSummary() {
 
 
             /* ------------------------------------------------
-               NO = NO ACTION SUMMARY ROW
+               NO SCOPE = NO ACTION SUMMARY ROW
             ------------------------------------------------ */
 
             if (response.scope === "No") {
@@ -287,7 +319,7 @@ function buildActionSummary() {
 
 
             /* ------------------------------------------------
-               RUN COMMON BOQ RULE ENGINE
+               BOQ RULE ENGINE
             ------------------------------------------------ */
 
             if (
@@ -317,28 +349,30 @@ function buildActionSummary() {
             }
 
 
-            /* ------------------------------------------------
-               ACTION SUMMARY HAS EXACTLY 4 COLUMNS
+            const drawingMissing =
+                isDrawingMissing(
+                    response.drawing
+                );
 
-               Room
-               Category
-               Requirement
-               BOQ Impact
 
-               Trade is intentionally NOT exported.
-            ------------------------------------------------ */
+            rows.push({
 
-            rows.push([
+                room:
+                    actionRow.room || "",
 
-                actionRow.room || "",
+                category:
+                    actionRow.category || "",
 
-                actionRow.category || "",
+                requirement:
+                    actionRow.requirement || "",
 
-                actionRow.requirement || "",
+                boqImpact:
+                    actionRow.boqImpact || "",
 
-                actionRow.boqImpact || ""
+                drawingMissing:
+                    drawingMissing
 
-            ]);
+            });
 
         });
 
@@ -373,13 +407,13 @@ function exportExcel() {
         XLSX.utils.book_new();
 
 
-    /* ========================================================
-       SHEET 1 — PROJECT INFORMATION
-    ======================================================== */
-
     const info =
         getProjectInformation();
 
+
+    /* ========================================================
+       SHEET 1 — PROJECT INFORMATION
+    ======================================================== */
 
     const projectData = [
 
@@ -449,6 +483,8 @@ function exportExcel() {
 
     ];
 
+
+    /* Header formatting */
 
     if (projectSheet["A1"]) {
 
@@ -559,8 +595,6 @@ function exportExcel() {
         );
 
 
-    /* COLUMN WIDTHS */
-
     hotoSheet["!cols"] = [
 
         {
@@ -580,7 +614,9 @@ function exportExcel() {
     ];
 
 
-    /* WRAP TEXT */
+    /* --------------------------------------------------------
+       HOTO WRAP TEXT
+    -------------------------------------------------------- */
 
     if (hotoSheet["!ref"]) {
 
@@ -637,6 +673,101 @@ function exportExcel() {
     }
 
 
+    /* --------------------------------------------------------
+       HIGHLIGHT MISSING DRAWINGS IN HOTO
+    -------------------------------------------------------- */
+
+    exportRows.forEach(
+
+        (row, rowIndex) => {
+
+            selectedRooms.forEach(
+
+                (room, roomIndex) => {
+
+                    if (
+                        row.drawingMissing[room]
+                    ) {
+
+                        const cell =
+                            hotoSheet[
+                                XLSX.utils.encode_cell({
+
+                                    /*
+                                     * +1 because row 0
+                                     * is the header
+                                     */
+
+                                    r:
+                                        rowIndex + 1,
+
+                                    /*
+                                     * 0 = Trade
+                                     * 1 = Question
+                                     * 2+ = Rooms
+                                     */
+
+                                    c:
+                                        roomIndex + 2
+
+                                })
+                            ];
+
+
+                        if (cell) {
+
+                            cell.s = {
+
+                                fill: {
+
+                                    patternType:
+                                        "solid",
+
+                                    fgColor: {
+
+                                        rgb:
+                                            "FFC7CE"
+
+                                    }
+
+                                },
+
+                                font: {
+
+                                    color: {
+
+                                        rgb:
+                                            "9C0006"
+
+                                    }
+
+                                },
+
+                                alignment: {
+
+                                    vertical:
+                                        "top",
+
+                                    wrapText:
+                                        true
+
+                                }
+
+                            };
+
+                        }
+
+                    }
+
+                }
+
+            );
+
+        }
+
+    );
+
+
     XLSX.utils.book_append_sheet(
 
         workbook,
@@ -670,7 +801,17 @@ function exportExcel() {
 
         ],
 
-        ...actionSummaryRows
+        ...actionSummaryRows.map(row => [
+
+            row.room,
+
+            row.category,
+
+            row.requirement,
+
+            row.boqImpact
+
+        ])
 
     ];
 
@@ -680,8 +821,6 @@ function exportExcel() {
             actionSummaryData
         );
 
-
-    /* COLUMN WIDTHS */
 
     actionSummarySheet["!cols"] = [
 
@@ -704,7 +843,9 @@ function exportExcel() {
     ];
 
 
-    /* WRAP TEXT */
+    /* --------------------------------------------------------
+       ACTION SUMMARY WRAP TEXT
+    -------------------------------------------------------- */
 
     if (actionSummarySheet["!ref"]) {
 
@@ -744,9 +885,11 @@ function exportExcel() {
 
                         alignment: {
 
-                            vertical: "top",
+                            vertical:
+                                "top",
 
-                            wrapText: true
+                            wrapText:
+                                true
 
                         }
 
@@ -759,6 +902,100 @@ function exportExcel() {
         }
 
     }
+
+
+    /* --------------------------------------------------------
+       HIGHLIGHT ACTION SUMMARY ROWS
+       WHERE DRAWING IS MISSING
+    -------------------------------------------------------- */
+
+    actionSummaryRows.forEach(
+
+        (row, rowIndex) => {
+
+            if (
+                !row.drawingMissing
+            ) {
+
+                return;
+
+            }
+
+
+            /*
+             * +1 because row 0 is header
+             */
+
+            const excelRow =
+                rowIndex + 1;
+
+
+            for (
+                let col = 0;
+                col < 4;
+                col++
+            ) {
+
+                const cell =
+                    actionSummarySheet[
+                        XLSX.utils.encode_cell({
+
+                            r: excelRow,
+
+                            c: col
+
+                        })
+                    ];
+
+
+                if (cell) {
+
+                    cell.s = {
+
+                        fill: {
+
+                            patternType:
+                                "solid",
+
+                            fgColor: {
+
+                                rgb:
+                                    "FFC7CE"
+
+                            }
+
+                        },
+
+                        font: {
+
+                            color: {
+
+                                rgb:
+                                    "9C0006"
+
+                            }
+
+                        },
+
+                        alignment: {
+
+                            vertical:
+                                "top",
+
+                            wrapText:
+                                true
+
+                        }
+
+                    };
+
+                }
+
+            }
+
+        }
+
+    );
 
 
     XLSX.utils.book_append_sheet(
@@ -863,7 +1100,7 @@ function exportPDF() {
 
 
     /* ========================================================
-       COVER PAGE
+       PAGE 1 — COVER PAGE
     ======================================================== */
 
     doc.setFont(
@@ -873,41 +1110,48 @@ function exportPDF() {
 
     doc.setFontSize(28);
 
+
     doc.text(
+
         "Services HOTO Document",
+
         148.5,
+
         70,
+
         {
+
             align: "center"
+
         }
+
     );
 
-
-    /* PID + CLIENT NAME */
-
-    doc.setFontSize(18);
 
     doc.setFont(
         undefined,
         "normal"
     );
 
-    const pid =
-        info.projectId ||
-        "PID";
-
-    const clientName =
-        info.clientName ||
-        "Cx Name";
+    doc.setFontSize(18);
 
 
     doc.text(
-        `${pid} — ${clientName}`,
+
+        `${info.projectId || "PID"} — ${
+            info.clientName || "Cx Name"
+        }`,
+
         148.5,
+
         85,
+
         {
+
             align: "center"
+
         }
+
     );
 
 
@@ -922,13 +1166,21 @@ function exportPDF() {
 
     doc.setFontSize(18);
 
+
     doc.text(
+
         "Contents",
+
         148.5,
+
         115,
+
         {
+
             align: "center"
+
         }
+
     );
 
 
@@ -942,22 +1194,37 @@ function exportPDF() {
 
     const contentsX = 95;
 
+
     doc.text(
+
         "1.  Project Information",
+
         contentsX,
+
         130
+
     );
 
+
     doc.text(
+
         "2.  HOTO Scope Matrix",
+
         contentsX,
+
         142
+
     );
 
+
     doc.text(
+
         "3.  Action Summary",
+
         contentsX,
+
         154
+
     );
 
 
@@ -966,8 +1233,11 @@ function exportPDF() {
     ======================================================== */
 
     doc.addPage(
+
         "a4",
+
         "landscape"
+
     );
 
 
@@ -980,52 +1250,80 @@ function exportPDF() {
 
 
     doc.text(
+
         "Project Information",
+
         14,
+
         18
+
     );
 
 
     const projectInfoTable = [
 
         [
+
             "Project ID",
+
             info.projectId
+
         ],
 
         [
+
             "Client Name",
+
             info.clientName
+
         ],
 
         [
+
             "City",
+
             info.city
+
         ],
 
         [
+
             "BU",
+
             info.bu
+
         ],
 
         [
+
             "Designer Mail ID",
+
             info.designerMailId
+
         ],
 
         [
+
             "RFV ID",
+
             info.rfvId
+
         ],
 
         [
+
             "Drive Link (line diagrams, 3D, etc)",
+
             info.driveLink
+
         ],
 
         [
+
             "Any Remarks",
+
             info.remarks
+
         ]
 
     ];
@@ -1038,8 +1336,11 @@ function exportPDF() {
         head: [
 
             [
+
                 "Field",
+
                 "Project Information"
+
             ]
 
         ],
@@ -1088,12 +1389,14 @@ function exportPDF() {
 
     /* ========================================================
        HOTO SCOPE MATRIX
-       PAGE 3+
     ======================================================== */
 
     doc.addPage(
+
         "a4",
+
         "landscape"
+
     );
 
 
@@ -1143,9 +1446,13 @@ function exportPDF() {
 
 
     doc.text(
+
         "HOTO Scope Matrix",
+
         10,
+
         12
+
     );
 
 
@@ -1168,6 +1475,7 @@ function exportPDF() {
         }`,
 
         10,
+
         19
 
     );
@@ -1221,6 +1529,11 @@ function exportPDF() {
 
         didParseCell: function(data) {
 
+            /*
+             * Highlight HOTO cells where
+             * drawing is missing.
+             */
+
             if (
 
                 data.section === "body" &&
@@ -1228,6 +1541,33 @@ function exportPDF() {
                 data.column.index >= 2
 
             ) {
+
+                const exportRow =
+                    exportRows[
+                        data.row.index
+                    ];
+
+
+                const room =
+                    selectedRooms[
+                        data.column.index - 2
+                    ];
+
+
+                if (
+                    exportRow &&
+                    exportRow.drawingMissing &&
+                    exportRow.drawingMissing[room]
+                ) {
+
+                    data.cell.styles.fillColor =
+                        [255, 199, 206];
+
+                    data.cell.styles.textColor =
+                        [156, 0, 6];
+
+                }
+
 
                 data.cell.styles.cellWidth =
                     28;
@@ -1248,8 +1588,11 @@ function exportPDF() {
 
 
     doc.addPage(
+
         "a4",
+
         "landscape"
+
     );
 
 
@@ -1262,9 +1605,13 @@ function exportPDF() {
 
 
     doc.text(
+
         "Action Summary",
+
         10,
+
         12
+
     );
 
 
@@ -1287,6 +1634,7 @@ function exportPDF() {
         }`,
 
         10,
+
         19
 
     );
@@ -1313,7 +1661,18 @@ function exportPDF() {
         ],
 
         body:
-            actionSummaryRows,
+
+            actionSummaryRows.map(row => [
+
+                row.room,
+
+                row.category,
+
+                row.requirement,
+
+                row.boqImpact
+
+            ]),
 
         theme: "grid",
 
@@ -1363,6 +1722,42 @@ function exportPDF() {
 
             }
 
+        },
+
+        didParseCell: function(data) {
+
+            /*
+             * Highlight entire Action Summary
+             * row when drawing is missing.
+             */
+
+            if (
+
+                data.section === "body"
+
+            ) {
+
+                const row =
+                    actionSummaryRows[
+                        data.row.index
+                    ];
+
+
+                if (
+                    row &&
+                    row.drawingMissing
+                ) {
+
+                    data.cell.styles.fillColor =
+                        [255, 199, 206];
+
+                    data.cell.styles.textColor =
+                        [156, 0, 6];
+
+                }
+
+            }
+
         }
 
     });
@@ -1370,7 +1765,6 @@ function exportPDF() {
 
     /* ========================================================
        PAGE NUMBERS
-       COVER PAGE INCLUDED
     ======================================================== */
 
     const pageCount =
