@@ -609,7 +609,7 @@ function buildActionSummary() {
 
                     rooms: [],
 
-                    boqConsideration:
+                    boqImpact:
                         actionRow.boqImpact || "",
 
                     drawingMissing:
