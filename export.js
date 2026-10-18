@@ -2482,31 +2482,31 @@ function exportPDF() {
 
             [
 
-                "Room",
+               "Requirement",
 
-                "Category",
+        "Category",
 
-                "Requirement",
+        "Rooms",
 
-                "BOQ Consideration"
+        "BOQ Consideration"
 
             ]
 
         ],
 
-        body:
+      body:
 
-            actionSummaryRows.map(row => [
+    actionSummaryRows.map(row => [
 
-                row.room,
+        row.requirement,
 
-                row.category,
+        row.category,
 
-                row.requirement,
+        row.rooms.join(", "),
 
-                row.boqImpact
+        row.boqImpact
 
-            ]),
+    ]),
 
         theme:
             "grid",
@@ -2542,28 +2542,28 @@ function exportPDF() {
             0: {
 
                 cellWidth:
-                    65
+                    55
 
             },
 
             1: {
 
                 cellWidth:
-                    40
+                    35
 
             },
 
             2: {
 
                 cellWidth:
-                    45
+                    55
 
             },
 
             3: {
 
                 cellWidth:
-                    130
+                    135
 
             }
 
