@@ -19,7 +19,7 @@ question:"Is false ceiling lighting planned?",
         "Only electrical provisioning and installation",
         "Supply of light in Cx scope"
     ],
-drawingRequirement:"Show lighting layout in reflected ceiling plan along with looping with hatching done for bed/wardrobes/loose furniture areas."
+drawingRequirement:"Show lighting layout in reflected ceiling plan along with looping with hatching done for bed/wardrobes/loose furniture areas along with legends"
 },
 
 {
@@ -33,7 +33,7 @@ question:"Is cove lighting planned in the false ceiling?",
         "Only electrical provisioning and installation",
         "Supply of light in Cx scope"
     ],
-drawingRequirement:"Show cove lighting layout in reflected ceiling plan along with looping with hatching done for bed/wardrobes/loose furniture areas."
+drawingRequirement:"Show cove lighting layout in reflected ceiling plan along with looping with hatching done for bed/wardrobes/loose furniture areas along with legends"
 },
 
 {
@@ -47,7 +47,7 @@ question:"Is profile lighting planned in the false ceiling?",
         "Only electrical provisioning and installation",
         "Supply of lights,track,channels in Cx scope"
     ],
-drawingRequirement:"Show profile lighting layout in reflected ceiling plan along with looping with hatching done for bed/wardrobes/loose furniture areas."
+drawingRequirement:"Show profile lighting layout in reflected ceiling plan along with looping with hatching done for bed/wardrobes/loose furniture areas along with legends"
 },
 
 {
@@ -61,7 +61,7 @@ question:"Are track lights planned in the false ceiling?",
         "Only electrical provisioning and installation",
         "Supply of lights,track,channels in Cx scope"
     ],
-drawingRequirement:"Show track light layout in reflected ceiling plan along with looping with hatching done for bed/wardrobes/loose furniture areas."
+drawingRequirement:"Show track light layout in reflected ceiling plan along with looping with hatching done for bed/wardrobes/loose furniture areas along with legends"
 },
 
 {
@@ -71,7 +71,7 @@ category:"Lighting",
 subcategory:"Decorative Lighting",
 level:"room",
 question:"Are designer ceiling lights planned (chandelier / pendant / hanging lights)?",
-drawingRequirement:"Show fixture location in reflected ceiling plan along with looping with hatching done for bed/wardrobes/loose furniture areas."
+drawingRequirement:"Show fixture location in reflected ceiling plan along with looping with hatching done for bed/wardrobes/loose furniture areas along with legends"
 },
 
 {
@@ -81,7 +81,7 @@ category:"Lighting",
 subcategory:"Surface Lights",
 level:"room",
 question:"Are surface-mounted lights planned in ceiling?",
-drawingRequirement:"Show fixture location in reflected ceiling plan along with looping with hatching done for bed/wardrobes/loose furniture areas."
+drawingRequirement:"Show fixture location in reflected ceiling plan along with looping with hatching done for bed/wardrobes/loose furniture areas along with legends"
 },
 
 {
@@ -91,7 +91,7 @@ category:"Lighting",
 subcategory:"Wall Lights",
 level:"wall",
 question:"Are wall lights planned (normal, decorative and/or profile)?",
-drawingRequirement:"Show wall light location in elevation along with looping and hatching done for wardrobe,panelling, storages etc."
+drawingRequirement:"Show wall light location in elevation along with looping and hatching done for wardrobe,panelling, storages etc and legends."
 },
 
 {
@@ -101,7 +101,7 @@ category:"Lighting",
 subcategory:"Wall Panelling",
 level:"wall",
 question:"Is backlighting or cove lighting planned in wall panelling?",
-drawingRequirement:"Show strip/cove lighting detail in wallpanelling elevation along with looping."
+drawingRequirement:"Show strip/cove lighting detail in wallpanelling elevation along with looping and legends."
 },
 
 {
@@ -111,7 +111,7 @@ category:"Lighting",
 subcategory:"Headboard",
 level:"wall",
 question:"Is backlighting or cove lighting planned in the headboard?",
-drawingRequirement:"Show lighting detail in headboard elevation along with looping."
+drawingRequirement:"Show lighting detail in headboard elevation along with looping and legends."
 },
 
 {
@@ -121,7 +121,7 @@ category:"Lighting",
 subcategory:"Cabinet",
 level:"wall",
 question:"Are cabinet lights planned in modular storage units?",
-drawingRequirement:"Show lighting detail in cabinet elevation along with looping."
+drawingRequirement:"Show lighting detail in cabinet elevation along with looping and legends."
 },
 
 {
@@ -131,7 +131,7 @@ category:"Lighting",
 subcategory:"Cabinet",
 level:"wall",
 question:"Is backlighting or cove lighting planned in modular storage units?",
-drawingRequirement:"Show lighting detail in cabinet elevation along with looping."
+drawingRequirement:"Show lighting detail in cabinet elevation along with looping and legends."
 },
 
 {
@@ -141,7 +141,7 @@ category:"Lighting",
 subcategory:"Wardrobe",
 level:"wall",
 question:"Are cabinet lights, backlighting or cove lighting planned in wardrobes?",
-drawingRequirement:"Show lighting detail in wardrobe elevation along with looping."
+drawingRequirement:"Show lighting detail in wardrobe elevation along with looping and legends."
 },
 
 {
@@ -151,7 +151,7 @@ category:"Lighting",
 subcategory:"Display Units",
 level:"wall",
 question:"Is lighting planned within display, crockery or bar units?",
-drawingRequirement:"Show lighting detail in furniture elevation along with looping."
+drawingRequirement:"Show lighting detail in furniture elevation along with looping and legends."
 },
 
 {
@@ -161,7 +161,7 @@ category:"Lighting",
 subcategory:"TV Unit",
 level:"wall",
 question:"Is lighting planned within the TV unit or panelling?",
-drawingRequirement:"Show lighting detail in TV unit elevation along with looping."
+drawingRequirement:"Show lighting detail in TV unit elevation along with looping and legends."
 },
 
 {
@@ -171,7 +171,7 @@ category:"Lighting",
 subcategory:"Partitions",
 level:"wall",
 question:"Is lighting planned within partitions?",
-drawingRequirement:"Show lighting detail in partition elevation along with looping."
+drawingRequirement:"Show lighting detail in partition elevation along with looping and legends."
 },
 
 {
@@ -181,7 +181,7 @@ category:"Lighting",
 subcategory:"Mandir",
 level:"wall",
 question:"Is lighting planned in the mandir unit?",
-drawingRequirement:"Show lighting detail in mandir elevation along wth looping."
+drawingRequirement:"Show lighting detail in mandir elevation along wth looping and legends."
 },
 
 {
@@ -191,7 +191,7 @@ category:"Lighting",
 subcategory:"Staircase",
 level:"room",
 question:"Is lighting planned in the staircase area?",
-drawingRequirement:"Show lighting layout in plan and elevation along with looping."
+drawingRequirement:"Show lighting layout in plan and elevation along with looping and legends."
 },
 
 /* ===========================================================
@@ -245,7 +245,7 @@ category:"Power/Module",
 subcategory:"Bedroom",
 level:"wall",
 question:"Are bedside charging and switch points required?",
-drawingRequirement:"Show location in wall elevation with hatching of bed/headboard."
+drawingRequirement:"Show 5A or 15A location in wall elevation with hatching of bed/headboard."
 },
 
 {
@@ -255,7 +255,7 @@ category:"Power/Module",
 subcategory:"Balcony",
 level:"wall",
 question:"Are dedicated power points required for decorative or festival lighting in the balcony?",
-drawingRequirement:"Show point location in elevation."
+drawingRequirement:"Show 5A or 15A point location in elevation."
 },
 
 {
@@ -275,7 +275,7 @@ category:"Power/Module",
 subcategory:"TV Unit",
 level:"wall",
 question:"Are power points planned for the TV unit?",
-drawingRequirement:"Show power point location in TV unit elevation/wall."
+drawingRequirement:"Show 5A or 15A power point location in TV unit elevation/wall."
 },
 
 {
@@ -285,7 +285,7 @@ category:"Power/Module",
 subcategory:"Study Unit",
 level:"wall",
 question:"Are power points required for the study unit?",
-drawingRequirement:"Show power point location in along with study unit on elevation/wall."
+drawingRequirement:"Show 5A or 15A power point location in along with study unit on elevation/wall."
 },
 
 {
@@ -295,7 +295,7 @@ category:"Power/Module",
 subcategory:"Mandir",
 level:"wall",
 question:"Are power points required in the mandir unit?",
-drawingRequirement:"Show power point location in mandir unit elevation."
+drawingRequirement:"Show 5A or 15A power point location in mandir unit elevation."
 },
 
 {
@@ -305,7 +305,7 @@ category:"Power/Module",
 subcategory:"Furniture",
 level:"wall",
 question:"Are power or charging points required within furniture?",
-drawingRequirement:"Show power point location in furniture elevation."
+drawingRequirement:"Show 5A or 15A power point location in furniture elevation."
 },
 
 {
@@ -315,7 +315,7 @@ category:"Power/Module",
 subcategory:"Furniture",
 level:"wall",
 question:"Are any electronic furniture items (such as recliners) planned?",
-drawingRequirement:"Show power point location in furniture elevation."
+drawingRequirement:"Show 5A or 15A power point location in furniture elevation."
 },
 
 /* ===========================================================
@@ -377,7 +377,7 @@ id:"EL-AC-001",trade:"Electrical",category:"AC",subcategory:"Split AC",level:"wa
 id:"EL-AC-002",trade:"Electrical",category:"AC",subcategory:"Cassette AC",level:"room",question:"Is Cx installing cassette AC ?",drawingRequirement:"Show cassette unit location in reflected ceiling plan."
 },
 {
-id:"EL-AC-003",trade:"Electrical",category:"AC",subcategory:"Central AC",level:"room",question:"Is Cx installing centralized / ducted AC?",drawingRequirement:"Show HVAC grill locations in refelcted ceiling plan and indoor unit in plan."
+id:"EL-AC-003",trade:"Electrical",category:"AC",subcategory:"Central AC",level:"room",question:"Is Cx installing centralized / ducted AC?",drawingRequirement:"Show HVAC grill locations in reflected ceiling plan and indoor unit in plan."
 },
 {
 id:"EL-AC-004",trade:"Electrical",category:"AC",subcategory:"General",level:"room",question:"Are the indoor and outdoor unit locations finalized?",drawingRequirement:"Show indoor and outdoor unit locations in plan."
