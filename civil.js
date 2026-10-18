@@ -45,7 +45,7 @@ const CIVIL = [
     subcategory: "Floor",
     level: "room",
     question: "Is existing floor demolition planned?",
-    drawingRequirement: "Identify floor area to be demolished."
+    drawingRequirement: "SHow floor area to be demolished."
 },
 
 {
@@ -55,7 +55,7 @@ const CIVIL = [
     subcategory: "Doors & Windows",
     level: "wall",
     question: "Is demolition of any existing door or window planned?",
-    drawingRequirement: "Identify door/window to be removed."
+    drawingRequirement: "Show door/window to be removed."
 },
 
 {
@@ -65,7 +65,7 @@ const CIVIL = [
     subcategory: "Existing Furniture",
     level: "room",
     question: "Is demolition of any existing wardrobe, storage or panelling planned?",
-    drawingRequirement: "Identify furniture/panelling to be removed."
+    drawingRequirement: "Show furniture/panelling to be removed."
 },
 
 {
@@ -75,7 +75,7 @@ const CIVIL = [
     subcategory: "Toilet",
     level: "room",
     question: "Is existing toilet demolition planned?",
-    drawingRequirement: "Identify sanitary areas to be demolished."
+    drawingRequirement: "Show toilet areas to be demolished."
 },
 
 {
@@ -85,7 +85,7 @@ const CIVIL = [
     subcategory: "Kitchen",
     level: "room",
     question: "Is existing kitchen demolition planned?",
-    drawingRequirement: "Identify kitchen components to be demolished."
+    drawingRequirement: "Show kitchen components to be demolished."
 },
 
 {
@@ -95,7 +95,7 @@ const CIVIL = [
     subcategory: "RCC",
     level: "room",
     question: "Is demolition of any RCC loft or ledge planned?",
-    drawingRequirement: "Identify RCC element to be demolished."
+    drawingRequirement: "Show RCC loft or ledges to be demolished."
 },
 
 {
@@ -105,7 +105,7 @@ const CIVIL = [
     subcategory: "False Ceiling",
     level: "room",
     question: "Is existing false ceiling demolition planned?",
-    drawingRequirement: "Identify false ceiling area to be demolished."
+    drawingRequirement: "Sho false ceiling area to be demolished."
 },
 
 {
@@ -115,7 +115,7 @@ const CIVIL = [
     subcategory: "Core Cutting",
     level: "wall",
     question: "Is core cutting planned for AC piping?",
-    drawingRequirement: "Show core cutting location for AC."
+    drawingRequirement: "Show core cutting location for AC in elevation."
 },
 
 {
@@ -125,7 +125,7 @@ const CIVIL = [
     subcategory: "Core Cutting",
     level: "wall",
     question: "Is core cutting planned for chimney ducting?",
-    drawingRequirement: "Show core cutting location for chimney."
+    drawingRequirement: "Show core cutting location for chimney in elevation."
 },
 
 /* ===========================================================
@@ -169,7 +169,7 @@ const CIVIL = [
     subcategory: "Metal Inlay",
     level: "wall",
     question: "Is any metal inlay design planned on walls?",
-    drawingRequirement: "Show inlay design and dimensions."
+    drawingRequirement: "Show inlay design and dimensions in elevation."
 },
 
 {
@@ -179,7 +179,7 @@ const CIVIL = [
     subcategory: "POP Moulding",
     level: "wall",
     question: "Are POP mouldings, trims or cornices planned on walls?",
-    drawingRequirement: "Show moulding profile and location."
+    drawingRequirement: "Show POP mouldings, trims or cornices detailings and location in elevation."
 },
 
 {
@@ -203,7 +203,7 @@ const CIVIL = [
     subcategory: "Floor Tiles",
     level: "room",
     question: "Is new floor tiling planned? (Tile Size: 1'×1' to 2'×2')",
-    drawingRequirement: "Show tile layout, pattern and orientation."
+    drawingRequirement: "Show tile layout, pattern (square or others) and orientation."
 },
 
 {
@@ -213,7 +213,7 @@ const CIVIL = [
     subcategory: "Floor Tiles",
     level: "room",
     question: "Is new floor tiling planned? (Tile Size: 2'×2' to 4'×4')",
-    drawingRequirement: "Show tile layout, pattern and orientation."
+    drawingRequirement: "Show tile layout, pattern (square or others) and orientation."
 },
 
 {
@@ -223,7 +223,7 @@ const CIVIL = [
     subcategory: "Floor Tiles",
     level: "room",
     question: "Is new floor tiling planned? (Tile Size: 4'×4' to 8'×4')",
-    drawingRequirement: "Show tile layout, pattern and orientation."
+    drawingRequirement: "Show tile layout, pattern (square or others) and orientation."
 },
 
 {
@@ -243,7 +243,7 @@ const CIVIL = [
     subcategory: "Stone Flooring",
     level: "room",
     question: "Is Indian marble or granite flooring planned?",
-    drawingRequirement: "Show flooring layout and material specification."
+    drawingRequirement: "Show flooring layout, pattern (square or others) and orientation."
 },
 
 {
@@ -253,7 +253,7 @@ const CIVIL = [
     subcategory: "Stone Flooring",
     level: "room",
     question: "Is Italian marble flooring planned?",
-    drawingRequirement: "Show flooring layout and material specification."
+    drawingRequirement: "Show flooring layout pattern (square or others) and orientation."
 },
 
 {
@@ -263,7 +263,7 @@ const CIVIL = [
     subcategory: "Stone Flooring",
     level: "room",
     question: "Is premium stone flooring planned? (Example: Onyx or equivalent)",
-    drawingRequirement: "Show flooring layout and material specification."
+    drawingRequirement: "Show flooring layout and pattern (square or others) and orientation."
 },
 
 {
@@ -273,7 +273,7 @@ const CIVIL = [
     subcategory: "Wall Tiles",
     level: "wall",
     question: "Is new wall tiling planned? (Tile Size: 1'×1' to 2'×2')",
-    drawingRequirement: "Show wall tile layout and elevations."
+    drawingRequirement: "Show wall tile layout, pattern (square or others) and elevations."
 },
 
 {
@@ -283,7 +283,7 @@ const CIVIL = [
     subcategory: "Wall Tiles",
     level: "wall",
     question: "Is new wall tiling planned? (Tile Size: 2'×2' to 2'×4')",
-    drawingRequirement: "Show wall tile layout and elevations."
+    drawingRequirement: "Show wall tile layout, pattern (square or others) and elevations."
 },
 
 {
@@ -293,7 +293,7 @@ const CIVIL = [
     subcategory: "Wall Tiles",
     level: "wall",
     question: "Is new wall tiling planned? (Tile Size: 2'×4' to 8'×4')",
-    drawingRequirement: "Show wall tile layout and elevations."
+    drawingRequirement: "Show wall tile layout, pattern (square or others) and elevations."
 },
 
 {
