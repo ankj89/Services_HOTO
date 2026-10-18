@@ -237,13 +237,17 @@ document
    PROJECT DETAILS
 =========================================================== */
 
-function saveProject() {
+/* ===========================================================
+   PROJECT DETAILS
+=========================================================== */
+
+function saveProject(){
 
     project.projectId =
-        document.getElementById("projectId").value;
+        document.getElementById("projectId").value.trim();
 
     project.clientName =
-        document.getElementById("clientName").value;
+        document.getElementById("clientName").value.trim();
 
     project.city =
         document.getElementById("city").value;
@@ -252,22 +256,22 @@ function saveProject() {
         document.getElementById("bu").value;
 
     project.designerMailId =
-        document.getElementById("designerMailId").value;
+        document.getElementById("designerMailId").value.trim();
 
     project.rfvId =
-        document.getElementById("rfvId").value;
+        document.getElementById("rfvId").value.trim();
 
     project.driveLink =
-        document.getElementById("driveLink").value;
+        document.getElementById("driveLink").value.trim();
 
     project.remarks =
-        document.getElementById("remarks").value;
+        document.getElementById("remarks").value.trim();
 
 
     const summary =
         document.getElementById("projectSummary");
 
-    if (summary) {
+    if(summary){
 
         summary.innerHTML = `
             <strong>
@@ -280,9 +284,9 @@ function saveProject() {
     }
 
 
-    showTab("roomsTab");
-
     saveApplication();
+
+    showTab("roomsTab");
 
 }
 
@@ -1194,74 +1198,113 @@ function loadApplication(){
    POPULATE PROJECT DETAILS
 =========================================================== */
 
-function populateProjectScreen() {
+/* ===========================================================
+   POPULATE PROJECT DETAILS
+=========================================================== */
 
-    document.getElementById(
-        "projectId"
-    ).value =
-        project.projectId || "";
+function populateProjectScreen(){
 
+    const projectId =
+        document.getElementById("projectId");
 
-    document.getElementById(
-        "clientName"
-    ).value =
-        project.clientName || "";
+    const clientName =
+        document.getElementById("clientName");
 
+    const city =
+        document.getElementById("city");
 
-    document.getElementById(
-        "city"
-    ).value =
-        project.city || "";
+    const bu =
+        document.getElementById("bu");
 
+    const designerMailId =
+        document.getElementById("designerMailId");
 
-    document.getElementById(
-        "bu"
-    ).value =
-        project.bu || "";
+    const rfvId =
+        document.getElementById("rfvId");
 
+    const driveLink =
+        document.getElementById("driveLink");
 
-    document.getElementById(
-        "designerMailId"
-    ).value =
-        project.designerMailId || "";
-
-
-    document.getElementById(
-        "rfvId"
-    ).value =
-        project.rfvId || "";
+    const remarks =
+        document.getElementById("remarks");
 
 
-    document.getElementById(
-        "driveLink"
-    ).value =
-        project.driveLink || "";
+    if(projectId){
+
+        projectId.value =
+            project.projectId || "";
+
+    }
 
 
-    document.getElementById(
-        "remarks"
-    ).value =
-        project.remarks || "";
+    if(clientName){
+
+        clientName.value =
+            project.clientName || "";
+
+    }
+
+
+    if(city){
+
+        city.value =
+            project.city || "";
+
+    }
+
+
+    if(bu){
+
+        bu.value =
+            project.bu || "";
+
+    }
+
+
+    if(designerMailId){
+
+        designerMailId.value =
+            project.designerMailId || "";
+
+    }
+
+
+    if(rfvId){
+
+        rfvId.value =
+            project.rfvId || "";
+
+    }
+
+
+    if(driveLink){
+
+        driveLink.value =
+            project.driveLink || "";
+
+    }
+
+
+    if(remarks){
+
+        remarks.value =
+            project.remarks || "";
+
+    }
 
 
     const summary =
-        document.getElementById(
-            "projectSummary"
-        );
+        document.getElementById("projectSummary");
 
 
-    if (summary) {
+    if(summary){
 
         summary.innerHTML = `
-
             <strong>
                 ${project.projectId || "New Project"}
             </strong>
-
             <br>
-
             ${project.clientName || ""}
-
         `;
 
     }
