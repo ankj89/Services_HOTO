@@ -1304,34 +1304,34 @@ exportRows.forEach(
         buildActionSummary();
 
 
-    const actionSummaryData = [
+  const actionSummaryData = [
 
-        [
+    [
 
-            "Room",
+        "Requirement",
 
-            "Category",
+        "Category",
 
-            "Requirement",
+        "Rooms",
 
-            "BOQ Consideration"
+        "BOQ Consideration"
 
-        ],
+    ],
 
 
-        ...actionSummaryRows.map(row => [
+    ...actionSummaryRows.map(row => [
 
-            row.room,
+        row.requirement,
 
-            row.category,
+        row.category,
 
-            row.requirement,
+        row.rooms.join(", "),
 
-            row.boqImpact
+        row.boqImpact
 
-        ])
+    ])
 
-    ];
+];
 
 
     const actionSummarySheet =
@@ -2632,7 +2632,7 @@ function exportPDF() {
         }
 
     }
-
+});
     /* ========================================================
        DRAWING MISSING
        ======================================================== */
