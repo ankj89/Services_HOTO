@@ -15,7 +15,7 @@ const FALSE_CEILING = [
     subcategory: "POP Ceiling",
     level: "room",
     question: "Is a new POP false ceiling planned?",
-    drawingRequirement: "Show false ceiling layout, levels and detailing in reflected ceiling plan."
+    drawingRequirement: "Show false ceiling layout, levels, cove detailing in reflected ceiling plan along with legends."
 },
 
 {
@@ -25,7 +25,7 @@ const FALSE_CEILING = [
     subcategory: "Gypsum Ceiling",
     level: "room",
     question: "Is a new gypsum false ceiling planned?",
-    drawingRequirement: "Show false ceiling layout, levels and detailing in reflected ceiling plan."
+    drawingRequirement: "Show false ceiling layout, levels cove detailing in reflected ceiling plan along with legends."
 },
 
 {
@@ -35,7 +35,7 @@ const FALSE_CEILING = [
     subcategory: "PVC Ceiling",
     level: "room",
     question: "Is a PVC false ceiling planned?",
-    drawingRequirement: "Show false ceiling layout and detailing in reflected ceiling plan."
+    drawingRequirement: "Show false ceiling layout in reflected ceiling plan along with legends."
 },
 
 {
@@ -45,7 +45,7 @@ const FALSE_CEILING = [
     subcategory: "Grid Ceiling",
     level: "room",
     question: "Is a 2' × 2' grid ceiling planned?",
-    drawingRequirement: "Show grid ceiling layout in reflected ceiling plan."
+    drawingRequirement: "Show grid ceiling layout in reflected ceiling plan along with legends."
 },
 
 {
@@ -54,8 +54,8 @@ const FALSE_CEILING = [
     category: "False Ceiling",
     subcategory: "Services Coordination",
     level: "room",
-    question: "Are sprinkler pipes planned to be covered within the false ceiling?",
-    drawingRequirement: "Show sprinkler pipe routing and false ceiling coordination in reflected ceiling plan."
+    question: "Are sprinkler pipes planned to be covered within the false ceiling or boxing?",
+    drawingRequirement: "Show sprinkler nozel location and false ceiling coordination in reflected ceiling plan."
 },
 
 {
@@ -85,7 +85,7 @@ const FALSE_CEILING = [
     subcategory: "Designer Ceiling",
     level: "room",
     question: "Is any designer ceiling planned (Stretch Ceiling / Veneer Ceiling / Glass Ceiling, etc.)?",
-    drawingRequirement: "Show ceiling design, materials and detailing in reflected ceiling plan."
+    drawingRequirement: "Show ceiling design in reflected ceiling plan."
 }
 
 ];
