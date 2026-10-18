@@ -16,10 +16,7 @@ function getProjectInformation() {
         projectValues
     ) {
 
-        /* ----------------------------------------------------
-           1. First check the live HTML field
-        ---------------------------------------------------- */
-
+        // First use the live HTML field
         for (const id of elementIds) {
 
             const element =
@@ -43,10 +40,7 @@ function getProjectInformation() {
         }
 
 
-        /* ----------------------------------------------------
-           2. Then check the project object
-        ---------------------------------------------------- */
-
+        // Then fall back to saved project object
         for (const value of projectValues) {
 
             if (
@@ -71,10 +65,6 @@ function getProjectInformation() {
 
     return {
 
-        /* ----------------------------------------------------
-           PROJECT ID / PROJECT NAME
-        ---------------------------------------------------- */
-
         projectId:
 
             getFieldValue(
@@ -92,10 +82,6 @@ function getProjectInformation() {
             ),
 
 
-        /* ----------------------------------------------------
-           CLIENT
-        ---------------------------------------------------- */
-
         clientName:
 
             getFieldValue(
@@ -110,10 +96,6 @@ function getProjectInformation() {
 
             ),
 
-
-        /* ----------------------------------------------------
-           CITY
-        ---------------------------------------------------- */
 
         city:
 
@@ -130,10 +112,6 @@ function getProjectInformation() {
             ),
 
 
-        /* ----------------------------------------------------
-           BU
-        ---------------------------------------------------- */
-
         bu:
 
             getFieldValue(
@@ -148,10 +126,6 @@ function getProjectInformation() {
 
             ),
 
-
-        /* ----------------------------------------------------
-           DESIGNER
-        ---------------------------------------------------- */
 
         designerMailId:
 
@@ -170,10 +144,6 @@ function getProjectInformation() {
             ),
 
 
-        /* ----------------------------------------------------
-           RFV
-        ---------------------------------------------------- */
-
         rfvId:
 
             getFieldValue(
@@ -189,10 +159,6 @@ function getProjectInformation() {
             ),
 
 
-        /* ----------------------------------------------------
-           DRIVE LINK
-        ---------------------------------------------------- */
-
         driveLink:
 
             getFieldValue(
@@ -207,10 +173,6 @@ function getProjectInformation() {
 
             ),
 
-
-        /* ----------------------------------------------------
-           REMARKS
-        ---------------------------------------------------- */
 
         remarks:
 
@@ -232,37 +194,49 @@ function getProjectInformation() {
 
 }
 
+
 /* ============================================================
    GET RESPONSE
    ============================================================ */
 
-function getQuestionResponse(question, room) {
+function getQuestionResponse(
+    question,
+    room
+) {
 
     const questionResponses =
         responses[question.id];
 
+
     if (!questionResponses) {
 
         return {
+
             scope: "",
             drawing: "",
             elevation: ""
+
         };
 
     }
+
 
     const roomResponse =
         questionResponses[room];
 
+
     if (!roomResponse) {
 
         return {
+
             scope: "",
             drawing: "",
             elevation: ""
+
         };
 
     }
+
 
     return {
 
@@ -284,19 +258,27 @@ function getQuestionResponse(question, room) {
    DRAWING STATUS
    ============================================================ */
 
+/*
+   IMPORTANT:
+
+   Blank drawing is NOT treated as "No".
+
+   Only explicit Drawing = No is considered
+   a missing drawing.
+
+   The LS Scope condition is applied separately
+   wherever highlighting/reporting is required.
+*/
+
 function isDrawingMissing(drawing) {
 
-    return (
-        !drawing ||
-        drawing.toString().trim() === "" ||
-        drawing === "No"
-    );
+    return drawing === "No";
 
 }
 
 
 /* ============================================================
-   FORMAT ROOM RESPONSE
+   FORMAT HOTO ROOM RESPONSE
    ============================================================ */
 
 function formatScopeResponse(
@@ -331,6 +313,11 @@ function formatScopeResponse(
 
     /* --------------------------------------------------------
        DRAWING
+
+       Blank stays blank.
+
+       Yes -> Dwg - Yes
+       No  -> Dwg - No
     -------------------------------------------------------- */
 
     if (drawing === "Yes") {
@@ -340,7 +327,7 @@ function formatScopeResponse(
             "Dwg - Yes";
 
     }
-    else {
+    else if (drawing === "No") {
 
         result +=
             (result ? "\n" : "") +
@@ -379,6 +366,7 @@ function buildExportData() {
 
     const rows = [];
 
+
     QUESTION_BANK.forEach(question => {
 
         const row = {
@@ -391,7 +379,9 @@ function buildExportData() {
 
             rooms: {},
 
-            drawingMissing: {}
+            drawingMissing: {},
+
+            responses: {}
 
         };
 
@@ -405,18 +395,61 @@ function buildExportData() {
                 );
 
 
+            /* ------------------------------------------------
+               DISPLAY VALUE
+            ------------------------------------------------ */
+
             row.rooms[room] =
                 formatScopeResponse(
+
                     response.scope,
+
                     response.drawing,
+
                     response.elevation
+
                 );
 
+
+            /* ------------------------------------------------
+               RAW RESPONSE
+            ------------------------------------------------ */
+
+            row.responses[room] = {
+
+                scope:
+                    response.scope,
+
+                drawing:
+                    response.drawing,
+
+                elevation:
+                    response.elevation
+
+            };
+
+
+            /* ------------------------------------------------
+               DRAWING MISSING
+
+               ONLY:
+
+               LS Scope = Yes
+               AND
+               Drawing = No
+
+               Therefore:
+
+               Cx + No    -> FALSE
+               Blank      -> FALSE
+               LS + No    -> TRUE
+            ------------------------------------------------ */
 
             row.drawingMissing[room] =
-                isDrawingMissing(
-                    response.drawing
-                );
+
+                response.scope === "Yes" &&
+
+                response.drawing === "No";
 
         });
 
@@ -433,29 +466,6 @@ function buildExportData() {
 
 /* ============================================================
    BUILD ACTION SUMMARY
-   ============================================================
-
-   EXACT OUTPUT COLUMNS:
-
-   Room
-   Category
-   Requirement
-   BOQ Impact
-
-   Rules:
-
-   Yes
-       -> BOQ rule engine
-
-   Cx
-       -> Coordination with Cx
-
-   No
-       -> No row
-
-   Drawing missing
-       -> Highlight row
-       -> BOQ logic remains unchanged
    ============================================================ */
 
 function buildActionSummary() {
@@ -479,21 +489,25 @@ function buildActionSummary() {
             ------------------------------------------------ */
 
             if (!response.scope) {
+
                 return;
+
             }
 
 
             /* ------------------------------------------------
-               NO SCOPE = NO ACTION SUMMARY ROW
+               NO = NO ACTION SUMMARY
             ------------------------------------------------ */
 
             if (response.scope === "No") {
+
                 return;
+
             }
 
 
             /* ------------------------------------------------
-               BOQ RULE ENGINE
+               BOQ ENGINE CHECK
             ------------------------------------------------ */
 
             if (
@@ -512,21 +526,34 @@ function buildActionSummary() {
 
             const actionRow =
                 getActionSummaryRow(
+
                     question,
+
                     room,
+
                     response.scope
+
                 );
 
 
             if (!actionRow) {
+
                 return;
+
             }
 
 
+            /* ------------------------------------------------
+               DRAWING MISSING
+
+               ONLY LS + Dwg No
+            ------------------------------------------------ */
+
             const drawingMissing =
-                isDrawingMissing(
-                    response.drawing
-                );
+
+                response.scope === "Yes" &&
+
+                response.drawing === "No";
 
 
             rows.push({
@@ -558,9 +585,26 @@ function buildActionSummary() {
 }
 
 
+/* ============================================================
+   BUILD DRAWING MISSING
+   ============================================================
+
+   EXACT OUTPUT:
+
+   Room
+   Requirement
+   Dwg Required
+
+   ONLY:
+
+   Scope = Yes
+   Drawing = No
+   ============================================================ */
+
 function buildDrawingMissing() {
 
     const rows = [];
+
 
     QUESTION_BANK.forEach(question => {
 
@@ -572,15 +616,54 @@ function buildDrawingMissing() {
                     room
                 );
 
-            // Only LS Scope
+
+            /* ------------------------------------------------
+               ONLY LS SCOPE
+            ------------------------------------------------ */
+
             if (response.scope !== "Yes") {
+
                 return;
+
             }
 
-            // Only explicitly missing drawing
+
+            /* ------------------------------------------------
+               ONLY EXPLICIT DRAWING = NO
+            ------------------------------------------------ */
+
             if (response.drawing !== "No") {
+
                 return;
+
             }
+
+
+            /* ------------------------------------------------
+               GET REQUIREMENT
+            ------------------------------------------------ */
+
+            let requirement = "";
+
+
+            if (
+                typeof getBOQRequirement ===
+                "function"
+            ) {
+
+                requirement =
+                    getBOQRequirement(
+                        question
+                    );
+
+            }
+            else {
+
+                requirement =
+                    question.question || "";
+
+            }
+
 
             rows.push({
 
@@ -588,9 +671,7 @@ function buildDrawingMissing() {
                     room || "",
 
                 requirement:
-                    getBOQRequirement
-                        ? getBOQRequirement(question)
-                        : question.question || "",
+                    requirement,
 
                 drawingRequirement:
                     question.drawingRequirement || ""
@@ -601,12 +682,13 @@ function buildDrawingMissing() {
 
     });
 
+
     return rows;
 
 }
 
 /* ============================================================
-   EXCEL
+   EXCEL EXPORT
    ============================================================ */
 
 function exportExcel() {
@@ -705,8 +787,6 @@ function exportExcel() {
     ];
 
 
-    /* Header formatting */
-
     if (projectSheet["A1"]) {
 
         projectSheet["A1"].s = {
@@ -801,6 +881,7 @@ function exportExcel() {
             ...selectedRooms.map(
 
                 room =>
+
                     row.rooms[room] || ""
 
             )
@@ -877,9 +958,11 @@ function exportExcel() {
 
                         alignment: {
 
-                            vertical: "top",
+                            vertical:
+                                "top",
 
-                            wrapText: true
+                            wrapText:
+                                true
 
                         }
 
@@ -895,7 +978,9 @@ function exportExcel() {
 
 
     /* --------------------------------------------------------
-       HIGHLIGHT MISSING DRAWINGS IN HOTO
+       HIGHLIGHT HOTO DRAWING MISSING
+
+       ONLY LS + Dwg No
     -------------------------------------------------------- */
 
     exportRows.forEach(
@@ -912,26 +997,27 @@ function exportExcel() {
 
                         const cell =
                             hotoSheet[
+
                                 XLSX.utils.encode_cell({
 
                                     /*
-                                     * +1 because row 0
-                                     * is the header
+                                     * Header is row 0
                                      */
 
                                     r:
                                         rowIndex + 1,
 
                                     /*
-                                     * 0 = Trade
-                                     * 1 = Question
-                                     * 2+ = Rooms
+                                     * Trade = 0
+                                     * Question = 1
+                                     * Rooms = 2+
                                      */
 
                                     c:
                                         roomIndex + 2
 
                                 })
+
                             ];
 
 
@@ -1021,6 +1107,7 @@ function exportExcel() {
             "BOQ Impact"
 
         ],
+
 
         ...actionSummaryRows.map(row => [
 
@@ -1126,8 +1213,8 @@ function exportExcel() {
 
 
     /* --------------------------------------------------------
-       HIGHLIGHT ACTION SUMMARY ROWS
-       WHERE DRAWING IS MISSING
+       HIGHLIGHT ACTION SUMMARY
+       LS + Dwg No ONLY
     -------------------------------------------------------- */
 
     actionSummaryRows.forEach(
@@ -1143,10 +1230,6 @@ function exportExcel() {
             }
 
 
-            /*
-             * +1 because row 0 is header
-             */
-
             const excelRow =
                 rowIndex + 1;
 
@@ -1159,6 +1242,7 @@ function exportExcel() {
 
                 const cell =
                     actionSummarySheet[
+
                         XLSX.utils.encode_cell({
 
                             r: excelRow,
@@ -1166,6 +1250,7 @@ function exportExcel() {
                             c: col
 
                         })
+
                     ];
 
 
@@ -1228,191 +1313,119 @@ function exportExcel() {
         "Action Summary"
 
     );
-/* ========================================================
-   SHEET 4 — DRAWING MISSING
-======================================================== */
 
-const drawingMissingRows =
-    buildDrawingMissing();
+    /* ========================================================
+       SHEET 4 — DRAWING MISSING
+       ======================================================== */
 
-
-const drawingMissingData = [
-
-    [
-        "Room",
-        "Trade",
-        "Category",
-        "Requirement",
-        "Drawing Requirement"
-    ],
-
-    ...drawingMissingRows.map(row => [
-
-        row.room,
-        row.trade,
-        row.category,
-        row.requirement,
-        row.drawingRequirement
-
-    ])
-
-];
+    const drawingMissingRows =
+        buildDrawingMissing();
 
 
-const drawingMissingSheet =
-    XLSX.utils.aoa_to_sheet(
-        drawingMissingData
-    );
+    const drawingMissingData = [
+
+        [
+
+            "Room",
+
+            "Requirement",
+
+            "Dwg Required"
+
+        ],
 
 
-drawingMissingSheet["!cols"] = [
+        ...drawingMissingRows.map(row => [
 
-    {
-        wch: 24
-    },
+            row.room,
 
-    {
-        wch: 24
-    },
+            row.requirement,
 
-    {
-        wch: 30
-    },
+            row.drawingRequirement
 
-    {
-        wch: 60
-    },
+        ])
 
-    {
-        wch: 80
-    }
-
-];
+    ];
 
 
-/* --------------------------------------------------------
-   WRAP TEXT
--------------------------------------------------------- */
-
-if (drawingMissingSheet["!ref"]) {
-
-    const range =
-        XLSX.utils.decode_range(
-            drawingMissingSheet["!ref"]
+    const drawingMissingSheet =
+        XLSX.utils.aoa_to_sheet(
+            drawingMissingData
         );
 
 
-    for (
-        let row = range.s.r;
-        row <= range.e.r;
-        row++
-    ) {
+    drawingMissingSheet["!cols"] = [
 
-        for (
-            let col = range.s.c;
-            col <= range.e.c;
-            col++
-        ) {
+        {
+            wch: 24
+        },
 
-            const cell =
-                drawingMissingSheet[
-                    XLSX.utils.encode_cell({
+        {
+            wch: 65
+        },
 
-                        r: row,
-                        c: col
-
-                    })
-                ];
-
-
-            if (cell) {
-
-                cell.s = {
-
-                    alignment: {
-
-                        vertical: "top",
-                        wrapText: true
-
-                    }
-
-                };
-
-            }
-
+        {
+            wch: 90
         }
 
-    }
-
-}
+    ];
 
 
-/* --------------------------------------------------------
-   HIGHLIGHT EVERY DRAWING-MISSING ROW
--------------------------------------------------------- */
+    /* --------------------------------------------------------
+       WRAP TEXT
+    -------------------------------------------------------- */
 
-drawingMissingRows.forEach(
+    if (drawingMissingSheet["!ref"]) {
 
-    (row, rowIndex) => {
-
-        const excelRow =
-            rowIndex + 1;
+        const range =
+            XLSX.utils.decode_range(
+                drawingMissingSheet["!ref"]
+            );
 
 
         for (
-            let col = 0;
-            col < 5;
-            col++
+            let row = range.s.r;
+            row <= range.e.r;
+            row++
         ) {
 
-            const cell =
-                drawingMissingSheet[
-                    XLSX.utils.encode_cell({
+            for (
+                let col = range.s.c;
+                col <= range.e.c;
+                col++
+            ) {
 
-                        r: excelRow,
-                        c: col
+                const cell =
+                    drawingMissingSheet[
 
-                    })
-                ];
+                        XLSX.utils.encode_cell({
+
+                            r: row,
+
+                            c: col
+
+                        })
+
+                    ];
 
 
-            if (cell) {
+                if (cell) {
 
-                cell.s = {
+                    cell.s = {
 
-                    fill: {
+                        alignment: {
 
-                        patternType: "solid",
+                            vertical:
+                                "top",
 
-                        fgColor: {
-
-                            rgb: "FFC7CE"
+                            wrapText:
+                                true
 
                         }
 
-                    },
+                    };
 
-                    font: {
-
-                        color: {
-
-                            rgb: "9C0006"
-
-                        },
-
-                        bold: true
-
-                    },
-
-                    alignment: {
-
-                        vertical: "top",
-
-                        wrapText: true
-
-                    }
-
-                };
+                }
 
             }
 
@@ -1420,18 +1433,101 @@ drawingMissingRows.forEach(
 
     }
 
-);
+
+    /* --------------------------------------------------------
+       HIGHLIGHT DRAWING MISSING
+    -------------------------------------------------------- */
+
+    drawingMissingRows.forEach(
+
+        (row, rowIndex) => {
+
+            const excelRow =
+                rowIndex + 1;
 
 
-XLSX.utils.book_append_sheet(
+            for (
+                let col = 0;
+                col < 3;
+                col++
+            ) {
 
-    workbook,
+                const cell =
+                    drawingMissingSheet[
 
-    drawingMissingSheet,
+                        XLSX.utils.encode_cell({
 
-    "Drawing Missing"
+                            r: excelRow,
 
-);
+                            c: col
+
+                        })
+
+                    ];
+
+
+                if (cell) {
+
+                    cell.s = {
+
+                        fill: {
+
+                            patternType:
+                                "solid",
+
+                            fgColor: {
+
+                                rgb:
+                                    "FFC7CE"
+
+                            }
+
+                        },
+
+                        font: {
+
+                            color: {
+
+                                rgb:
+                                    "9C0006"
+
+                            },
+
+                            bold: true
+
+                        },
+
+                        alignment: {
+
+                            vertical:
+                                "top",
+
+                            wrapText:
+                                true
+
+                        }
+
+                    };
+
+                }
+
+            }
+
+        }
+
+    );
+
+
+    XLSX.utils.book_append_sheet(
+
+        workbook,
+
+        drawingMissingSheet,
+
+        "Drawing Missing"
+
+    );
+
 
     /* ========================================================
        FILE NAME
@@ -1470,13 +1566,14 @@ XLSX.utils.book_append_sheet(
 
 
 /* ============================================================
-   PDF
+   PDF EXPORT
    ============================================================ */
 
 function exportPDF() {
 
     if (
-        typeof window.jspdf === "undefined"
+        typeof window.jspdf ===
+        "undefined"
     ) {
 
         alert(
@@ -1510,18 +1607,20 @@ function exportPDF() {
     const doc =
         new jsPDF({
 
-            orientation: "landscape",
+            orientation:
+                "landscape",
 
-            unit: "mm",
+            unit:
+                "mm",
 
-            format: "a4"
+            format:
+                "a4"
 
         });
 
 
     const info =
         getProjectInformation();
-
 
     /* ========================================================
        PAGE 1 — COVER PAGE
@@ -1545,7 +1644,8 @@ function exportPDF() {
 
         {
 
-            align: "center"
+            align:
+                "center"
 
         }
 
@@ -1572,7 +1672,8 @@ function exportPDF() {
 
         {
 
-            align: "center"
+            align:
+                "center"
 
         }
 
@@ -1601,7 +1702,8 @@ function exportPDF() {
 
         {
 
-            align: "center"
+            align:
+                "center"
 
         }
 
@@ -1616,7 +1718,8 @@ function exportPDF() {
     doc.setFontSize(13);
 
 
-    const contentsX = 95;
+    const contentsX =
+        95;
 
 
     doc.text(
@@ -1641,18 +1744,26 @@ function exportPDF() {
     );
 
 
-  doc.text(
-    "3.  Action Summary",
-    contentsX,
-    154
-);
+    doc.text(
 
-doc.text(
-    "4.  Drawing Missing",
-    contentsX,
-    166
-);
-   
+        "3.  Action Summary",
+
+        contentsX,
+
+        154
+
+    );
+
+
+    doc.text(
+
+        "4.  Drawing Missing",
+
+        contentsX,
+
+        166
+
+    );
 
 
     /* ========================================================
@@ -1660,11 +1771,8 @@ doc.text(
     ======================================================== */
 
     doc.addPage(
-
         "a4",
-
         "landscape"
-
     );
 
 
@@ -1758,7 +1866,8 @@ doc.text(
 
     doc.autoTable({
 
-        startY: 28,
+        startY:
+            28,
 
         head: [
 
@@ -1775,23 +1884,29 @@ doc.text(
         body:
             projectInfoTable,
 
-        theme: "grid",
+        theme:
+            "grid",
 
         styles: {
 
-            fontSize: 10,
+            fontSize:
+                10,
 
-            cellPadding: 4,
+            cellPadding:
+                4,
 
-            valign: "top",
+            valign:
+                "top",
 
-            overflow: "linebreak"
+            overflow:
+                "linebreak"
 
         },
 
         headStyles: {
 
-            fontStyle: "bold"
+            fontStyle:
+                "bold"
 
         },
 
@@ -1799,13 +1914,15 @@ doc.text(
 
             0: {
 
-                cellWidth: 70
+                cellWidth:
+                    70
 
             },
 
             1: {
 
-                cellWidth: 200
+                cellWidth:
+                    200
 
             }
 
@@ -1816,14 +1933,11 @@ doc.text(
 
     /* ========================================================
        HOTO SCOPE MATRIX
-    ======================================================== */
+       ======================================================== */
 
     doc.addPage(
-
         "a4",
-
         "landscape"
-
     );
 
 
@@ -1857,6 +1971,7 @@ doc.text(
             ...selectedRooms.map(
 
                 room =>
+
                     row.rooms[room] || ""
 
             )
@@ -1910,31 +2025,41 @@ doc.text(
 
     doc.autoTable({
 
-        startY: 24,
+        startY:
+            24,
 
-        head: hotoHead,
+        head:
+            hotoHead,
 
-        body: hotoBody,
+        body:
+            hotoBody,
 
-        theme: "grid",
+        theme:
+            "grid",
 
-        repeatHeaders: true,
+        repeatHeaders:
+            true,
 
         styles: {
 
-            fontSize: 7,
+            fontSize:
+                7,
 
-            cellPadding: 2,
+            cellPadding:
+                2,
 
-            valign: "top",
+            valign:
+                "top",
 
-            overflow: "linebreak"
+            overflow:
+                "linebreak"
 
         },
 
         headStyles: {
 
-            fontStyle: "bold"
+            fontStyle:
+                "bold"
 
         },
 
@@ -1942,84 +2067,97 @@ doc.text(
 
             0: {
 
-                cellWidth: 28
+                cellWidth:
+                    28
 
             },
 
             1: {
 
-                cellWidth: 65
+                cellWidth:
+                    65
 
             }
 
         },
 
-        didParseCell: function(data) {
 
-            /*
-             * Highlight HOTO cells where
-             * drawing is missing.
-             */
+        /* ----------------------------------------------------
+           HOTO DRAWING HIGHLIGHT
 
-            if (
+           ONLY:
 
-                data.section === "body" &&
+           LS Scope + Dwg No
+           ---------------------------------------------------- */
 
-                data.column.index >= 2
-
-            ) {
-
-                const exportRow =
-                    exportRows[
-                        data.row.index
-                    ];
-
-
-                const room =
-                    selectedRooms[
-                        data.column.index - 2
-                    ];
-
+        didParseCell:
+            function(data) {
 
                 if (
-                    exportRow &&
-                    exportRow.drawingMissing &&
-                    exportRow.drawingMissing[room]
+
+                    data.section ===
+                        "body" &&
+
+                    data.column.index >=
+                        2
+
                 ) {
 
-                    data.cell.styles.fillColor =
-                        [255, 199, 206];
+                    const exportRow =
+                        exportRows[
+                            data.row.index
+                        ];
 
-                    data.cell.styles.textColor =
-                        [156, 0, 6];
+
+                    const room =
+                        selectedRooms[
+                            data.column.index - 2
+                        ];
+
+
+                    if (
+
+                        exportRow &&
+
+                        exportRow.drawingMissing &&
+
+                        exportRow.drawingMissing[
+                            room
+                        ]
+
+                    ) {
+
+                        data.cell.styles.fillColor =
+                            [255, 199, 206];
+
+
+                        data.cell.styles.textColor =
+                            [156, 0, 6];
+
+                    }
+
+
+                    data.cell.styles.cellWidth =
+                        28;
 
                 }
 
-
-                data.cell.styles.cellWidth =
-                    28;
-
             }
-
-        }
 
     });
 
 
     /* ========================================================
        ACTION SUMMARY
-    ======================================================== */
+       ======================================================== */
 
     const actionSummaryRows =
         buildActionSummary();
 
 
     doc.addPage(
-
         "a4",
-
         "landscape"
-
     );
 
 
@@ -2069,7 +2207,8 @@ doc.text(
 
     doc.autoTable({
 
-        startY: 24,
+        startY:
+            24,
 
         head: [
 
@@ -2101,25 +2240,32 @@ doc.text(
 
             ]),
 
-        theme: "grid",
+        theme:
+            "grid",
 
-        repeatHeaders: true,
+        repeatHeaders:
+            true,
 
         styles: {
 
-            fontSize: 8,
+            fontSize:
+                8,
 
-            cellPadding: 3,
+            cellPadding:
+                3,
 
-            valign: "top",
+            valign:
+                "top",
 
-            overflow: "linebreak"
+            overflow:
+                "linebreak"
 
         },
 
         headStyles: {
 
-            fontStyle: "bold"
+            fontStyle:
+                "bold"
 
         },
 
@@ -2127,42 +2273,52 @@ doc.text(
 
             0: {
 
-                cellWidth: 35
+                cellWidth:
+                    35
 
             },
 
             1: {
 
-                cellWidth: 45
+                cellWidth:
+                    45
 
             },
 
             2: {
 
-                cellWidth: 75
+                cellWidth:
+                    75
 
             },
 
             3: {
 
-                cellWidth: 125
+                cellWidth:
+                    125
 
             }
 
         },
 
-        didParseCell: function(data) {
 
-            /*
-             * Highlight entire Action Summary
-             * row when drawing is missing.
-             */
+        /* ----------------------------------------------------
+           HIGHLIGHT ACTION SUMMARY
+           ONLY LS + Dwg No
+           ---------------------------------------------------- */
 
-            if (
+        didParseCell:
+            function(data) {
 
-                data.section === "body"
+                if (
+                    data.section !==
+                    "body"
+                ) {
 
-            ) {
+                    return;
+
+                }
+
 
                 const row =
                     actionSummaryRows[
@@ -2178,6 +2334,7 @@ doc.text(
                     data.cell.styles.fillColor =
                         [255, 199, 206];
 
+
                     data.cell.styles.textColor =
                         [156, 0, 6];
 
@@ -2185,70 +2342,42 @@ doc.text(
 
             }
 
-        }
-
     });
 
-   /* ========================================================
-   DRAWING MISSING
-======================================================== */
+    /* ========================================================
+       DRAWING MISSING
+       ======================================================== */
 
-const drawingMissingRows =
-    buildDrawingMissing();
-
-
-doc.addPage(
-    "a4",
-    "landscape"
-);
+    const drawingMissingRows =
+        buildDrawingMissing();
 
 
-doc.setFontSize(16);
-
-doc.setFont(
-    undefined,
-    "bold"
-);
+    doc.addPage(
+        "a4",
+        "landscape"
+    );
 
 
-doc.text(
-    "Drawing Missing",
-    10,
-    12
-);
+    doc.setFontSize(16);
+
+    doc.setFont(
+        undefined,
+        "bold"
+    );
 
 
-doc.setFontSize(9);
+    doc.text(
 
-doc.setFont(
-    undefined,
-    "normal"
-);
+        "Drawing Missing",
 
+        10,
 
-doc.text(
+        12
 
-    `Project: ${
-        info.projectId || ""
-    }    |    Client: ${
-        info.clientName || ""
-    }    |    City: ${
-        info.city || ""
-    }`,
-
-    10,
-    19
-
-);
+    );
 
 
-/* --------------------------------------------------------
-   NO MISSING DRAWINGS
--------------------------------------------------------- */
-
-if (drawingMissingRows.length === 0) {
-
-    doc.setFontSize(12);
+    doc.setFontSize(9);
 
     doc.setFont(
         undefined,
@@ -2258,129 +2387,175 @@ if (drawingMissingRows.length === 0) {
 
     doc.text(
 
-        "No drawing gaps identified for LS Scope requirements.",
+        `Project: ${
+            info.projectId || ""
+        }    |    Client: ${
+            info.clientName || ""
+        }    |    City: ${
+            info.city || ""
+        }`,
 
         10,
-        35
+
+        19
 
     );
 
-}
+
+    /* ========================================================
+       NO DRAWINGS MISSING
+       ======================================================== */
+
+    if (
+        drawingMissingRows.length === 0
+    ) {
+
+        doc.setFontSize(12);
+
+        doc.setFont(
+            undefined,
+            "normal"
+        );
 
 
-/* --------------------------------------------------------
-   DRAWING MISSING TABLE
--------------------------------------------------------- */
+        doc.text(
 
-else {
+            "No drawing gaps identified for LS Scope requirements.",
 
-    doc.autoTable({
+            10,
 
-        startY: 24,
+            35
 
-        head: [
+        );
 
-            [
+    }
 
-                "Room",
 
-                "Trade",
+    /* ========================================================
+       DRAWING MISSING TABLE
+       ======================================================== */
 
-                "Category",
+    else {
 
-                "Requirement",
+        doc.autoTable({
 
-                "Drawing Requirement"
+            startY:
+                24,
 
-            ]
+            head: [
 
-        ],
+                [
 
-        body:
+                    "Room",
 
-            drawingMissingRows.map(row => [
+                    "Requirement",
 
-                row.room,
+                    "Dwg Required"
 
-                row.trade,
+                ]
 
-                row.category,
+            ],
 
-                row.requirement,
+            body:
 
-                row.drawingRequirement
+                drawingMissingRows.map(
+                    row => [
 
-            ]),
+                        row.room,
 
-        theme: "grid",
+                        row.requirement,
 
-        repeatHeaders: true,
+                        row.drawingRequirement
 
-        styles: {
+                    ]
+                ),
 
-            fontSize: 8,
+            theme:
+                "grid",
 
-            cellPadding: 3,
+            repeatHeaders:
+                true,
 
-            valign: "top",
+            styles: {
 
-            overflow: "linebreak"
+                fontSize:
+                    8,
 
-        },
+                cellPadding:
+                    3,
 
-        headStyles: {
+                valign:
+                    "top",
 
-            fontStyle: "bold"
+                overflow:
+                    "linebreak"
 
-        },
-
-        columnStyles: {
-
-            0: {
-                cellWidth: 28
             },
 
-            1: {
-                cellWidth: 28
+            headStyles: {
+
+                fontStyle:
+                    "bold"
+
             },
 
-            2: {
-                cellWidth: 38
+            columnStyles: {
+
+                0: {
+
+                    cellWidth:
+                        35
+
+                },
+
+                1: {
+
+                    cellWidth:
+                        80
+
+                },
+
+                2: {
+
+                    cellWidth:
+                        140
+
+                }
+
             },
 
-            3: {
-                cellWidth: 65
-            },
 
-            4: {
-                cellWidth: 121
-            }
+            /* ------------------------------------------------
+               ALL DRAWING MISSING ROWS RED
+               ------------------------------------------------ */
 
-        },
+            didParseCell:
+                function(data) {
 
-        didParseCell: function(data) {
+                    if (
+                        data.section ===
+                        "body"
+                    ) {
 
-            if (
-                data.section === "body"
-            ) {
+                        data.cell.styles.fillColor =
+                            [255, 199, 206];
 
-                data.cell.styles.fillColor =
-                    [255, 199, 206];
 
-                data.cell.styles.textColor =
-                    [156, 0, 6];
+                        data.cell.styles.textColor =
+                            [156, 0, 6];
 
-            }
+                    }
 
-        }
+                }
 
-    });
+        });
 
-}
+    }
+
 
     /* ========================================================
        PAGE NUMBERS
-    ======================================================== */
+       ======================================================== */
 
     const pageCount =
         doc.internal.getNumberOfPages();
@@ -2412,7 +2587,8 @@ else {
 
             {
 
-                align: "right"
+                align:
+                    "right"
 
             }
 
@@ -2422,8 +2598,8 @@ else {
 
 
     /* ========================================================
-       SAVE
-    ======================================================== */
+       SAVE PDF
+       ======================================================== */
 
     const safeProjectId =
 
@@ -2505,5 +2681,3 @@ document.addEventListener(
     }
 
 );
-
-
