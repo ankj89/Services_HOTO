@@ -2925,9 +2925,7 @@ function exportPDF() {
    ============================================================ */
 
 document.addEventListener(
-
     "DOMContentLoaded",
-
     function() {
 
         const excelBtn =
@@ -2942,31 +2940,32 @@ document.addEventListener(
             );
 
 
+        /* ====================================================
+           EXCEL EXPORT BUTTON
+           ==================================================== */
+
         if (excelBtn) {
 
             excelBtn.addEventListener(
-
                 "click",
-
                 exportExcel
-
             );
 
         }
 
 
+        /* ====================================================
+           PDF EXPORT BUTTON
+           ==================================================== */
+
         if (pdfBtn) {
 
             pdfBtn.addEventListener(
-
                 "click",
-
                 exportPDF
-
             );
 
         }
 
     }
-
 );
