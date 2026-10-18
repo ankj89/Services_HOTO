@@ -511,7 +511,7 @@ function buildExportData() {
 
 function buildActionSummary() {
 
-    const rows = [];
+    const grouped = {};
 
 
     QUESTION_BANK.forEach(question => {
@@ -530,9 +530,7 @@ function buildActionSummary() {
             ------------------------------------------------ */
 
             if (!response.scope) {
-
                 return;
-
             }
 
 
@@ -541,9 +539,7 @@ function buildActionSummary() {
             ------------------------------------------------ */
 
             if (response.scope === "No") {
-
                 return;
-
             }
 
 
@@ -561,68 +557,111 @@ function buildActionSummary() {
                 );
 
                 return;
-
             }
 
 
             const actionRow =
                 getActionSummaryRow(
-
                     question,
-
                     room,
-
                     response.scope
-
                 );
 
 
             if (!actionRow) {
-
                 return;
+            }
+
+
+            const drawingMissing =
+                response.scope === "Yes" &&
+                response.drawing === "No";
+
+
+            /* ------------------------------------------------
+               GROUP SAME REQUIREMENT
+
+               Same:
+               Requirement
+               Category
+               BOQ Consideration
+
+               → combine rooms into one row
+            ------------------------------------------------ */
+
+            const key =
+                [
+                    actionRow.requirement || "",
+                    actionRow.category || "",
+                    actionRow.boqImpact || ""
+                ].join("||");
+
+
+            if (!grouped[key]) {
+
+                grouped[key] = {
+
+                    requirement:
+                        actionRow.requirement || "",
+
+                    category:
+                        actionRow.category || "",
+
+                    rooms: [],
+
+                    boqConsideration:
+                        actionRow.boqImpact || "",
+
+                    drawingMissing:
+                        false,
+
+                    cxScope:
+                        response.scope === "Cx"
+
+                };
 
             }
 
 
             /* ------------------------------------------------
-               DRAWING MISSING
-
-               ONLY LS + Dwg No
+               ADD ROOM ONLY ONCE
             ------------------------------------------------ */
 
-            const drawingMissing =
+            if (
+                room &&
+                !grouped[key].rooms.includes(room)
+            ) {
 
-                response.scope === "Yes" &&
+                grouped[key].rooms.push(room);
 
-                response.drawing === "No";
+            }
 
 
-            rows.push({
+            /* ------------------------------------------------
+               STATUS FLAGS
+            ------------------------------------------------ */
 
-                room:
-                    actionRow.room || "",
+            if (drawingMissing) {
 
-                category:
-                    actionRow.category || "",
+                grouped[key].drawingMissing =
+                    true;
 
-                requirement:
-                    actionRow.requirement || "",
+            }
 
-                boqImpact:
-                    actionRow.boqImpact || "",
 
-                drawingMissing:
-                    drawingMissing
+            if (response.scope === "Cx") {
 
-            });
+                grouped[key].cxScope =
+                    true;
+
+            }
 
         });
 
     });
 
 
-    return rows;
-
+    return Object.values(grouped);
 }
 
 
@@ -1275,7 +1314,7 @@ exportRows.forEach(
 
             "Requirement",
 
-            "BOQ Impact"
+            "BOQ Consideration"
 
         ],
 
@@ -1304,19 +1343,19 @@ exportRows.forEach(
     actionSummarySheet["!cols"] = [
 
         {
-            wch: 24
-        },
-
-        {
-            wch: 30
-        },
-
-        {
             wch: 60
         },
 
         {
-            wch: 80
+            wch: 28
+        },
+
+        {
+            wch: 35
+        },
+
+        {
+            wch: 85
         }
 
     ];
@@ -2449,7 +2488,7 @@ function exportPDF() {
 
                 "Requirement",
 
-                "BOQ Impact"
+                "BOQ Consideration"
 
             ]
 
@@ -2503,28 +2542,28 @@ function exportPDF() {
             0: {
 
                 cellWidth:
-                    35
+                    65
 
             },
 
             1: {
 
                 cellWidth:
-                    45
+                    40
 
             },
 
             2: {
 
                 cellWidth:
-                    75
+                    45
 
             },
 
             3: {
 
                 cellWidth:
-                    125
+                    130
 
             }
 
@@ -2536,42 +2575,63 @@ function exportPDF() {
            ONLY LS + Dwg No
            ---------------------------------------------------- */
 
-        didParseCell:
-            function(data) {
+      didParseCell:
+    function(data) {
 
-                if (
-                    data.section !==
-                    "body"
-                ) {
-
-                    return;
-
-                }
+        if (
+            data.section !== "body"
+        ) {
+            return;
+        }
 
 
-                const row =
-                    actionSummaryRows[
-                        data.row.index
-                    ];
+        const row =
+            actionSummaryRows[
+                data.row.index
+            ];
 
 
-                if (
-                    row &&
-                    row.drawingMissing
-                ) {
-
-                    data.cell.styles.fillColor =
-                        [255, 199, 206];
+        if (!row) {
+            return;
+        }
 
 
-                    data.cell.styles.textColor =
-                        [156, 0, 6];
+        /* =================================================
+           CX SCOPE → BLUE
+           ================================================= */
 
-                }
+        if (row.cxScope) {
 
-            }
+            data.cell.styles.fillColor =
+                [217, 234, 247];
 
-    });
+            data.cell.styles.textColor =
+                [0, 0, 255];
+
+            data.cell.styles.fontStyle =
+                "bold";
+
+        }
+
+
+        /* =================================================
+           LS + DRAWING NO → RED
+           ================================================= */
+
+        else if (row.drawingMissing) {
+
+            data.cell.styles.fillColor =
+                [255, 199, 206];
+
+            data.cell.styles.textColor =
+                [156, 0, 6];
+
+            data.cell.styles.fontStyle =
+                "bold";
+
+        }
+
+    }
 
     /* ========================================================
        DRAWING MISSING
