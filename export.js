@@ -287,76 +287,117 @@ function formatScopeResponse(
     elevation
 ) {
 
-    let result = "";
+    /* ========================================================
+       CX SCOPE
+       --------------------------------------------------------
+       Cx Scope always displays only:
+       Cx Scope
+
+       Drawing Yes/No is intentionally ignored.
+       ======================================================== */
+
+    if (scope === "Cx") {
+        return "Cx Scope";
+    }
 
 
-    /* --------------------------------------------------------
-       SCOPE
-    -------------------------------------------------------- */
+    /* ========================================================
+       NOT IN SCOPE
+       --------------------------------------------------------
+       LS Scope = No
+       Drawing = No
+
+       Display only:
+       Not in Scope
+       ======================================================== */
+
+    if (
+        scope === "No" &&
+        drawing === "No"
+    ) {
+        return "Not in Scope";
+    }
+
+
+    /* ========================================================
+       LS SCOPE = YES
+       ======================================================== */
 
     if (scope === "Yes") {
 
-        result = "LS Scope";
-
-    }
-    else if (scope === "Cx") {
-
-        result = "Cx Scope";
-
-    }
-    else if (scope === "No") {
-
-        result = "Not in Scope";
-
-    }
+        let result =
+            "LS Scope - Yes";
 
 
-    /* --------------------------------------------------------
-       DRAWING
+        if (drawing === "Yes") {
 
-       Blank stays blank.
+            result +=
+                "\nDwg - Yes";
 
-       Yes -> Dwg - Yes
-       No  -> Dwg - No
-    -------------------------------------------------------- */
+        }
+        else if (drawing === "No") {
 
-    if (drawing === "Yes") {
+            result +=
+                "\nDwg - No";
 
-        result +=
-            (result ? "\n" : "") +
-            "Dwg - Yes";
+        }
 
-    }
-    else if (drawing === "No") {
 
-        result +=
-            (result ? "\n" : "") +
-            "Dwg - No";
+        /* ----------------------------------------------------
+           ELEVATION
+           ---------------------------------------------------- */
 
+        if (
+            elevation &&
+            elevation.toString().trim() !== ""
+        ) {
+
+            result +=
+                "\nElv - " +
+                elevation.toString().trim();
+
+        }
+
+
+        return result;
     }
 
 
-    /* --------------------------------------------------------
-       ELEVATION
-    -------------------------------------------------------- */
+    /* ========================================================
+       LS SCOPE = NO + DRAWING = YES
+       ======================================================== */
 
     if (
-        elevation &&
-        elevation.toString().trim() !== ""
+        scope === "No" &&
+        drawing === "Yes"
     ) {
 
-        result +=
-            (result ? "\n" : "") +
-            "Elv - " +
-            elevation.toString().trim();
+        let result =
+            "LS Scope - No\nDwg - Yes";
 
+
+        if (
+            elevation &&
+            elevation.toString().trim() !== ""
+        ) {
+
+            result +=
+                "\nElv - " +
+                elevation.toString().trim();
+
+        }
+
+
+        return result;
     }
 
 
-    return result;
+    /* ========================================================
+       BLANK / UNSELECTED
+       ======================================================== */
 
+    return "";
 }
-
 
 /* ============================================================
    BUILD HOTO EXPORT DATA
@@ -977,103 +1018,233 @@ function exportExcel() {
     }
 
 
-    /* --------------------------------------------------------
-       HIGHLIGHT HOTO DRAWING MISSING
+   /* --------------------------------------------------------
+   HIGHLIGHT HOTO STATUS
 
-       ONLY LS + Dwg No
-    -------------------------------------------------------- */
+   1. Cx Scope
+      → BLUE
 
-    exportRows.forEach(
+   2. LS Scope = Yes + Dwg = No
+      → RED
 
-        (row, rowIndex) => {
+   3. LS Scope = No + Dwg = Yes
+      → RED
 
-            selectedRooms.forEach(
+   Everything else
+      → NO COLOR
+-------------------------------------------------------- */
 
-                (room, roomIndex) => {
+exportRows.forEach(
+    (row, rowIndex) => {
 
-                    if (
-                        row.drawingMissing[room]
-                    ) {
+        selectedRooms.forEach(
+            (room, roomIndex) => {
 
-                        const cell =
-                            hotoSheet[
-
-                                XLSX.utils.encode_cell({
-
-                                    /*
-                                     * Header is row 0
-                                     */
-
-                                    r:
-                                        rowIndex + 1,
-
-                                    /*
-                                     * Trade = 0
-                                     * Question = 1
-                                     * Rooms = 2+
-                                     */
-
-                                    c:
-                                        roomIndex + 2
-
-                                })
-
-                            ];
+                const response =
+                    row.responses &&
+                    row.responses[room];
 
 
-                        if (cell) {
+                if (!response) {
+                    return;
+                }
 
-                            cell.s = {
 
-                                fill: {
+                const cell =
+                    hotoSheet[
+                        XLSX.utils.encode_cell({
 
-                                    patternType:
-                                        "solid",
+                            /*
+                             * Header is row 0
+                             * Data starts from row 1
+                             */
 
-                                    fgColor: {
+                            r: rowIndex + 1,
 
-                                        rgb:
-                                            "FFC7CE"
+                            /*
+                             * Trade = column 0
+                             * Question = column 1
+                             * Rooms = column 2 onwards
+                             */
 
-                                    }
+                            c: roomIndex + 2
 
-                                },
+                        })
+                    ];
 
-                                font: {
 
-                                    color: {
+                if (!cell) {
+                    return;
+                }
 
-                                        rgb:
-                                            "9C0006"
 
-                                    }
+                /* =================================================
+                   1. CX SCOPE → BLUE
+                   ================================================= */
 
-                                },
+                if (
+                    response.scope === "Cx"
+                ) {
 
-                                alignment: {
+                    cell.s = {
 
-                                    vertical:
-                                        "top",
+                        fill: {
 
-                                    wrapText:
-                                        true
+                            patternType:
+                                "solid",
 
-                                }
+                            fgColor: {
 
-                            };
+                                rgb:
+                                    "D9EAF7"
+
+                            }
+
+                        },
+
+                        font: {
+
+                            color: {
+
+                                rgb:
+                                    "0000FF"
+
+                            },
+
+                            bold: true
+
+                        },
+
+                        alignment: {
+
+                            vertical:
+                                "top",
+
+                            wrapText:
+                                true
 
                         }
 
-                    }
+                    };
+
+                    return;
+                }
+
+
+                /* =================================================
+                   2. LS SCOPE = YES + DWG = NO → RED
+                   ================================================= */
+
+                if (
+                    response.scope === "Yes" &&
+                    response.drawing === "No"
+                ) {
+
+                    cell.s = {
+
+                        fill: {
+
+                            patternType:
+                                "solid",
+
+                            fgColor: {
+
+                                rgb:
+                                    "FFC7CE"
+
+                            }
+
+                        },
+
+                        font: {
+
+                            color: {
+
+                                rgb:
+                                    "9C0006"
+
+                            },
+
+                            bold: true
+
+                        },
+
+                        alignment: {
+
+                            vertical:
+                                "top",
+
+                            wrapText:
+                                true
+
+                        }
+
+                    };
+
+                    return;
+                }
+
+
+                /* =================================================
+                   3. LS SCOPE = NO + DWG = YES → RED
+                   ================================================= */
+
+                if (
+                    response.scope === "No" &&
+                    response.drawing === "Yes"
+                ) {
+
+                    cell.s = {
+
+                        fill: {
+
+                            patternType:
+                                "solid",
+
+                            fgColor: {
+
+                                rgb:
+                                    "FFC7CE"
+
+                            }
+
+                        },
+
+                        font: {
+
+                            color: {
+
+                                rgb:
+                                    "9C0006"
+
+                            },
+
+                            bold: true
+
+                        },
+
+                        alignment: {
+
+                            vertical:
+                                "top",
+
+                            wrapText:
+                                true
+
+                        }
+
+                    };
 
                 }
 
-            );
+            }
+        );
 
-        }
+    }
+);
 
-    );
 
+   
 
     XLSX.utils.book_append_sheet(
 
@@ -2091,58 +2262,116 @@ function exportPDF() {
            ---------------------------------------------------- */
 
         didParseCell:
-            function(data) {
+    function(data) {
 
-                if (
+        /*
+         * Only HOTO body cells
+         * Room columns start from column 2
+         */
 
-                    data.section ===
-                        "body" &&
+        if (
+            data.section !== "body" ||
+            data.column.index < 2
+        ) {
 
-                    data.column.index >=
-                        2
+            return;
 
-                ) {
-
-                    const exportRow =
-                        exportRows[
-                            data.row.index
-                        ];
-
-
-                    const room =
-                        selectedRooms[
-                            data.column.index - 2
-                        ];
+        }
 
 
-                    if (
-
-                        exportRow &&
-
-                        exportRow.drawingMissing &&
-
-                        exportRow.drawingMissing[
-                            room
-                        ]
-
-                    ) {
-
-                        data.cell.styles.fillColor =
-                            [255, 199, 206];
+        const exportRow =
+            exportRows[
+                data.row.index
+            ];
 
 
-                        data.cell.styles.textColor =
-                            [156, 0, 6];
+        const room =
+            selectedRooms[
+                data.column.index - 2
+            ];
 
-                    }
+
+        if (
+            !exportRow ||
+            !exportRow.responses ||
+            !exportRow.responses[room]
+        ) {
+
+            return;
+
+        }
 
 
-                    data.cell.styles.cellWidth =
-                        28;
+        const response =
+            exportRow.responses[room];
 
-                }
 
-            }
+        /* =================================================
+           1. CX SCOPE → BLUE
+           ================================================= */
+
+        if (
+            response.scope === "Cx"
+        ) {
+
+            data.cell.styles.fillColor =
+                [217, 234, 247];
+
+            data.cell.styles.textColor =
+                [0, 0, 255];
+
+            data.cell.styles.fontStyle =
+                "bold";
+
+        }
+
+
+        /* =================================================
+           2. LS SCOPE = YES + DWG = NO → RED
+           ================================================= */
+
+        else if (
+            response.scope === "Yes" &&
+            response.drawing === "No"
+        ) {
+
+            data.cell.styles.fillColor =
+                [255, 199, 206];
+
+            data.cell.styles.textColor =
+                [156, 0, 6];
+
+            data.cell.styles.fontStyle =
+                "bold";
+
+        }
+
+
+        /* =================================================
+           3. LS SCOPE = NO + DWG = YES → RED
+           ================================================= */
+
+        else if (
+            response.scope === "No" &&
+            response.drawing === "Yes"
+        ) {
+
+            data.cell.styles.fillColor =
+                [255, 199, 206];
+
+            data.cell.styles.textColor =
+                [156, 0, 6];
+
+            data.cell.styles.fontStyle =
+                "bold";
+
+        }
+
+
+        data.cell.styles.cellWidth =
+            28;
+
+    }
 
     });
 
