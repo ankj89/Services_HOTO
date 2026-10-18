@@ -11,52 +11,226 @@
 
 function getProjectInformation() {
 
+    function getFieldValue(
+        elementIds,
+        projectValues
+    ) {
+
+        /* ----------------------------------------------------
+           1. First check the live HTML field
+        ---------------------------------------------------- */
+
+        for (const id of elementIds) {
+
+            const element =
+                document.getElementById(id);
+
+            if (
+                element &&
+                element.value !== undefined &&
+                element.value !== null &&
+                element.value
+                    .toString()
+                    .trim() !== ""
+            ) {
+
+                return element.value
+                    .toString()
+                    .trim();
+
+            }
+
+        }
+
+
+        /* ----------------------------------------------------
+           2. Then check the project object
+        ---------------------------------------------------- */
+
+        for (const value of projectValues) {
+
+            if (
+                value !== undefined &&
+                value !== null &&
+                value.toString().trim() !== ""
+            ) {
+
+                return value
+                    .toString()
+                    .trim();
+
+            }
+
+        }
+
+
+        return "";
+
+    }
+
+
     return {
 
+        /* ----------------------------------------------------
+           PROJECT ID / PROJECT NAME
+        ---------------------------------------------------- */
+
         projectId:
-            project.projectId ||
-            document.getElementById("projectId")?.value ||
-            "",
+
+            getFieldValue(
+
+                [
+                    "projectId",
+                    "projectName"
+                ],
+
+                [
+                    project?.projectId,
+                    project?.projectName
+                ]
+
+            ),
+
+
+        /* ----------------------------------------------------
+           CLIENT
+        ---------------------------------------------------- */
 
         clientName:
-            project.clientName ||
-            document.getElementById("clientName")?.value ||
-            "",
+
+            getFieldValue(
+
+                [
+                    "clientName"
+                ],
+
+                [
+                    project?.clientName
+                ]
+
+            ),
+
+
+        /* ----------------------------------------------------
+           CITY
+        ---------------------------------------------------- */
 
         city:
-            project.city ||
-            document.getElementById("city")?.value ||
-            "",
+
+            getFieldValue(
+
+                [
+                    "city"
+                ],
+
+                [
+                    project?.city
+                ]
+
+            ),
+
+
+        /* ----------------------------------------------------
+           BU
+        ---------------------------------------------------- */
 
         bu:
-            project.bu ||
-            document.getElementById("bu")?.value ||
-            "",
+
+            getFieldValue(
+
+                [
+                    "bu"
+                ],
+
+                [
+                    project?.bu
+                ]
+
+            ),
+
+
+        /* ----------------------------------------------------
+           DESIGNER
+        ---------------------------------------------------- */
 
         designerMailId:
-            project.designerMailId ||
-            document.getElementById("designerMailId")?.value ||
-            "",
+
+            getFieldValue(
+
+                [
+                    "designerMailId",
+                    "designer"
+                ],
+
+                [
+                    project?.designerMailId,
+                    project?.designer
+                ]
+
+            ),
+
+
+        /* ----------------------------------------------------
+           RFV
+        ---------------------------------------------------- */
 
         rfvId:
-            project.rfvId ||
-            document.getElementById("rfvId")?.value ||
-            "",
+
+            getFieldValue(
+
+                [
+                    "rfvId"
+                ],
+
+                [
+                    project?.rfvId
+                ]
+
+            ),
+
+
+        /* ----------------------------------------------------
+           DRIVE LINK
+        ---------------------------------------------------- */
 
         driveLink:
-            project.driveLink ||
-            document.getElementById("driveLink")?.value ||
-            "",
+
+            getFieldValue(
+
+                [
+                    "driveLink"
+                ],
+
+                [
+                    project?.driveLink
+                ]
+
+            ),
+
+
+        /* ----------------------------------------------------
+           REMARKS
+        ---------------------------------------------------- */
 
         remarks:
-            project.remarks ||
-            document.getElementById("remarks")?.value ||
-            ""
+
+            getFieldValue(
+
+                [
+                    "remarks",
+                    "projectRemarks"
+                ],
+
+                [
+                    project?.remarks,
+                    project?.projectRemarks
+                ]
+
+            )
 
     };
 
 }
-
 
 /* ============================================================
    GET RESPONSE
