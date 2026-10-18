@@ -25,7 +25,7 @@ const PLUMBING = [
     subcategory: "Internal Plumbing",
     level: "room",
     question: "Is complete internal CPVC/PVC plumbing planned?",
-    drawingRequirement: "Show complete plumbing routing in layout drawing."
+    drawingRequirement: "Show all fixture location in layout and elevation drawing."
 },
 
 {
@@ -45,7 +45,7 @@ const PLUMBING = [
     subcategory: "Sink",
     level: "wall",
     question: "Is an additional sink planned?",
-    drawingRequirement: "Show sink location in plan and elevation."
+    drawingRequirement: "Show additional sink location in plan and elevation."
 },
 
 {
@@ -95,7 +95,7 @@ const PLUMBING = [
     subcategory: "Shower",
     level: "wall",
     question: "Is relocation of the shower area planned?",
-    drawingRequirement: "Show revised shower location in toilet layout."
+    drawingRequirement: "Show revised shower area location in toilet layout."
 },
 
 {
@@ -105,7 +105,7 @@ const PLUMBING = [
     subcategory: "Bath Tub",
     level: "room",
     question: "Is provision required for a bath tub? (Bath tub installation not in company scope.)",
-    drawingRequirement: "Show bath tub provision and plumbing points in layout."
+    drawingRequirement: "Show bath tub location in layout."
 },
 
 {
@@ -115,7 +115,7 @@ const PLUMBING = [
     subcategory: "Jacuzzi",
     level: "room",
     question: "Is provision required for a jacuzzi? (Jacuzzi installation not in company scope.)",
-    drawingRequirement: "Show jacuzzi provision and plumbing points in layout."
+    drawingRequirement: "Show jacuzzi location in layout."
 },
 
 {
@@ -135,7 +135,7 @@ const PLUMBING = [
     subcategory: "Shower Cubicle",
     level: "room",
     question: "Is a shower cubicle planned?",
-    drawingRequirement: "Show shower cubicle layout and dimensions."
+    drawingRequirement: "Show shower cubicle location in layout and dimensions."
 },
 
 {
@@ -145,7 +145,7 @@ const PLUMBING = [
     subcategory: "New Washroom",
     level: "room",
     question: "Is any room being converted into a washroom or powder room?",
-    drawingRequirement: "Show complete plumbing layout for the new washroom."
+    drawingRequirement: "Show complete plumbing fixture layout and location for the new washroom."
 },
 
 {
@@ -155,7 +155,7 @@ const PLUMBING = [
     subcategory: "External Areas",
     level: "room",
     question: "Are any additional plumbing points planned in the balcony, utility or terrace area?",
-    drawingRequirement: "Show plumbing point locations in layout drawing."
+    drawingRequirement: "Show plumbing point locations in layout drawing or elevation."
 }
 
 ];
