@@ -558,6 +558,53 @@ function buildActionSummary() {
 }
 
 
+function buildDrawingMissing() {
+
+    const rows = [];
+
+    QUESTION_BANK.forEach(question => {
+
+        selectedRooms.forEach(room => {
+
+            const response =
+                getQuestionResponse(
+                    question,
+                    room
+                );
+
+            // Only LS Scope
+            if (response.scope !== "Yes") {
+                return;
+            }
+
+            // Only explicitly missing drawing
+            if (response.drawing !== "No") {
+                return;
+            }
+
+            rows.push({
+
+                room:
+                    room || "",
+
+                requirement:
+                    getBOQRequirement
+                        ? getBOQRequirement(question)
+                        : question.question || "",
+
+                drawingRequirement:
+                    question.drawingRequirement || ""
+
+            });
+
+        });
+
+    });
+
+    return rows;
+
+}
+
 /* ============================================================
    EXCEL
    ============================================================ */
@@ -1181,7 +1228,210 @@ function exportExcel() {
         "Action Summary"
 
     );
+/* ========================================================
+   SHEET 4 — DRAWING MISSING
+======================================================== */
 
+const drawingMissingRows =
+    buildDrawingMissing();
+
+
+const drawingMissingData = [
+
+    [
+        "Room",
+        "Trade",
+        "Category",
+        "Requirement",
+        "Drawing Requirement"
+    ],
+
+    ...drawingMissingRows.map(row => [
+
+        row.room,
+        row.trade,
+        row.category,
+        row.requirement,
+        row.drawingRequirement
+
+    ])
+
+];
+
+
+const drawingMissingSheet =
+    XLSX.utils.aoa_to_sheet(
+        drawingMissingData
+    );
+
+
+drawingMissingSheet["!cols"] = [
+
+    {
+        wch: 24
+    },
+
+    {
+        wch: 24
+    },
+
+    {
+        wch: 30
+    },
+
+    {
+        wch: 60
+    },
+
+    {
+        wch: 80
+    }
+
+];
+
+
+/* --------------------------------------------------------
+   WRAP TEXT
+-------------------------------------------------------- */
+
+if (drawingMissingSheet["!ref"]) {
+
+    const range =
+        XLSX.utils.decode_range(
+            drawingMissingSheet["!ref"]
+        );
+
+
+    for (
+        let row = range.s.r;
+        row <= range.e.r;
+        row++
+    ) {
+
+        for (
+            let col = range.s.c;
+            col <= range.e.c;
+            col++
+        ) {
+
+            const cell =
+                drawingMissingSheet[
+                    XLSX.utils.encode_cell({
+
+                        r: row,
+                        c: col
+
+                    })
+                ];
+
+
+            if (cell) {
+
+                cell.s = {
+
+                    alignment: {
+
+                        vertical: "top",
+                        wrapText: true
+
+                    }
+
+                };
+
+            }
+
+        }
+
+    }
+
+}
+
+
+/* --------------------------------------------------------
+   HIGHLIGHT EVERY DRAWING-MISSING ROW
+-------------------------------------------------------- */
+
+drawingMissingRows.forEach(
+
+    (row, rowIndex) => {
+
+        const excelRow =
+            rowIndex + 1;
+
+
+        for (
+            let col = 0;
+            col < 5;
+            col++
+        ) {
+
+            const cell =
+                drawingMissingSheet[
+                    XLSX.utils.encode_cell({
+
+                        r: excelRow,
+                        c: col
+
+                    })
+                ];
+
+
+            if (cell) {
+
+                cell.s = {
+
+                    fill: {
+
+                        patternType: "solid",
+
+                        fgColor: {
+
+                            rgb: "FFC7CE"
+
+                        }
+
+                    },
+
+                    font: {
+
+                        color: {
+
+                            rgb: "9C0006"
+
+                        },
+
+                        bold: true
+
+                    },
+
+                    alignment: {
+
+                        vertical: "top",
+
+                        wrapText: true
+
+                    }
+
+                };
+
+            }
+
+        }
+
+    }
+
+);
+
+
+XLSX.utils.book_append_sheet(
+
+    workbook,
+
+    drawingMissingSheet,
+
+    "Drawing Missing"
+
+);
 
     /* ========================================================
        FILE NAME
@@ -1391,15 +1641,18 @@ function exportPDF() {
     );
 
 
-    doc.text(
+  doc.text(
+    "3.  Action Summary",
+    contentsX,
+    154
+);
 
-        "3.  Action Summary",
-
-        contentsX,
-
-        154
-
-    );
+doc.text(
+    "4.  Drawing Missing",
+    contentsX,
+    166
+);
+   
 
 
     /* ========================================================
@@ -1936,6 +2189,194 @@ function exportPDF() {
 
     });
 
+   /* ========================================================
+   DRAWING MISSING
+======================================================== */
+
+const drawingMissingRows =
+    buildDrawingMissing();
+
+
+doc.addPage(
+    "a4",
+    "landscape"
+);
+
+
+doc.setFontSize(16);
+
+doc.setFont(
+    undefined,
+    "bold"
+);
+
+
+doc.text(
+    "Drawing Missing",
+    10,
+    12
+);
+
+
+doc.setFontSize(9);
+
+doc.setFont(
+    undefined,
+    "normal"
+);
+
+
+doc.text(
+
+    `Project: ${
+        info.projectId || ""
+    }    |    Client: ${
+        info.clientName || ""
+    }    |    City: ${
+        info.city || ""
+    }`,
+
+    10,
+    19
+
+);
+
+
+/* --------------------------------------------------------
+   NO MISSING DRAWINGS
+-------------------------------------------------------- */
+
+if (drawingMissingRows.length === 0) {
+
+    doc.setFontSize(12);
+
+    doc.setFont(
+        undefined,
+        "normal"
+    );
+
+
+    doc.text(
+
+        "No drawing gaps identified for LS Scope requirements.",
+
+        10,
+        35
+
+    );
+
+}
+
+
+/* --------------------------------------------------------
+   DRAWING MISSING TABLE
+-------------------------------------------------------- */
+
+else {
+
+    doc.autoTable({
+
+        startY: 24,
+
+        head: [
+
+            [
+
+                "Room",
+
+                "Trade",
+
+                "Category",
+
+                "Requirement",
+
+                "Drawing Requirement"
+
+            ]
+
+        ],
+
+        body:
+
+            drawingMissingRows.map(row => [
+
+                row.room,
+
+                row.trade,
+
+                row.category,
+
+                row.requirement,
+
+                row.drawingRequirement
+
+            ]),
+
+        theme: "grid",
+
+        repeatHeaders: true,
+
+        styles: {
+
+            fontSize: 8,
+
+            cellPadding: 3,
+
+            valign: "top",
+
+            overflow: "linebreak"
+
+        },
+
+        headStyles: {
+
+            fontStyle: "bold"
+
+        },
+
+        columnStyles: {
+
+            0: {
+                cellWidth: 28
+            },
+
+            1: {
+                cellWidth: 28
+            },
+
+            2: {
+                cellWidth: 38
+            },
+
+            3: {
+                cellWidth: 65
+            },
+
+            4: {
+                cellWidth: 121
+            }
+
+        },
+
+        didParseCell: function(data) {
+
+            if (
+                data.section === "body"
+            ) {
+
+                data.cell.styles.fillColor =
+                    [255, 199, 206];
+
+                data.cell.styles.textColor =
+                    [156, 0, 6];
+
+            }
+
+        }
+
+    });
+
+}
 
     /* ========================================================
        PAGE NUMBERS
@@ -2064,3 +2505,5 @@ document.addEventListener(
     }
 
 );
+
+
