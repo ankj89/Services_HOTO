@@ -11,7 +11,7 @@ const ELECTRICAL = [
 {
 id:"EL-LGT-001",
 trade:"Electrical",
-category:"Lighting",
+category:"Ceiling Lighting",
 subcategory:"False Ceiling",
 level:"room",
 question:"Is false ceiling lighting planned?",
@@ -25,7 +25,7 @@ drawingRequirement:"Show lighting layout in reflected ceiling plan along with lo
 {
 id:"EL-LGT-002",
 trade:"Electrical",
-category:"Lighting",
+category:"Ceiling Lighting",
 subcategory:"False Ceiling",
 level:"room",
 question:"Is cove lighting planned in the false ceiling?",
@@ -39,7 +39,7 @@ drawingRequirement:"Show cove lighting layout in reflected ceiling plan along wi
 {
 id:"EL-LGT-003",
 trade:"Electrical",
-category:"Lighting",
+category:"Ceiling Lighting",
 subcategory:"False Ceiling",
 level:"room",
 question:"Is profile lighting planned in the false ceiling?",
@@ -54,7 +54,7 @@ drawingRequirement:"Show profile lighting layout in reflected ceiling plan along
 id:"EL-LGT-004",
 trade:"Electrical",
 category:"Lighting",
-subcategory:"False Ceiling",
+subcategory:"Ceiling False Ceiling",
 level:"room",
 question:"Are track lights planned in the false ceiling?",
       subtext: [
@@ -67,7 +67,7 @@ drawingRequirement:"Show track light layout in reflected ceiling plan along with
 {
 id:"EL-LGT-005",
 trade:"Electrical",
-category:"Lighting",
+category:"Ceiling Lighting",
 subcategory:"Decorative Lighting",
 level:"room",
 question:"Are designer ceiling lights planned (chandelier / pendant / hanging lights)?",
@@ -77,7 +77,7 @@ drawingRequirement:"Show fixture location in reflected ceiling plan along with l
 {
 id:"EL-LGT-006",
 trade:"Electrical",
-category:"Lighting",
+category:"Ceiling Lighting",
 subcategory:"Surface Lights",
 level:"room",
 question:"Are surface-mounted lights planned in ceiling?",
@@ -87,7 +87,7 @@ drawingRequirement:"Show fixture location in reflected ceiling plan along with l
 {
 id:"EL-LGT-007",
 trade:"Electrical",
-category:"Lighting",
+category:"Wall Lighting",
 subcategory:"Wall Lights",
 level:"wall",
 question:"Are wall lights planned (normal, decorative and/or profile)?",
@@ -97,7 +97,7 @@ drawingRequirement:"Show wall light location in elevation along with looping and
 {
 id:"EL-LGT-008",
 trade:"Electrical",
-category:"Lighting",
+category:"Cove/Back Lighting",
 subcategory:"Wall Panelling",
 level:"wall",
 question:"Is backlighting or cove lighting planned in wall panelling?",
@@ -107,7 +107,7 @@ drawingRequirement:"Show strip/cove lighting detail in wallpanelling elevation a
 {
 id:"EL-LGT-009",
 trade:"Electrical",
-category:"Lighting",
+category:"Cove/back Lighting",
 subcategory:"Headboard",
 level:"wall",
 question:"Is backlighting or cove lighting planned in the headboard?",
@@ -117,7 +117,7 @@ drawingRequirement:"Show lighting detail in headboard elevation along with loopi
 {
 id:"EL-LGT-010",
 trade:"Electrical",
-category:"Lighting",
+category:"Cove/Back Lighting",
 subcategory:"Cabinet",
 level:"wall",
 question:"Are cabinet lights planned in modular storage units?",
@@ -127,7 +127,7 @@ drawingRequirement:"Show lighting detail in cabinet elevation along with looping
 {
 id:"EL-LGT-011",
 trade:"Electrical",
-category:"Lighting",
+category:"Cove/Back Lighting",
 subcategory:"Cabinet",
 level:"wall",
 question:"Is backlighting or cove lighting planned in modular storage units?",
@@ -137,7 +137,7 @@ drawingRequirement:"Show lighting detail in cabinet elevation along with looping
 {
 id:"EL-LGT-012",
 trade:"Electrical",
-category:"Lighting",
+category:"Cove/Back Lighting",
 subcategory:"Wardrobe",
 level:"wall",
 question:"Are cabinet lights, backlighting or cove lighting planned in wardrobes?",
@@ -147,7 +147,7 @@ drawingRequirement:"Show lighting detail in wardrobe elevation along with loopin
 {
 id:"EL-LGT-013",
 trade:"Electrical",
-category:"Lighting",
+category:"Cove/Back Lighting",
 subcategory:"Display Units",
 level:"wall",
 question:"Is lighting planned within display, crockery or bar units?",
@@ -157,7 +157,7 @@ drawingRequirement:"Show lighting detail in furniture elevation along with loopi
 {
 id:"EL-LGT-014",
 trade:"Electrical",
-category:"Lighting",
+category:"Cove/Back Lighting",
 subcategory:"TV Unit",
 level:"wall",
 question:"Is lighting planned within the TV unit or panelling?",
@@ -167,7 +167,7 @@ drawingRequirement:"Show lighting detail in TV unit elevation along with looping
 {
 id:"EL-LGT-015",
 trade:"Electrical",
-category:"Lighting",
+category:"Cove/Back Lighting",
 subcategory:"Partitions",
 level:"wall",
 question:"Is lighting planned within partitions?",
@@ -177,7 +177,7 @@ drawingRequirement:"Show lighting detail in partition elevation along with loopi
 {
 id:"EL-LGT-016",
 trade:"Electrical",
-category:"Lighting",
+category:"Cove/Back Lighting",
 subcategory:"Mandir",
 level:"wall",
 question:"Is lighting planned in the mandir unit?",
@@ -187,7 +187,7 @@ drawingRequirement:"Show lighting detail in mandir elevation along wth looping a
 {
 id:"EL-LGT-017",
 trade:"Electrical",
-category:"Lighting",
+category:"Wall Lighting",
 subcategory:"Staircase",
 level:"room",
 question:"Is lighting planned in the staircase area?",
@@ -201,17 +201,23 @@ drawingRequirement:"Show lighting layout in plan and elevation along with loopin
 {
 id:"EL-PWR-001",
 trade:"Electrical",
-category:"Power/Module",
+category:"General Purpose Power/Module",
 subcategory:"Sockets",
 level:"wall",
 question:"Are additional 5A sockets required for general usage (mobile charging, etc.)?",
+   subtext: [
+        "Near Sofa/in Living Room",
+        "Near dining table",
+        "On sides of Bed",
+        "For Study table
+    ],
 drawingRequirement:"Show 5A socket location in wall elevation along with woodwork hatching."
 },
 
 {
 id:"EL-PWR-002",
 trade:"Electrical",
-category:"Power/Module",
+category:"General Purpose Power/Module",
 subcategory:"Sockets",
 level:"wall",
 question:"Are additional 15A sockets required for heavy-duty appliances (geyser, iron, heater, etc.)?",
@@ -221,7 +227,7 @@ drawingRequirement:"Show 15A socket location in wall elevation along with woodwo
 {
 id:"EL-PWR-003",
 trade:"Electrical",
-category:"Power/Module",
+category:"General Purpose Power/Module",
 subcategory:"Sockets",
 level:"wall",
 question:"Are any 32A power points required?",
@@ -231,27 +237,18 @@ drawingRequirement:"Show 32A power point location in wall elevation along with w
 {
 id:"EL-PWR-004",
 trade:"Electrical",
-category:"Power/Module",
+category:"General Purpose Power/Module",
 subcategory:"Switching",
 level:"wall",
 question:"Is two-way switching required anywhere?",
 drawingRequirement:"Show two-way switching looping in plan or wall elevation along with woodwork hatching"
 },
 
-{
-id:"EL-PWR-005",
-trade:"Electrical",
-category:"Power/Module",
-subcategory:"Bedroom",
-level:"wall",
-question:"Are bedside charging and switch points required?",
-drawingRequirement:"Show 5A or 15A location in wall elevation with hatching of bed/headboard."
-},
 
 {
 id:"EL-PWR-006",
 trade:"Electrical",
-category:"Power/Module",
+category:"General Purpose Power/Module",
 subcategory:"Balcony",
 level:"wall",
 question:"Are dedicated power points required for decorative or festival lighting in the balcony?",
@@ -261,7 +258,7 @@ drawingRequirement:"Show 5A or 15A point location in elevation."
 {
 id:"EL-PWR-007",
 trade:"Electrical",
-category:"Power/Module",
+category:"General Purpose Power/Module",
 subcategory:"Relocation",
 level:"wall",
 question:"Are relocations of existing electrical modules planned?",
@@ -271,7 +268,7 @@ drawingRequirement:"Show revised module location in elevation along with woodwor
 {
 id:"EL-PWR-008",
 trade:"Electrical",
-category:"Power/Module",
+category:"Carpentry Integrated Power/Module",
 subcategory:"TV Unit",
 level:"wall",
 question:"Are power points planned for the TV unit?",
@@ -281,7 +278,7 @@ drawingRequirement:"Show 5A or 15A power point location in TV unit elevation/wal
 {
 id:"EL-PWR-009",
 trade:"Electrical",
-category:"Power/Module",
+category:"Carpentry Integrated Power/Module",
 subcategory:"Study Unit",
 level:"wall",
 question:"Are power points required for the study unit?",
@@ -291,7 +288,7 @@ drawingRequirement:"Show 5A or 15A power point location in along with study unit
 {
 id:"EL-PWR-010",
 trade:"Electrical",
-category:"Power/Module",
+category:"Carpentry Integrated Power/Module",
 subcategory:"Mandir",
 level:"wall",
 question:"Are power points required in the mandir unit?",
@@ -301,7 +298,7 @@ drawingRequirement:"Show 5A or 15A power point location in mandir unit elevation
 {
 id:"EL-PWR-011",
 trade:"Electrical",
-category:"Power/Module",
+category:"Carpentry Integrated Power/Module",
 subcategory:"Furniture",
 level:"wall",
 question:"Are power or charging points required within furniture?",
@@ -311,7 +308,7 @@ drawingRequirement:"Show 5A or 15A power point location in furniture elevation."
 {
 id:"EL-PWR-012",
 trade:"Electrical",
-category:"Power/Module",
+category:"Carpentry Integrated Power/Module",
 subcategory:"Furniture",
 level:"wall",
 question:"Are any electronic furniture items (such as recliners) planned?",
