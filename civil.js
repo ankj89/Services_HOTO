@@ -111,7 +111,7 @@ const CIVIL = [
 {
     id: "CV-DEM-011",
     trade: "Civil",
-    category: "Demolition",
+    category: "Core Cutting",
     subcategory: "Core Cutting",
     level: "wall",
     question: "Is core cutting planned for AC piping?",
@@ -121,7 +121,7 @@ const CIVIL = [
 {
     id: "CV-DEM-012",
     trade: "Civil",
-    category: "Demolition",
+    category: "Core Cutting",
     subcategory: "Core Cutting",
     level: "wall",
     question: "Is core cutting planned for chimney ducting?",
@@ -135,7 +135,7 @@ const CIVIL = [
 {
     id: "CV-CIV-001",
     trade: "Civil",
-    category: "Civil",
+    category: "Walls & Partitions",
     subcategory: "Walls",
     level: "room",
     question: "Is any new brick wall planned?",
@@ -145,17 +145,18 @@ const CIVIL = [
 {
     id: "CV-CIV-002",
     trade: "Civil",
-    category: "Civil",
+    category: "Stone works",
     subcategory: "Door Frames",
     level: "wall",
     question: "Is granite framing planned on door head and jambs?",
     drawingRequirement: "Show granite framing in door elevation."
 },
+   
 
 {
     id: "CV-CIV-003",
     trade: "Civil",
-    category: "Civil",
+    category: "Punning & POP works",
     subcategory: "POP",
     level: "wall",
     question: "Are POP grooves planned on walls?",
@@ -165,7 +166,7 @@ const CIVIL = [
 {
     id: "CV-CIV-004",
     trade: "Civil",
-    category: "Civil",
+    category: "Punning & POP works",
     subcategory: "Metal Inlay",
     level: "wall",
     question: "Is any metal inlay design planned on walls?",
@@ -175,7 +176,7 @@ const CIVIL = [
 {
     id: "CV-CIV-005",
     trade: "Civil",
-    category: "Civil",
+    category: "Punning & POP works",
     subcategory: "POP Moulding",
     level: "wall",
     question: "Are POP mouldings, trims or cornices planned on walls?",
@@ -185,11 +186,30 @@ const CIVIL = [
 {
     id: "CV-CIV-006",
     trade: "Civil",
-    category: "Civil",
+    category: "Punning & POP works",
     subcategory: "POP Moulding",
     level: "room",
     question: "Are POP mouldings, trims or cornices planned on ceiling?",
     drawingRequirement: "Show ceiling moulding profile and layout."
+},
+
+   {
+    id: "CV-CIV-007",
+    trade: "Civil",
+    category: "Stone works",
+    subcategory: "Ledges",
+    level: "wall",
+    question: "Are stone ledges planned?",
+    drawingRequirement: "Show stone ledges in elevation wherever required."
+},
+      {
+    id: "CV-CIV-008",
+    trade: "Civil",
+    category: "Stone works",
+    subcategory: "Platform work",
+    level: "wall",
+    question: "Is granite counter installtion planned in the house?",
+    drawingRequirement: "Show counter in plan or elevation wherever required."
 },
 
 /* ===========================================================
@@ -199,7 +219,7 @@ const CIVIL = [
 {
     id: "CV-FLR-001",
     trade: "Civil",
-    category: "Flooring",
+    category: "Tilling",
     subcategory: "Floor Tiles",
     level: "room",
     question: "Is new floor tiling planned? (Tile Size: 1'×1' to 2'×2')",
@@ -209,7 +229,7 @@ const CIVIL = [
 {
     id: "CV-FLR-002",
     trade: "Civil",
-    category: "Flooring",
+    category: "Tilling",
     subcategory: "Floor Tiles",
     level: "room",
     question: "Is new floor tiling planned? (Tile Size: 2'×2' to 4'×4')",
@@ -219,7 +239,7 @@ const CIVIL = [
 {
     id: "CV-FLR-003",
     trade: "Civil",
-    category: "Flooring",
+    category: "Tilling",
     subcategory: "Floor Tiles",
     level: "room",
     question: "Is new floor tiling planned? (Tile Size: 4'×4' to 8'×4')",
@@ -229,7 +249,7 @@ const CIVIL = [
 {
     id: "CV-FLR-004",
     trade: "Civil",
-    category: "Flooring",
+    category: "Tilling",
     subcategory: "Tile Installation",
     level: "room",
     question: "Has the customer requested floor tile installation using adhesive?",
@@ -239,7 +259,7 @@ const CIVIL = [
 {
     id: "CV-FLR-005",
     trade: "Civil",
-    category: "Flooring",
+    category: "Stone Flooring",
     subcategory: "Stone Flooring",
     level: "room",
     question: "Is Indian marble or granite flooring planned?",
@@ -249,7 +269,7 @@ const CIVIL = [
 {
     id: "CV-FLR-006",
     trade: "Civil",
-    category: "Flooring",
+    category: "Stone Flooring",
     subcategory: "Stone Flooring",
     level: "room",
     question: "Is Italian marble flooring planned?",
@@ -259,7 +279,7 @@ const CIVIL = [
 {
     id: "CV-FLR-007",
     trade: "Civil",
-    category: "Flooring",
+    category: "Stone Flooring",
     subcategory: "Stone Flooring",
     level: "room",
     question: "Is premium stone flooring planned? (Example: Onyx or equivalent)",
@@ -269,7 +289,7 @@ const CIVIL = [
 {
     id: "CV-FLR-008",
     trade: "Civil",
-    category: "Flooring",
+    category: "Tilling",
     subcategory: "Wall Tiles",
     level: "wall",
     question: "Is new wall tiling planned? (Tile Size: 1'×1' to 2'×2')",
@@ -279,7 +299,7 @@ const CIVIL = [
 {
     id: "CV-FLR-009",
     trade: "Civil",
-    category: "Flooring",
+    category: "Tilling",
     subcategory: "Wall Tiles",
     level: "wall",
     question: "Is new wall tiling planned? (Tile Size: 2'×2' to 2'×4')",
@@ -289,7 +309,7 @@ const CIVIL = [
 {
     id: "CV-FLR-010",
     trade: "Civil",
-    category: "Flooring",
+    category: "Tilling",
     subcategory: "Wall Tiles",
     level: "wall",
     question: "Is new wall tiling planned? (Tile Size: 2'×4' to 8'×4')",
@@ -299,7 +319,7 @@ const CIVIL = [
 {
     id: "CV-FLR-011",
     trade: "Civil",
-    category: "Flooring",
+    category: "Tilling",
     subcategory: "Tile Installation",
     level: "wall",
     question: "Has the customer requested wall tile installation using adhesive?",
