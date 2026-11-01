@@ -209,7 +209,7 @@ question:"Are additional 5A sockets required for general usage (mobile charging,
         "Near Sofa/in Living Room",
         "Near dining table",
         "On sides of Bed",
-        "For Study table
+        "For Study table"
     ],
 drawingRequirement:"Show 5A socket location in wall elevation along with woodwork hatching."
 },
