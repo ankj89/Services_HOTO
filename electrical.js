@@ -53,7 +53,7 @@ drawingRequirement:"Show profile lighting layout in reflected ceiling plan along
 {
 id:"EL-LGT-004",
 trade:"Electrical",
-category:"Lighting",
+category:"Ceiling Lighting",
 subcategory:"Ceiling False Ceiling",
 level:"room",
 question:"Are track lights planned in the false ceiling?",
@@ -107,7 +107,7 @@ drawingRequirement:"Show strip/cove lighting detail in wallpanelling elevation a
 {
 id:"EL-LGT-009",
 trade:"Electrical",
-category:"Cove/back Lighting",
+category:"Cove/Back Lighting",
 subcategory:"Headboard",
 level:"wall",
 question:"Is backlighting or cove lighting planned in the headboard?",
