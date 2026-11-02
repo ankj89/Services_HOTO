@@ -624,10 +624,9 @@ function buildQuestionRows(questions) {
         const questionCell = document.createElement("td");
        
 
-// QUESTION
 
-const questionCell =
-    document.createElement("td");
+
+
 
 questionCell.className =
     "question-cell";
