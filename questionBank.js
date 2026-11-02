@@ -4,16 +4,13 @@
 =========================================================== */
 
 const QUESTION_BANK = [
-
-    ...ELECTRICAL,
    ...CIVIL,
-   ...CARPENTRY,
-
-    ...FALSE_CEILING,
-
-    ...PLUMBING,
-
-    ...PAINTING
+   ...FALSE_CEILING,
+    ...ELECTRICAL,
+   ...PLUMBING,
+ 
+    ...PAINTING, 
+   ...CARPENTRY
     /*
     Future Datasets
 
