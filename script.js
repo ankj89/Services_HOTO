@@ -19,6 +19,15 @@ let activeCategory = "";
 
 let responses = {};
 
+// Category-level scope control
+let categoryScope = {};
+
+// Question-level scope control
+let questionOutOfScope = {};
+
+// Backup of room responses before overriding scope
+let scopeBackup = {};
+
 
 /* ===========================================================
    DEFAULT ROOM LIBRARY
@@ -336,92 +345,156 @@ function generateHOTO(){
    LEFT NAVIGATION
 =========================================================== */
 
-function buildNavigationTree(){
+/* ===========================================================
+   LEFT NAVIGATION
+=========================================================== */
 
-    const menu=document.getElementById("categoryMenu");
+function buildNavigationTree() {
 
-    menu.innerHTML="";
+    const menu =
+        document.getElementById("categoryMenu");
 
-    const trades=[
+    menu.innerHTML = "";
 
+    const trades = [
         ...new Set(
-
-            QUESTION_BANK.map(q=>q.trade)
-
+            QUESTION_BANK.map(q => q.trade)
         )
-
     ];
 
+    trades.forEach(trade => {
 
-    trades.forEach(trade=>{
+        const tradeWrapper =
+            document.createElement("div");
 
-        const tradeWrapper=document.createElement("div");
-
-        tradeWrapper.className="trade-wrapper";
-
-
-        const tradeHeader=document.createElement("div");
-
-        tradeHeader.className="trade-header";
-
-        tradeHeader.innerHTML=trade;
+        tradeWrapper.className =
+            "trade-wrapper";
 
 
-        tradeWrapper.appendChild(tradeHeader);
+        const tradeHeader =
+            document.createElement("div");
+
+        tradeHeader.className =
+            "trade-header";
+
+        tradeHeader.textContent = trade;
+
+        tradeWrapper.appendChild(
+            tradeHeader
+        );
 
 
-        const categoryList=document.createElement("ul");
+        const categoryList =
+            document.createElement("ul");
 
-        categoryList.className="category-list";
+        categoryList.className =
+            "category-list";
 
 
-        const categories=[
-
+        const categories = [
             ...new Set(
-
                 QUESTION_BANK
-
-                    .filter(q=>q.trade===trade)
-
-                    .map(q=>q.category)
-
+                    .filter(q => q.trade === trade)
+                    .map(q => q.category)
             )
-
         ];
 
 
-        categories.forEach(category=>{
+        categories.forEach(category => {
 
-            const li=document.createElement("li");
+            const li =
+                document.createElement("li");
 
-            li.innerHTML=category;
+            li.className =
+                "category-menu-item";
 
-            if(
 
-                trade===activeTrade
-
-                &&
-
-                category===activeCategory
-
-            ){
+            if (
+                trade === activeTrade &&
+                category === activeCategory
+            ) {
 
                 li.classList.add("active");
 
             }
 
 
-            li.addEventListener("click",()=>{
+            // CATEGORY SCOPE CHECKBOX
 
-                activeTrade=trade;
+            const checkbox =
+                document.createElement("input");
 
-                activeCategory=category;
+            checkbox.type = "checkbox";
 
-                buildNavigationTree();
+            checkbox.className =
+                "category-scope-checkbox";
 
-                renderQuestions(activeTrade,activeCategory);
+            checkbox.checked =
+                !isCategoryOutOfScope(
+                    trade,
+                    category
+                );
 
-            });
+
+            checkbox.addEventListener(
+                "click",
+                event => {
+
+                    event.stopPropagation();
+
+                }
+            );
+
+
+            checkbox.addEventListener(
+                "change",
+                event => {
+
+                    event.stopPropagation();
+
+                    setCategoryScope(
+                        trade,
+                        category,
+                        checkbox.checked
+                    );
+
+                }
+            );
+
+
+            // CATEGORY NAME
+
+            const label =
+                document.createElement("span");
+
+            label.className =
+                "category-menu-label";
+
+            label.textContent = category;
+
+
+            li.appendChild(checkbox);
+
+            li.appendChild(label);
+
+
+            li.addEventListener(
+                "click",
+                () => {
+
+                    activeTrade = trade;
+
+                    activeCategory = category;
+
+                    buildNavigationTree();
+
+                    renderQuestions(
+                        activeTrade,
+                        activeCategory
+                    );
+
+                }
+            );
 
 
             categoryList.appendChild(li);
@@ -429,9 +502,13 @@ function buildNavigationTree(){
         });
 
 
-        tradeWrapper.appendChild(categoryList);
+        tradeWrapper.appendChild(
+            categoryList
+        );
 
-        menu.appendChild(tradeWrapper);
+        menu.appendChild(
+            tradeWrapper
+        );
 
     });
 
@@ -545,32 +622,148 @@ function buildQuestionRows(questions) {
         // QUESTION
 
         const questionCell = document.createElement("td");
+       
 
-questionCell.className = "question-cell";
+// QUESTION
 
-let questionHTML = `
-    <div class="question-main">
-        ${question.question}
-    </div>
-`;
+const questionCell =
+    document.createElement("td");
 
-if (question.subtext && question.subtext.length) {
+questionCell.className =
+    "question-cell";
 
-    questionHTML += `
-        <div class="question-subtext">
-            ${question.subtext.map(item => `
-                <div class="subtext-item">
-                    • ${item}
-                </div>
-            `).join("")}
-        </div>
-    `;
+
+const questionWrapper =
+    document.createElement("div");
+
+questionWrapper.className =
+    "question-wrapper";
+
+
+/* QUESTION TEXT */
+
+const questionText =
+    document.createElement("div");
+
+questionText.className =
+    "question-main";
+
+questionText.textContent =
+    question.question;
+
+questionWrapper.appendChild(
+    questionText
+);
+
+
+/* QUESTION SUBTEXT */
+
+if (
+    question.subtext &&
+    question.subtext.length
+) {
+
+    const subtext =
+        document.createElement("div");
+
+    subtext.className =
+        "question-subtext";
+
+    question.subtext.forEach(item => {
+
+        const itemElement =
+            document.createElement("div");
+
+        itemElement.className =
+            "subtext-item";
+
+        itemElement.textContent =
+            "• " + item;
+
+        subtext.appendChild(
+            itemElement
+        );
+
+    });
+
+    questionWrapper.appendChild(
+        subtext
+    );
 
 }
 
-questionCell.innerHTML = questionHTML;
 
-tr.appendChild(questionCell);
+/* QUESTION-LEVEL SCOPE CHECKBOX */
+
+const scopeLabel =
+    document.createElement("label");
+
+scopeLabel.className =
+    "question-scope-label";
+
+
+const scopeCheckbox =
+    document.createElement("input");
+
+scopeCheckbox.type =
+    "checkbox";
+
+scopeCheckbox.className =
+    "question-scope-checkbox";
+
+scopeCheckbox.checked =
+    isQuestionOutOfScope(
+        question.id
+    );
+
+
+scopeCheckbox.disabled =
+    isCategoryOutOfScope(
+        question.trade,
+        question.category
+    );
+
+
+scopeCheckbox.addEventListener(
+    "change",
+    () => {
+
+        setQuestionOutOfScope(
+            question.id,
+            scopeCheckbox.checked
+        );
+
+    }
+);
+
+
+const scopeText =
+    document.createElement("span");
+
+scopeText.textContent =
+    "Not applicable in any room";
+
+
+scopeLabel.appendChild(
+    scopeCheckbox
+);
+
+scopeLabel.appendChild(
+    scopeText
+);
+
+
+questionWrapper.appendChild(
+    scopeLabel
+);
+
+questionCell.appendChild(
+    questionWrapper
+);
+
+tr.appendChild(
+    questionCell
+);
 
 
         // DRAWING REQUIREMENT
@@ -587,26 +780,52 @@ tr.appendChild(questionCell);
 
         // ROOM CELLS
 
-        selectedRooms.forEach(room => {
+      // ROOM CELLS
 
-            const td = document.createElement("td");
+selectedRooms.forEach(room => {
 
-            td.className = "room-cell";
+    const td =
+        document.createElement("td");
 
-            td.dataset.question = question.id;
+    td.className =
+        "room-cell";
 
-            td.dataset.room = room;
+    td.dataset.question =
+        question.id;
 
-            td.dataset.level = question.level;
+    td.dataset.room =
+        room;
 
-            td.innerHTML = createCellEditor(
+    td.dataset.level =
+        question.level;
+
+
+    if (
+        isForcedOutOfScope(
+            question
+        )
+    ) {
+
+        td.innerHTML = `
+            <div class="forced-out-of-scope">
+                Not in Scope
+            </div>
+        `;
+
+    }
+    else {
+
+        td.innerHTML =
+            createCellEditor(
                 question,
                 room
             );
 
-            tr.appendChild(td);
+    }
 
-        });
+    tr.appendChild(td);
+
+});
 
 
         tbody.appendChild(tr);
@@ -624,7 +843,7 @@ tr.appendChild(questionCell);
 
 function createCellEditor(question, room){
 
-    const data = getResponse(question.id, room);
+    const data = (question.id, room);
 
     if(question.level === "wall"){
 
@@ -818,6 +1037,236 @@ function getResponse(questionId, room){
     return responses[questionId][room] || {};
 
 }
+
+/* ===========================================================
+   SCOPE CONTROL HELPERS
+=========================================================== */
+
+function getCategoryKey(trade, category) {
+    return `${trade}||${category}`;
+}
+
+
+function isCategoryOutOfScope(trade, category) {
+
+    const key = getCategoryKey(trade, category);
+
+    return categoryScope[key] === false;
+
+}
+
+
+function isQuestionOutOfScope(questionId) {
+
+    return questionOutOfScope[questionId] === true;
+
+}
+
+
+function isForcedOutOfScope(question) {
+
+    return (
+        isCategoryOutOfScope(
+            question.trade,
+            question.category
+        )
+        ||
+        isQuestionOutOfScope(question.id)
+    );
+
+}
+
+
+/* ===========================================================
+   BACKUP RESPONSES
+=========================================================== */
+
+function backupQuestionResponses(questionId) {
+
+    if (!scopeBackup[questionId]) {
+
+        scopeBackup[questionId] =
+            JSON.parse(
+                JSON.stringify(
+                    responses[questionId] || {}
+                )
+            );
+
+    }
+
+}
+
+
+/* ===========================================================
+   MARK QUESTION OUT OF SCOPE
+=========================================================== */
+
+function markQuestionOutOfScope(questionId) {
+
+    backupQuestionResponses(questionId);
+
+    if (!responses[questionId]) {
+        responses[questionId] = {};
+    }
+
+    selectedRooms.forEach(room => {
+
+        responses[questionId][room] = {
+
+            scope: "No",
+
+            drawing: "No",
+
+            elevation: ""
+
+        };
+
+    });
+
+}
+
+
+/* ===========================================================
+   RESTORE QUESTION RESPONSES
+=========================================================== */
+
+function restoreQuestionResponses(questionId) {
+
+    if (scopeBackup[questionId]) {
+
+        responses[questionId] = {
+
+            ...responses[questionId],
+
+            ...scopeBackup[questionId]
+
+        };
+
+        delete scopeBackup[questionId];
+
+    }
+
+}
+
+
+/* ===========================================================
+   CATEGORY SCOPE CONTROL
+=========================================================== */
+
+function setCategoryScope(
+    trade,
+    category,
+    inScope
+) {
+
+    const key = getCategoryKey(
+        trade,
+        category
+    );
+
+    categoryScope[key] = inScope;
+
+    const questions = QUESTION_BANK.filter(q =>
+        q.trade === trade &&
+        q.category === category
+    );
+
+    questions.forEach(question => {
+
+        if (!inScope) {
+
+            markQuestionOutOfScope(
+                question.id
+            );
+
+        }
+        else {
+
+            // Restore only if question-level
+            // scope is not independently disabled.
+
+            if (
+                !isQuestionOutOfScope(
+                    question.id
+                )
+            ) {
+
+                restoreQuestionResponses(
+                    question.id
+                );
+
+            }
+
+        }
+
+    });
+
+    saveApplication();
+
+    buildNavigationTree();
+
+    renderQuestions(
+        activeTrade,
+        activeCategory
+    );
+
+}
+
+
+/* ===========================================================
+   QUESTION SCOPE CONTROL
+=========================================================== */
+
+function setQuestionOutOfScope(
+    questionId,
+    outOfScope
+) {
+
+    questionOutOfScope[questionId] =
+        outOfScope;
+
+    if (outOfScope) {
+
+        markQuestionOutOfScope(
+            questionId
+        );
+
+    }
+    else {
+
+        const question = QUESTION_BANK.find(
+            q => q.id === questionId
+        );
+
+        // Category-level Out of Scope
+        // must continue to take priority.
+
+        if (
+            question &&
+            !isCategoryOutOfScope(
+                question.trade,
+                question.category
+            )
+        ) {
+
+            restoreQuestionResponses(
+                questionId
+            );
+
+        }
+
+    }
+
+    saveApplication();
+
+    renderQuestions(
+        activeTrade,
+        activeCategory
+    );
+
+}
+
+
 
 /* ===========================================================
    INLINE CELL EVENTS
@@ -1136,7 +1585,12 @@ function saveApplication(){
 
         activeTrade,
 
-        activeCategory
+        activeCategory,
+        categoryScope,
+
+    questionOutOfScope,
+
+    scopeBackup
 
     };
 
@@ -1174,6 +1628,14 @@ function loadApplication(){
         selectedRooms=appData.selectedRooms || [];
 
         responses=appData.responses || {};
+       categoryScope =
+    appData.categoryScope || {};
+
+questionOutOfScope =
+    appData.questionOutOfScope || {};
+
+scopeBackup =
+    appData.scopeBackup || {};
 
         activeTrade=appData.activeTrade || activeTrade;
 
