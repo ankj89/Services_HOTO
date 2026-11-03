@@ -1630,6 +1630,15 @@ questionOutOfScope =
 scopeBackup =
     appData.scopeBackup || {};
 
+       categoryScope =
+    appData.categoryScope || {};
+
+questionOutOfScope =
+    appData.questionOutOfScope || {};
+
+scopeBackup =
+    appData.scopeBackup || {};
+
         activeTrade=appData.activeTrade || activeTrade;
 
         activeCategory=appData.activeCategory || activeCategory;
