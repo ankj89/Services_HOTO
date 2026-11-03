@@ -237,7 +237,19 @@ function initialiseButtons(){
 document
 .getElementById("addRoomBtn")
 .addEventListener("click", addCustomRoom);
+/* RESET / NEW PROJECT BUTTON */
 
+const resetButton =
+    document.getElementById("resetProjectBtn");
+
+if (resetButton) {
+
+    resetButton.addEventListener(
+        "click",
+        resetProject
+    );
+
+}
 
 }
 
@@ -1795,26 +1807,54 @@ function populateRoomSelection(){
    RESET PROJECT
 =========================================================== */
 
-function resetProject(){
+/* ===========================================================
+   HARD RESET / NEW PROJECT
+=========================================================== */
 
-    if(
+function resetProject() {
 
-        !confirm(
-
-            "Start a new project?"
-
-        )
-
-    )
-
-        return;
-
-    localStorage.removeItem(
-
-        STORAGE_KEY
-
+    const confirmed = confirm(
+        "This will permanently clear the current project, " +
+        "all HOTO responses, room selections and scope overrides. " +
+        "Please ensure Excel/PDF exports are saved before proceeding.\n\n" +
+        "Start a completely new project?"
     );
 
+    if (!confirmed) {
+        return;
+    }
+
+    // Clear saved application
+    localStorage.removeItem(STORAGE_KEY);
+
+    // Clear project details
+    Object.keys(project).forEach(key => {
+        delete project[key];
+    });
+
+    // Clear room selections
+    selectedRooms = [];
+
+    // Clear all HOTO responses
+    responses = {};
+
+    // Clear category scope overrides
+    categoryScope = {};
+
+    // Clear question-level scope overrides
+    questionOutOfScope = {};
+
+    // Clear response backups
+    scopeBackup = {};
+
+    // Clear custom rooms
+    customRooms = [];
+
+    // Reset active navigation
+    activeTrade = "";
+    activeCategory = "";
+
+    // Reload application in a clean state
     location.reload();
 
 }
