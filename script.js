@@ -1200,14 +1200,7 @@ function setCategoryScope(
 
     });
 
-    saveApplication();
-
-    buildNavigationTree();
-
-    renderQuestions(
-        activeTrade,
-        activeCategory
-    );
+   refreshScopeUI();
 
 }
 
@@ -1244,21 +1237,26 @@ function setQuestionOutOfScope(questionId, outOfScope) {
 
     }
 
-    // Save updated scope state
+  refreshScopeUI();
+
+}
+
+/* ===========================================================
+   REFRESH SCOPE UI IMMEDIATELY
+=========================================================== */
+
+function refreshScopeUI() {
+
     saveApplication();
 
-    // Immediately refresh the visible screen
+    buildNavigationTree();
+
     renderQuestions(
         activeTrade,
         activeCategory
     );
 
-    // Refresh sidebar checkbox status
-    buildNavigationTree();
-
 }
-
-
 
 
 /* ===========================================================
@@ -1539,14 +1537,6 @@ function addCustomRoom(){
    BUTTON EVENTS
 =========================================================== */
 
-document
-.getElementById("popupCancel")
-.addEventListener("click",closePopup);
-
-
-document
-.getElementById("popupSave")
-.addEventListener("click",savePopup);
 
 
 
