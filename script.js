@@ -1216,54 +1216,7 @@ function setCategoryScope(
    QUESTION SCOPE CONTROL
 =========================================================== */
 
-function setQuestionOutOfScope(
-    questionId,
-    outOfScope
-) {
 
-    questionOutOfScope[questionId] =
-        outOfScope;
-
-    if (outOfScope) {
-
-        markQuestionOutOfScope(
-            questionId
-        );
-
-    }
-    else {
-
-        const question = QUESTION_BANK.find(
-            q => q.id === questionId
-        );
-
-        // Category-level Out of Scope
-        // must continue to take priority.
-
-        if (
-            question &&
-            !isCategoryOutOfScope(
-                question.trade,
-                question.category
-            )
-        ) {
-
-            restoreQuestionResponses(
-                questionId
-            );
-
-        }
-
-    }
-
-    saveApplication();
-
-    renderQuestions(
-        activeTrade,
-        activeCategory
-    );
-
-}
 
 
 
