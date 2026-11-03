@@ -1159,7 +1159,6 @@ function restoreQuestionResponses(questionId) {
 
 }
 
-
 /* ===========================================================
    CATEGORY SCOPE CONTROL
 =========================================================== */
@@ -1175,81 +1174,50 @@ function setCategoryScope(
         category
     );
 
+    // Update category status only
     categoryScope[key] = inScope;
 
-    const questions = QUESTION_BANK.filter(q =>
-        q.trade === trade &&
-        q.category === category
+    // Do NOT overwrite or restore room responses
+
+    saveApplication();
+
+    buildNavigationTree();
+
+    // Refresh the current screen immediately
+    renderQuestions(
+        activeTrade,
+        activeCategory
     );
 
-    questions.forEach(question => {
-
-        if (!inScope) {
-
-            markQuestionOutOfScope(
-                question.id
-            );
-
-        }
-        else {
-
-            // Restore only if question-level
-            // scope is not independently disabled.
-
-            if (
-                !isQuestionOutOfScope(
-                    question.id
-                )
-            ) {
-
-                restoreQuestionResponses(
-                    question.id
-                );
-
-            }
-
-        }
-
-    });
-
-   refreshScopeUI();
-
 }
+
+
 
 
 /* ===========================================================
    QUESTION SCOPE CONTROL
 =========================================================== */
 
-function setQuestionOutOfScope(questionId, outOfScope) {
+function setQuestionOutOfScope(
+    questionId,
+    outOfScope
+) {
 
-    questionOutOfScope[questionId] = outOfScope;
+    // Update question status only
+    questionOutOfScope[questionId] =
+        outOfScope;
 
-    if (outOfScope) {
+    // Do NOT overwrite or restore room responses
 
-        markQuestionOutOfScope(questionId);
+    saveApplication();
 
-    } else {
+    // Refresh immediately
+    renderQuestions(
+        activeTrade,
+        activeCategory
+    );
 
-        const question = QUESTION_BANK.find(
-            q => q.id === questionId
-        );
-
-        if (
-            question &&
-            !isCategoryOutOfScope(
-                question.trade,
-                question.category
-            )
-        ) {
-
-            restoreQuestionResponses(questionId);
-
-        }
-
-    }
-
-  refreshScopeUI();
+    buildNavigationTree();
 
 }
 
