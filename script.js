@@ -842,7 +842,7 @@ selectedRooms.forEach(room => {
 
 function createCellEditor(question, room){
 
-    const data = (question.id, room);
+    const data = getResponse(question.id, room);
 
     if(question.level === "wall"){
 
@@ -1216,6 +1216,47 @@ function setCategoryScope(
    QUESTION SCOPE CONTROL
 =========================================================== */
 
+function setQuestionOutOfScope(questionId, outOfScope) {
+
+    questionOutOfScope[questionId] = outOfScope;
+
+    if (outOfScope) {
+
+        markQuestionOutOfScope(questionId);
+
+    } else {
+
+        const question = QUESTION_BANK.find(
+            q => q.id === questionId
+        );
+
+        if (
+            question &&
+            !isCategoryOutOfScope(
+                question.trade,
+                question.category
+            )
+        ) {
+
+            restoreQuestionResponses(questionId);
+
+        }
+
+    }
+
+    // Save updated scope state
+    saveApplication();
+
+    // Immediately refresh the visible screen
+    renderQuestions(
+        activeTrade,
+        activeCategory
+    );
+
+    // Refresh sidebar checkbox status
+    buildNavigationTree();
+
+}
 
 
 
