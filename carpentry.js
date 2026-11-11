@@ -14,6 +14,10 @@ const CARPENTRY = [
     category: "Doors and Door Frame",
     subcategory: "Doors",
     level: "wall",
+   subtext: [
+        "Door Frame refurbishment is dependent activity"
+       
+    ],
     question: "Is door refurbishment planned?",
     drawingRequirement: "Show applicable door(s) and refurbishment details in door elevation."
 },
@@ -24,6 +28,10 @@ const CARPENTRY = [
     category: "Doors and Door Frame",
     subcategory: "Doors",
     level: "wall",
+     subtext: [
+        "New Door frame or modification is dependent activity"
+       
+    ],
     question: "Are new doors planned?",
     drawingRequirement: "Show new door locations, elevations and door schedule."
 },
@@ -34,6 +42,10 @@ const CARPENTRY = [
     category: "Doors and Door Frame",
     subcategory: "Doors and Door Frame",
     level: "wall",
+    subtext: [
+        "New Door frame or modification is dependent activity"
+       
+    ],
     question: "Is a safety door planned?",
     drawingRequirement: "Show safety door location and door schedule."
 },
@@ -45,6 +57,10 @@ const CARPENTRY = [
     subcategory: "Doors and Door Frame",
     level: "wall",
     question: "Is a camouflage (concealed) door planned?",
+    subtext: [
+        "New Door frame or modification is dependent activity"
+       
+    ],
     drawingRequirement: "Show camouflage door details in plan and elevation."
 },
 
@@ -75,6 +91,10 @@ const CARPENTRY = [
     subcategory: "Mandir",
     level: "wall",
     question: "Is a onsite mandir unit planned?",
+    subtext: [
+        "Check drawings/3D if RFV+KnW mix is planned and decide on either onsite or complete modular"
+       
+    ],
     drawingRequirement: "Show mandir location and elevation."
 },
 
@@ -84,6 +104,10 @@ const CARPENTRY = [
     category: "Custom Storages",
     subcategory: "Custom Units",
     level: "wall",
+     subtext: [
+        "Check drawings/3D if RFV+KnW mix is planned and decide on either complete onsite or complete modular"
+       
+    ],
     question: "Are any custom on-site units planned mixed with KnW units?",
     drawingRequirement: "Show unit location, dimensions and elevations."
 },
@@ -94,6 +118,10 @@ const CARPENTRY = [
     category: "Partitions",
     subcategory: "Partitions",
     level: "wall",
+    subtext: [
+        "Check drawings/3D if RFV+KnW mix is planned and decide on either complete onsite or complete modular"
+       
+    ],
     question: "Are any metal partitions planned?",
     drawingRequirement: "Show partition layout and elevations."
 },
@@ -104,6 +132,10 @@ const CARPENTRY = [
     category: "Partitions",
     subcategory: "Partitions",
     level: "wall",
+    subtext: [
+        "Check drawings/3D if RFV+KnW mix is planned and decide on either complete onsite or complete modular"
+       
+    ],
     question: "Are any rafter partitions planned?",
     drawingRequirement: "Show partition layout and elevations."
 },
@@ -164,6 +196,10 @@ const CARPENTRY = [
     category: "Partitions",
     subcategory: "Partitions",
     level: "wall",
+       subtext: [
+        "Check drawings/3D if RFV+KnW mix is planned and decide on either complete onsite or complete modular"
+       
+    ],
     question: "Are any CNC partitions planned?",
     drawingRequirement: "Show partition layout and elevations."
 },
@@ -175,5 +211,18 @@ const CARPENTRY = [
     level: "wall",
     question: "Are any CNC/MDF/Curvilinear panelling works planned?",
     drawingRequirement: "Show panelling elevations and base preparation details."
+},
+   {
+    id: "CP-OS-018",
+    trade: "Carpentry",
+    category: "Panelling",
+    subcategory: "Wall Panelling",
+    level: "wall",
+       subtext: [
+        "Check drawings/3D if RFV+KnW mix is planned and decide on either complete onsite or complete modular"
+       
+    ],
+    question: "Are any on-site architrave panelling works planned?",
+    drawingRequirement: "Show panelling elevations and detailing."
 }
 ];
