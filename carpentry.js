@@ -167,5 +167,13 @@ const CARPENTRY = [
     question: "Are any CNC partitions planned?",
     drawingRequirement: "Show partition layout and elevations."
 },
-
+{
+    id: "CP-OS-017",
+    trade: "Carpentry",
+    category: "Panelling",
+    subcategory: "Decorative Panelling",
+    level: "wall",
+    question: "Are any CNC/MDF/Curvilinear panelling works planned?",
+    drawingRequirement: "Show panelling elevations and base preparation details."
+}
 ];
