@@ -32,7 +32,7 @@ const CARPENTRY = [
     id: "CP-OS-003",
     trade: "Carpentry",
     category: "Doors and Door Frame",
-    subcategory: "Doors",
+    subcategory: "Doors and Door Frame",
     level: "wall",
     question: "Is a safety door planned?",
     drawingRequirement: "Show safety door location and door schedule."
@@ -74,7 +74,7 @@ const CARPENTRY = [
     category: "Custom Storages",
     subcategory: "Mandir",
     level: "wall",
-    question: "Is a mandir unit planned?",
+    question: "Is a onsite mandir unit planned?",
     drawingRequirement: "Show mandir location and elevation."
 },
 
@@ -84,7 +84,7 @@ const CARPENTRY = [
     category: "Custom Storages",
     subcategory: "Custom Units",
     level: "wall",
-    question: "Are any custom on-site units planned?",
+    question: "Are any custom on-site units planned mixed with KnW units?",
     drawingRequirement: "Show unit location, dimensions and elevations."
 },
 
