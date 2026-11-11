@@ -11,7 +11,7 @@ const CARPENTRY = [
 {
     id: "CP-OS-001",
     trade: "Carpentry",
-    category: "On site works",
+    category: "Doors and Door Frame",
     subcategory: "Doors",
     level: "wall",
     question: "Is door refurbishment planned?",
@@ -21,7 +21,7 @@ const CARPENTRY = [
 {
     id: "CP-OS-002",
     trade: "Carpentry",
-    category: "On site works",
+    category: "Doors and Door Frame",
     subcategory: "Doors",
     level: "wall",
     question: "Are new doors planned?",
@@ -31,7 +31,7 @@ const CARPENTRY = [
 {
     id: "CP-OS-003",
     trade: "Carpentry",
-    category: "On site works",
+    category: "Doors and Door Frame",
     subcategory: "Doors",
     level: "wall",
     question: "Is a safety door planned?",
@@ -41,8 +41,8 @@ const CARPENTRY = [
 {
     id: "CP-OS-004",
     trade: "Carpentry",
-    category: "On site works",
-    subcategory: "Doors",
+    category: "Doors",
+    subcategory: "Doors and Door Frame",
     level: "wall",
     question: "Is a camouflage (concealed) door planned?",
     drawingRequirement: "Show camouflage door details in plan and elevation."
@@ -51,7 +51,7 @@ const CARPENTRY = [
 {
     id: "CP-OS-005",
     trade: "Carpentry",
-    category: "On site works",
+    category: "Wall Trims",
     subcategory: "Trims",
     level: "wall",
     question: "Are wooden trims planned? (Installation only)",
@@ -61,7 +61,7 @@ const CARPENTRY = [
 {
     id: "CP-OS-006",
     trade: "Carpentry",
-    category: "On site works",
+    category: "Wall Trims",
     subcategory: "Trims",
     level: "wall",
     question: "Are PVC trims planned? (Installation only)",
@@ -71,7 +71,7 @@ const CARPENTRY = [
 {
     id: "CP-OS-007",
     trade: "Carpentry",
-    category: "On site works",
+    category: "Custom Storages",
     subcategory: "Mandir",
     level: "wall",
     question: "Is a mandir unit planned?",
@@ -81,7 +81,7 @@ const CARPENTRY = [
 {
     id: "CP-OS-008",
     trade: "Carpentry",
-    category: "On site works",
+    category: "Custom Storages",
     subcategory: "Custom Units",
     level: "wall",
     question: "Are any custom on-site units planned?",
@@ -91,7 +91,7 @@ const CARPENTRY = [
 {
     id: "CP-OS-009",
     trade: "Carpentry",
-    category: "On site works",
+    category: "Partitions",
     subcategory: "Partitions",
     level: "wall",
     question: "Are any metal partitions planned?",
@@ -101,17 +101,17 @@ const CARPENTRY = [
 {
     id: "CP-OS-010",
     trade: "Carpentry",
-    category: "On site works",
+    category: "Partitions",
     subcategory: "Partitions",
     level: "wall",
-    question: "Are any wooden partitions planned?",
+    question: "Are any rafter partitions planned?",
     drawingRequirement: "Show partition layout and elevations."
 },
 
 {
     id: "CP-OS-011",
     trade: "Carpentry",
-    category: "On site works",
+    category: "Panelling",
     subcategory: "Packing",
     level: "wall",
     question: "Are any plywood packing or niche covering works planned?",
@@ -121,7 +121,7 @@ const CARPENTRY = [
 {
     id: "CP-OS-012",
     trade: "Carpentry",
-    category: "On site works",
+    category: "Panelling",
     subcategory: "Wall Panelling",
     level: "wall",
     question: "Are any on-site wall panelling works planned?",
@@ -131,7 +131,7 @@ const CARPENTRY = [
 {
     id: "CP-OS-013",
     trade: "Carpentry",
-    category: "On site works",
+    category: "Custom Storages",
     subcategory: "Storage Units",
     level: "wall",
     question: "Are any on-site standalone storage units planned?",
@@ -141,7 +141,7 @@ const CARPENTRY = [
 {
     id: "CP-OS-014",
     trade: "Carpentry",
-    category: "On site works",
+    category: "Panelling",
     subcategory: "Decorative Panelling",
     level: "wall",
     question: "Are any AGT, 3D or fluted panelling works planned?",
@@ -151,11 +151,21 @@ const CARPENTRY = [
 {
     id: "CP-OS-015",
     trade: "Carpentry",
-    category: "On site works",
+    category: "Partitions",
     subcategory: "Staircase",
     level: "wall",
     question: "Is a staircase railing planned?",
     drawingRequirement: "Show railing layout, elevations and detailing."
-}
+},
+
+   {
+    id: "CP-OS-016",
+    trade: "Carpentry",
+    category: "Partitions",
+    subcategory: "Partitions",
+    level: "wall",
+    question: "Are any CNC partitions planned?",
+    drawingRequirement: "Show partition layout and elevations."
+},
 
 ];
