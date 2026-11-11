@@ -51,7 +51,7 @@ const PLUMBING = [
 {
     id: "PL-PLB-005",
     trade: "Plumbing",
-    category: "bathroom Plumbing",
+    category: "Bathroom Plumbing",
     subcategory: "Water Closet",
     level: "wall",
     question: "Is relocation of an existing wall-mounted WC planned?",
