@@ -120,8 +120,8 @@ const PLUMBING = [
 
 {
     id: "PL-PLB-012",
-    trade: "Specialized Plumbing",
-    category: "Plumbing",
+    trade: "Plumbing",
+    category: "Specialized Plumbing",
     subcategory: "Steam Room",
     level: "room",
     question: "Is provision required for a steam room? (Steam equipment installation not in company scope.)",
