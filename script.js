@@ -771,44 +771,51 @@ questionWrapper.appendChild(
     scopeLabel
 );
 
-/* PLANNED IN MODULAR CHECKBOX */
+/* PLANNED IN MODULAR CHECKBOX - CARPENTRY ONLY */
 
-const modularLabel = document.createElement("label");
+if (
+    String(question.trade).toLowerCase().includes("carpentry")
+) {
 
-modularLabel.className = "question-scope-label modular-scope-label";
+    const modularLabel = document.createElement("label");
 
-const modularCheckbox = document.createElement("input");
+    modularLabel.className =
+        "question-scope-label modular-scope-label";
 
-modularCheckbox.type = "checkbox";
+    const modularCheckbox = document.createElement("input");
 
-modularCheckbox.className = "question-modular-checkbox";
+    modularCheckbox.type = "checkbox";
 
-modularCheckbox.checked =
-    !!questionPlannedModular[question.id];
+    modularCheckbox.className = "question-modular-checkbox";
 
-modularCheckbox.disabled =
-    isCategoryOutOfScope(
-        question.trade,
-        question.category
-    ) || isQuestionOutOfScope(question.id);
+    modularCheckbox.checked =
+        !!questionPlannedModular[question.id];
 
-modularCheckbox.addEventListener("change", () => {
+    modularCheckbox.disabled =
+        isCategoryOutOfScope(
+            question.trade,
+            question.category
+        ) || isQuestionOutOfScope(question.id);
 
-    questionPlannedModular[question.id] =
-        modularCheckbox.checked;
+    modularCheckbox.addEventListener("change", () => {
 
-    saveApplication();
+        questionPlannedModular[question.id] =
+            modularCheckbox.checked;
 
-});
+        saveApplication();
 
-const modularText = document.createElement("span");
+    });
 
-modularText.textContent = "Planned in Modular";
+    const modularText = document.createElement("span");
 
-modularLabel.appendChild(modularCheckbox);
-modularLabel.appendChild(modularText);
+    modularText.textContent = "Planned in Modular";
 
-questionWrapper.appendChild(modularLabel);
+    modularLabel.appendChild(modularCheckbox);
+    modularLabel.appendChild(modularText);
+
+    questionWrapper.appendChild(modularLabel);
+
+}
        
 questionCell.appendChild(
     questionWrapper
