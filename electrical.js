@@ -14,7 +14,7 @@ trade:"Electrical",
 category:"Ceiling Lighting",
 subcategory:"False Ceiling",
 level:"room",
-question:"Is false ceiling lighting planned?",
+question:"False ceiling lights",
    subtext: [
         "Only electrical provisioning and installation",
         "Supply of light in Cx scope"
@@ -28,7 +28,7 @@ trade:"Electrical",
 category:"Ceiling Lighting",
 subcategory:"False Ceiling",
 level:"room",
-question:"Is cove lighting planned in the false ceiling?",
+question:"Cove lighting in false ceiling",
       subtext: [
         "Only electrical provisioning and installation",
         "Supply of light in Cx scope"
@@ -42,7 +42,7 @@ trade:"Electrical",
 category:"Ceiling Lighting",
 subcategory:"False Ceiling",
 level:"room",
-question:"Is profile lighting planned in the false ceiling?",
+question:"Profile light in false ceiling",
       subtext: [
         "Only electrical provisioning and installation",
         "Supply of lights,track,channels in Cx scope"
@@ -56,7 +56,7 @@ trade:"Electrical",
 category:"Ceiling Lighting",
 subcategory:"Ceiling False Ceiling",
 level:"room",
-question:"Are track lights planned in the false ceiling?",
+question:"Track lights in false ceiling",
       subtext: [
         "Only electrical provisioning and installation",
         "Supply of lights,track,channels in Cx scope"
@@ -68,9 +68,9 @@ drawingRequirement:"Show track light layout in reflected ceiling plan along with
 id:"EL-LGT-005",
 trade:"Electrical",
 category:"Ceiling Lighting",
-subcategory:"Decorative Lighting",
+subcategory:"Decorative Lighting on wall or ceiling",
 level:"room",
-question:"Are designer ceiling lights planned (chandelier / pendant / hanging lights)?",
+question:"Designer ceiling lights – chandelier / pendant / hanging lights",
 drawingRequirement:"Show fixture location in reflected ceiling plan along with looping with hatching done for bed/wardrobes/loose furniture areas along with legends"
 },
 
@@ -80,7 +80,7 @@ trade:"Electrical",
 category:"Ceiling Lighting",
 subcategory:"Surface Lights",
 level:"room",
-question:"Are surface-mounted lights planned in ceiling?",
+question:"Surface-mounted ceiling lights on true ceiling",
 drawingRequirement:"Show fixture location in reflected ceiling plan along with looping with hatching done for bed/wardrobes/loose furniture areas along with legends"
 },
 
@@ -90,7 +90,7 @@ trade:"Electrical",
 category:"Wall Lighting",
 subcategory:"Wall Lights",
 level:"wall",
-question:"Are wall lights planned (normal, decorative and/or profile)?",
+question:"Wall lights – standard / decorative / profile",
 drawingRequirement:"Show wall light location in elevation along with looping and hatching done for wardrobe,panelling, storages etc and legends."
 },
 
@@ -100,7 +100,7 @@ trade:"Electrical",
 category:"Cove/Back Lighting",
 subcategory:"Wall Panelling",
 level:"wall",
-question:"Is backlighting or cove lighting planned in wall panelling?",
+question:"Backlighting / cove lighting in wall panelling",
 drawingRequirement:"Show strip/cove lighting detail in wallpanelling elevation along with looping and legends."
 },
 
@@ -110,7 +110,7 @@ trade:"Electrical",
 category:"Cove/Back Lighting",
 subcategory:"Headboard",
 level:"wall",
-question:"Is backlighting or cove lighting planned in the headboard?",
+question:"Backlighting / cove lighting in headboard",
 drawingRequirement:"Show lighting detail in headboard elevation along with looping and legends."
 },
 
@@ -120,7 +120,7 @@ trade:"Electrical",
 category:"Cove/Back Lighting",
 subcategory:"Cabinet",
 level:"wall",
-question:"Are cabinet lights planned in modular storage units?",
+question:"Cabinet lights in modular storage units",
 drawingRequirement:"Show lighting detail in cabinet elevation along with looping and legends."
 },
 
@@ -130,7 +130,7 @@ trade:"Electrical",
 category:"Cove/Back Lighting",
 subcategory:"Cabinet",
 level:"wall",
-question:"Is backlighting or cove lighting planned in modular storage units?",
+question:"Backlighting / cove lighting in modular storage units",
 drawingRequirement:"Show lighting detail in cabinet elevation along with looping and legends."
 },
 
@@ -140,7 +140,7 @@ trade:"Electrical",
 category:"Cove/Back Lighting",
 subcategory:"Wardrobe",
 level:"wall",
-question:"Are cabinet lights, backlighting or cove lighting planned in wardrobes?",
+question:"Cabinet lights / backlighting / cove lighting in wardrobes",
 drawingRequirement:"Show lighting detail in wardrobe elevation along with looping and legends."
 },
 
@@ -150,7 +150,7 @@ trade:"Electrical",
 category:"Cove/Back Lighting",
 subcategory:"Display Units",
 level:"wall",
-question:"Is lighting planned within display, crockery or bar units?",
+question:"Lighting in display / crockery / bar units",
 drawingRequirement:"Show lighting detail in furniture elevation along with looping and legends."
 },
 
@@ -160,7 +160,7 @@ trade:"Electrical",
 category:"Cove/Back Lighting",
 subcategory:"TV Unit",
 level:"wall",
-question:"Is lighting planned within the TV unit or panelling?",
+question:"Lighting in TV unit / panelling",
 drawingRequirement:"Show lighting detail in TV unit elevation along with looping and legends."
 },
 
@@ -170,7 +170,7 @@ trade:"Electrical",
 category:"Cove/Back Lighting",
 subcategory:"Partitions",
 level:"wall",
-question:"Is lighting planned within partitions?",
+question:"Lighting in partitions",
 drawingRequirement:"Show lighting detail in partition elevation along with looping and legends."
 },
 
@@ -180,7 +180,7 @@ trade:"Electrical",
 category:"Cove/Back Lighting",
 subcategory:"Mandir",
 level:"wall",
-question:"Is lighting planned in the mandir unit?",
+question:"Lighting in mandir unit",
 drawingRequirement:"Show lighting detail in mandir elevation along wth looping and legends."
 },
 
@@ -190,7 +190,7 @@ trade:"Electrical",
 category:"Wall Lighting",
 subcategory:"Staircase",
 level:"room",
-question:"Is lighting planned in the staircase area?",
+question:"Staircase lighting",
 drawingRequirement:"Show lighting layout in plan and elevation along with looping and legends."
 },
 
@@ -204,7 +204,7 @@ trade:"Electrical",
 category:"General Purpose Power/Module",
 subcategory:"Sockets",
 level:"wall",
-question:"Are additional 5A sockets required for general usage (mobile charging, etc.)?",
+question:"Additional 5A sockets for general usage – mobile charging, etc.",
    subtext: [
         "Near Sofa/in Living Room",
         "Near dining table",
@@ -220,7 +220,7 @@ trade:"Electrical",
 category:"General Purpose Power/Module",
 subcategory:"Sockets",
 level:"wall",
-question:"Are additional 15A sockets required for heavy-duty appliances (geyser, iron, heater, etc.)?",
+question:"Additional 15A sockets for heavy-duty appliances – geyser / iron / heater, etc.",
 drawingRequirement:"Show 15A socket location in wall elevation along with woodwork hatching."
 },
 
@@ -230,7 +230,7 @@ trade:"Electrical",
 category:"General Purpose Power/Module",
 subcategory:"Sockets",
 level:"wall",
-question:"Are any 32A power points required?",
+question:"32A power points",
 drawingRequirement:"Show 32A power point location in wall elevation along with woodwork hatching."
 },
 
@@ -240,10 +240,9 @@ trade:"Electrical",
 category:"General Purpose Power/Module",
 subcategory:"Switching",
 level:"wall",
-question:"Is two-way switching required anywhere?",
+question:"Two-way switching",
 drawingRequirement:"Show two-way switching looping in plan or wall elevation along with woodwork hatching"
 },
-
 
 {
 id:"EL-PWR-006",
@@ -251,7 +250,7 @@ trade:"Electrical",
 category:"General Purpose Power/Module",
 subcategory:"Balcony",
 level:"wall",
-question:"Are dedicated power points required for decorative or festival lighting in the balcony?",
+question:"Dedicated power points for decorative / festival lighting in balcony",
 drawingRequirement:"Show 5A or 15A point location in elevation."
 },
 
@@ -261,7 +260,7 @@ trade:"Electrical",
 category:"General Purpose Power/Module",
 subcategory:"Relocation",
 level:"wall",
-question:"Are relocations of existing electrical modules planned?",
+question:"Relocation of existing electrical modules",
 drawingRequirement:"Show revised module location in elevation along with woodwork hatching."
 },
 
@@ -271,7 +270,7 @@ trade:"Electrical",
 category:"Carpentry Integrated Power/Module",
 subcategory:"TV Unit",
 level:"wall",
-question:"Are power points planned for the TV unit?",
+question:"Power points in TV unit",
 drawingRequirement:"Show 5A or 15A power point location in TV unit elevation/wall."
 },
 
@@ -281,7 +280,7 @@ trade:"Electrical",
 category:"Carpentry Integrated Power/Module",
 subcategory:"Study Unit",
 level:"wall",
-question:"Are power points required for the study unit?",
+question:"Power points in study unit",
 drawingRequirement:"Show 5A or 15A power point location in along with study unit on elevation/wall."
 },
 
@@ -291,7 +290,7 @@ trade:"Electrical",
 category:"Carpentry Integrated Power/Module",
 subcategory:"Mandir",
 level:"wall",
-question:"Are power points required in the mandir unit?",
+question:"Power points in mandir unit",
 drawingRequirement:"Show 5A or 15A power point location in mandir unit elevation."
 },
 
@@ -301,7 +300,7 @@ trade:"Electrical",
 category:"Carpentry Integrated Power/Module",
 subcategory:"Furniture",
 level:"wall",
-question:"Are power or charging points required within furniture?",
+question:"Power / charging points within furniture",
 drawingRequirement:"Show 5A or 15A power point location in furniture elevation."
 },
 
@@ -311,7 +310,7 @@ trade:"Electrical",
 category:"Carpentry Integrated Power/Module",
 subcategory:"Furniture",
 level:"wall",
-question:"Are any electronic furniture items (such as recliners) planned?",
+question:"Electronic furniture items – recliners, etc.",
 drawingRequirement:"Show 5A or 15A power point location in furniture elevation."
 },
 
@@ -320,68 +319,68 @@ drawingRequirement:"Show 5A or 15A power point location in furniture elevation."
 =========================================================== */
 
 {
-id:"EL-APP-001",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Dishwasher",level:"room",question:"Is Cx installiing a new dishwasher?",drawingRequirement:"Show appliance location in layout plan or elevation."
+id:"EL-APP-001",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Dishwasher",level:"room",question:"New dishwasher installation – Cx scope",drawingRequirement:"Show appliance location in layout plan or elevation."
 },
 {
-id:"EL-APP-002",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Dishwasher",level:"room",question:"Is an existing dishwasher being relocated?",drawingRequirement:"Show revised appliance location in layout plan or elevation."
+id:"EL-APP-002",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Dishwasher",level:"room",question:"Relocation of existing dishwasher",drawingRequirement:"Show revised appliance location in layout plan or elevation."
 },
 {
-id:"EL-APP-003",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Washing Machine",level:"room",question:"Is Cx installing a new washing machine?",drawingRequirement:"Show appliance location in layout plan or elevation."
+id:"EL-APP-003",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Washing Machine",level:"room",question:"New washing machine installation – Cx scope",drawingRequirement:"Show appliance location in layout plan or elevation."
 },
 {
-id:"EL-APP-004",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Washing Machine",level:"room",question:"Is an existing washing machine being relocated?",drawingRequirement:"Show revised appliance location in layout plan or elevation."
+id:"EL-APP-004",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Washing Machine",level:"room",question:"Relocation of existing washing machine",drawingRequirement:"Show revised appliance location in layout plan or elevation."
 },
 {
-id:"EL-APP-005",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"RO",level:"room",question:"Is Cx installing a new water purifier / RO?",drawingRequirement:"Show appliance location in layout plan or elevation."
+id:"EL-APP-005",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"RO",level:"room",question:"New water purifier / RO installation – Cx scope",drawingRequirement:"Show appliance location in layout plan or elevation."
 },
 {
-id:"EL-APP-006",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"RO",level:"room",question:"Is an existing water purifier / RO being relocated?",drawingRequirement:"Show revised appliance location in layout plan or elevation."
+id:"EL-APP-006",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"RO",level:"room",question:"Relocation of existing water purifier / RO",drawingRequirement:"Show revised appliance location in layout plan or elevation."
 },
 {
-id:"EL-APP-007",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Geyser",level:"room",question:"Is Cx installing new geysers?",drawingRequirement:"Show geyser location in layout plan or elevation."
+id:"EL-APP-007",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Geyser",level:"room",question:"New geyser installation – Cx scope",drawingRequirement:"Show geyser location in layout plan or elevation."
 },
 {
-id:"EL-APP-008",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Geyser",level:"room",question:"Are existing geysers being relocated?",drawingRequirement:"Show revised geyser location in layout plan or elevation."
+id:"EL-APP-008",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Geyser",level:"room",question:"Relocation of existing geysers",drawingRequirement:"Show revised geyser location in layout plan or elevation."
 },
 {
-id:"EL-APP-009",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Dryer",level:"room",question:"Is Cx installing clothes dryer planned?",drawingRequirement:"Show appliance location in layout plan or elevation."
+id:"EL-APP-009",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Dryer",level:"room",question:"Clothes dryer installation – Cx scope",drawingRequirement:"Show appliance location in layout plan or elevation."
 },
 {
-id:"EL-APP-010",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Refrigerator",level:"room",question:"Is Cx installing a refrigerator?",drawingRequirement:"Show appliance location in layout plan or elevation."
+id:"EL-APP-010",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Refrigerator",level:"room",question:"Refrigerator installation – Cx scope",drawingRequirement:"Show appliance location in layout plan or elevation."
 },
 {
-id:"EL-APP-011",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Cooking Appliances",level:"room",question:"Is Cx installing a microwave, oven or OTG?",drawingRequirement:"Show appliance location in layout plan or elevation."
+id:"EL-APP-011",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Cooking Appliances",level:"room",question:"Microwave / oven / OTG installation – Cx scope",drawingRequirement:"Show appliance location in layout plan or elevation."
 },
 {
-id:"EL-APP-012",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Chimney",level:"room",question:"Is Cx installing chimney?",drawingRequirement:"Show chimney location in layout plan or elevation."
+id:"EL-APP-012",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Chimney",level:"room",question:"Chimney installation – Cx scope",drawingRequirement:"Show chimney location in layout plan or elevation."
 },
 {
-id:"EL-APP-013",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Exhaust",level:"room",question:"Are exhaust fans planned?",drawingRequirement:"Show exhaust fan location in layout plan or elevation."
+id:"EL-APP-013",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Exhaust",level:"room",question:"Exhaust fans",
+drawingRequirement:"Show exhaust fan location in layout plan or elevation."
 },
 {
-id:"EL-APP-014",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Fans",level:"room",question:"Are ceiling fan installations planned?",drawingRequirement:"Show fan locations in layout plan."
+id:"EL-APP-014",trade:"Electrical",category:"Appliance/Fixtures",subcategory:"Fans",level:"room",question:"Ceiling fans",drawingRequirement:"Show fan locations in layout plan."
 },
 
 /* ===========================================================
    AIR CONDITIONING
 =========================================================== */
 
+{
+id:"EL-AC-001",trade:"Electrical",category:"AC",subcategory:"Split AC",level:"wall",question:"Split AC installation – Cx scope",drawingRequirement:"Show AC location on plan layout or elevation."
+},
+{
+id:"EL-AC-002",trade:"Electrical",category:"AC",subcategory:"Cassette AC",level:"room",question:"Cassette AC installation – Cx scope",drawingRequirement:"Show cassette unit location in reflected ceiling plan."
+},
+{
+id:"EL-AC-003",trade:"Electrical",category:"AC",subcategory:"Central AC",level:"room",question:"Centralized / ducted AC installation – Cx scope",drawingRequirement:"Show HVAC grill locations in reflected ceiling plan and indoor unit in plan."
+},
+{
+id:"EL-AC-004",trade:"Electrical",category:"AC",subcategory:"General",level:"room",question:"Finalized indoor and outdoor AC unit locations",drawingRequirement:"Show indoor and outdoor unit locations in plan."
+},
 
 {
-id:"EL-AC-001",trade:"Electrical",category:"AC",subcategory:"Split AC",level:"wall",question:"Is Cx installing split AC units?",drawingRequirement:"Show AC location on plan layout or elevation."
-},
-{
-id:"EL-AC-002",trade:"Electrical",category:"AC",subcategory:"Cassette AC",level:"room",question:"Is Cx installing cassette AC ?",drawingRequirement:"Show cassette unit location in reflected ceiling plan."
-},
-{
-id:"EL-AC-003",trade:"Electrical",category:"AC",subcategory:"Central AC",level:"room",question:"Is Cx installing centralized / ducted AC?",drawingRequirement:"Show HVAC grill locations in reflected ceiling plan and indoor unit in plan."
-},
-{
-id:"EL-AC-004",trade:"Electrical",category:"AC",subcategory:"General",level:"room",question:"Are the indoor and outdoor unit locations finalized?",drawingRequirement:"Show indoor and outdoor unit locations in plan."
-},
-   
-{
-id:"EL-AC-005",trade:"Electrical",category:"AC",subcategory:"Access",level:"room",question:"Are trap doors required in the false ceiling?",drawingRequirement:"Show trap door location in reflected ceiling plan."
+id:"EL-AC-005",trade:"Electrical",category:"AC",subcategory:"Access",level:"room",question:"Trap doors in false ceiling",drawingRequirement:"Show trap door location in reflected ceiling plan."
 },
 
 /* ===========================================================
@@ -389,40 +388,39 @@ id:"EL-AC-005",trade:"Electrical",category:"AC",subcategory:"Access",level:"room
 =========================================================== */
 
 {
-id:"EL-SEC-001",trade:"Electrical",category:"Security systems",subcategory:"CCTV",level:"room",question:"Is Cx installing CCTV ?",drawingRequirement:"Show camera locations on layout plan."
+id:"EL-SEC-001",trade:"Electrical",category:"Security systems",subcategory:"CCTV",level:"room",question:"CCTV installation – Cx scope",drawingRequirement:"Show camera locations on layout plan."
 },
 {
-id:"EL-SEC-002",trade:"Electrical",category:"Security systems",subcategory:"Door Bell",level:"wall",question:"Is Cx instaling a video doorbell?",drawingRequirement:"Show installation location on layout plan or elevation."
+id:"EL-SEC-002",trade:"Electrical",category:"Security systems",subcategory:"Door Bell",level:"wall",question:"Video doorbell installation – Cx scope",drawingRequirement:"Show installation location on layout plan or elevation."
 },
 {
-id:"EL-SEC-003",trade:"Electrical",category:"Security systems",subcategory:"Door Lock",level:"wall",question:"Is Cx installing digital door lock?",drawingRequirement:"Show installation location on layout plan or elevation."
+id:"EL-SEC-003",trade:"Electrical",category:"Security systems",subcategory:"Door Lock",level:"wall",question:"Digital door lock installation – Cx scope",drawingRequirement:"Show installation location on layout plan or elevation."
 },
 {
-id:"EL-SEC-004",trade:"Electrical",category:"Security systems",subcategory:"Automation",level:"room",question:"Is home automation planned?",drawingRequirement:"Need electrcial layout of the automation systems with sesnsor locations and power requirment."
+id:"EL-SEC-004",trade:"Electrical",category:"Security systems",subcategory:"Automation",level:"room",question:"Home automation",drawingRequirement:"Need electrcial layout of the automation systems with sesnsor locations and power requirment."
 },
 {
-id:"EL-SEC-005",trade:"Electrical",category:"Security systems",subcategory:"Curtains",level:"wall",question:"Is Cx installing motorized curtains or blinds?",drawingRequirement:"Show power point location in elevation."
-},
-   {
-id:"EL-SEC-006",trade:"Electrical",category:"Security systems",subcategory:"Router",level:"room",question:"Is a dedicated location planned for internet/router equipment?",drawingRequirement:"Show router location in plan or elevation."
+id:"EL-SEC-005",trade:"Electrical",category:"Security systems",subcategory:"Curtains",level:"wall",question:"Motorized curtains / blinds installation – Cx scope",drawingRequirement:"Show power point location in elevation."
 },
 {
-id:"EL-SEC-007",trade:"Electrical",category:"Security systems",subcategory:"UPS",level:"room",question:"Is an inverter or UPS planned?",drawingRequirement:"Show UPS location in plan."
+id:"EL-SEC-006",trade:"Electrical",category:"Security systems",subcategory:"Router",level:"room",question:"Dedicated internet / router equipment location",drawingRequirement:"Show router location in plan or elevation."
+},
+{
+id:"EL-SEC-007",trade:"Electrical",category:"Security systems",subcategory:"UPS",level:"room",question:"Inverter / UPS",drawingRequirement:"Show UPS location in plan."
 },
 
 /* ===========================================================
    OTHERS
 =========================================================== */
 
-
 {
-id:"EL-OTH-001",trade:"Electrical",category:"Others",subcategory:"UPS",level:"room",question:"Is an inverter or UPS planned?",drawingRequirement:"Show UPS location in plan."
+id:"EL-OTH-001",trade:"Electrical",category:"Others",subcategory:"UPS",level:"room",question:"Inverter / UPS",drawingRequirement:"Show UPS location in plan."
 },
 {
-id:"EL-OTH-002",trade:"Electrical",category:"Others",subcategory:"Builder Scope",level:"room",question:"Are there any builder-provided electrical services that need to be retained or coordinated?",drawingRequirement:"Show retained services in drawings."
+id:"EL-OTH-002",trade:"Electrical",category:"Others",subcategory:"Builder Scope",level:"room",question:"Builder-provided electrical services to retain / coordinate",drawingRequirement:"Show retained services in drawings."
 },
 {
-id:"EL-OTH-003",trade:"Electrical",category:"Others",subcategory:"Customer Scope",level:"room",question:"Are there any customer-owned systems requiring electrical coordination?",drawingRequirement:"Show coordination requirements in drawings."
+id:"EL-OTH-003",trade:"Electrical",category:"Others",subcategory:"Customer Scope",level:"room",question:"Customer-owned systems requiring electrical coordination",drawingRequirement:"Show coordination requirements in drawings."
 }
 
 ];
