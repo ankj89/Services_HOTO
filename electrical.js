@@ -204,7 +204,7 @@ trade:"Electrical",
 category:"General Purpose Power/Module",
 subcategory:"Sockets",
 level:"wall",
-question:"Additional 5A sockets for general usage – mobile charging, etc.",
+question:"Additional/New 5A sockets for general usage – mobile charging, etc.",
    subtext: [
         "Near Sofa/in Living Room",
         "Near dining table",
@@ -220,7 +220,7 @@ trade:"Electrical",
 category:"General Purpose Power/Module",
 subcategory:"Sockets",
 level:"wall",
-question:"Additional 15A sockets for heavy-duty appliances – geyser / iron / heater, etc.",
+question:"Additional/New 15A sockets for heavy-duty appliances – geyser / iron / heater, etc.",
 drawingRequirement:"Show 15A socket location in wall elevation along with woodwork hatching."
 },
 
@@ -230,7 +230,7 @@ trade:"Electrical",
 category:"General Purpose Power/Module",
 subcategory:"Sockets",
 level:"wall",
-question:"32A power points",
+question:"New 32A power points",
 drawingRequirement:"Show 32A power point location in wall elevation along with woodwork hatching."
 },
 
