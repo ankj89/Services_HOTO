@@ -40,7 +40,7 @@ const CARPENTRY = [
     id: "CP-OS-003",
     trade: "Carpentry",
     category: "Doors and Door Frame",
-    subcategory: "Doors and Door Frame",
+    subcategory: "Safety Door",
     level: "wall",
     subtext: [
         "New Door frame or modification is dependent activity"
@@ -53,10 +53,10 @@ const CARPENTRY = [
 {
     id: "CP-OS-004",
     trade: "Carpentry",
-    category: "Doors",
-    subcategory: "Doors and Door Frame",
+    category: "Doors and Door Frame",
+    subcategory: "Camouflage Door/Box",
     level: "wall",
-    question: "Is a camouflage (concealed) door planned?",
+    question: "Is a camouflage (concealed) door or MCB Box planned?",
     subtext: [
         "New Door frame or modification is dependent activity"
        
