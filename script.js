@@ -25,6 +25,9 @@ let categoryScope = {};
 // Question-level scope control
 let questionOutOfScope = {};
 
+// Question-level Planned in Modular flag
+let questionPlannedModular = {};
+
 // Backup of room responses before overriding scope
 let scopeBackup = {};
 
@@ -768,6 +771,45 @@ questionWrapper.appendChild(
     scopeLabel
 );
 
+/* PLANNED IN MODULAR CHECKBOX */
+
+const modularLabel = document.createElement("label");
+
+modularLabel.className = "question-scope-label modular-scope-label";
+
+const modularCheckbox = document.createElement("input");
+
+modularCheckbox.type = "checkbox";
+
+modularCheckbox.className = "question-modular-checkbox";
+
+modularCheckbox.checked =
+    !!questionPlannedModular[question.id];
+
+modularCheckbox.disabled =
+    isCategoryOutOfScope(
+        question.trade,
+        question.category
+    ) || isQuestionOutOfScope(question.id);
+
+modularCheckbox.addEventListener("change", () => {
+
+    questionPlannedModular[question.id] =
+        modularCheckbox.checked;
+
+    saveApplication();
+
+});
+
+const modularText = document.createElement("span");
+
+modularText.textContent = "Planned in Modular";
+
+modularLabel.appendChild(modularCheckbox);
+modularLabel.appendChild(modularText);
+
+questionWrapper.appendChild(modularLabel);
+       
 questionCell.appendChild(
     questionWrapper
 );
@@ -1553,7 +1595,8 @@ function saveApplication(){
 
     questionOutOfScope,
 
-    scopeBackup
+    scopeBackup,
+        questionPlannedModular
 
     };
 
@@ -1605,6 +1648,8 @@ scopeBackup =
 
 questionOutOfScope =
     appData.questionOutOfScope || {};
+       questionPlannedModular =
+    appData.questionPlannedModular || {};
 
 scopeBackup =
     appData.scopeBackup || {};
@@ -1814,7 +1859,7 @@ function resetProject() {
 
     // Clear response backups
     scopeBackup = {};
-
+questionPlannedModular = {};
     // Clear custom rooms
     customRooms = [];
 
