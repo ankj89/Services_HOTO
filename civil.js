@@ -14,7 +14,7 @@ const CIVIL = [
     category: "Demolition",
     subcategory: "Walls",
     level: "room",
-    question: "Is existing brick wall demolition planned?",
+    question: "Existing brick wall(s)/non RCC structure to be demolished",
     drawingRequirement: "Show wall(s) to be demolished in demolition/layout drawing."
 },
 
@@ -24,7 +24,7 @@ const CIVIL = [
     category: "Demolition",
     subcategory: "Wall Openings",
     level: "wall",
-    question: "Are new openings planned in existing walls?",
+    question: "New openings in existing walls",
     drawingRequirement: "Show opening location, dimensions and wall elevation."
 },
 
@@ -34,18 +34,8 @@ const CIVIL = [
     category: "Demolition",
     subcategory: "Wall Openings",
     level: "wall",
-    question: "Are any existing wall openings planned to be closed?",
+    question: "Existing Wall openings to be closed",
     drawingRequirement: "Show opening closure in layout and wall elevation."
-},
-
-{
-    id: "CV-DEM-004",
-    trade: "Civil",
-    category: "Demolition",
-    subcategory: "Floor",
-    level: "room",
-    question: "Is existing floor demolition planned?",
-    drawingRequirement: "SHow floor area to be demolished."
 },
 
 {
@@ -54,7 +44,7 @@ const CIVIL = [
     category: "Demolition",
     subcategory: "Doors & Windows",
     level: "wall",
-    question: "Is demolition of any existing door or window planned?",
+    question: "Removal of any existing windows",
     drawingRequirement: "Show door/window to be removed."
 },
 
@@ -64,28 +54,8 @@ const CIVIL = [
     category: "Demolition",
     subcategory: "Existing Furniture",
     level: "room",
-    question: "Is demolition of any existing wardrobe, storage or panelling planned?",
+    question: "Removal of existing fixed or movable woodwork/storages/panelling",
     drawingRequirement: "Show furniture/panelling to be removed."
-},
-
-{
-    id: "CV-DEM-007",
-    trade: "Civil",
-    category: "Demolition",
-    subcategory: "Toilet",
-    level: "room",
-    question: "Is existing toilet demolition planned?",
-    drawingRequirement: "Show toilet areas to be demolished."
-},
-
-{
-    id: "CV-DEM-008",
-    trade: "Civil",
-    category: "Demolition",
-    subcategory: "Kitchen",
-    level: "room",
-    question: "Is existing kitchen demolition planned?",
-    drawingRequirement: "Show kitchen components to be demolished."
 },
 
 {
@@ -94,19 +64,10 @@ const CIVIL = [
     category: "Demolition",
     subcategory: "RCC",
     level: "room",
-    question: "Is demolition of any RCC loft or ledge planned?",
+    question: "Existing RCC loft or ledge to be demolished",
     drawingRequirement: "Show RCC loft or ledges to be demolished."
 },
 
-{
-    id: "CV-DEM-010",
-    trade: "Civil",
-    category: "Demolition",
-    subcategory: "False Ceiling",
-    level: "room",
-    question: "Is existing false ceiling demolition planned?",
-    drawingRequirement: "Sho false ceiling area to be demolished."
-},
 
 {
     id: "CV-DEM-011",
@@ -114,7 +75,7 @@ const CIVIL = [
     category: "Core Cutting",
     subcategory: "Core Cutting",
     level: "wall",
-    question: "Is core cutting planned for AC piping?",
+    question: "Core cutting for AC lowside works",
     drawingRequirement: "Show core cutting location for AC in elevation."
 },
 
@@ -124,7 +85,7 @@ const CIVIL = [
     category: "Core Cutting",
     subcategory: "Core Cutting",
     level: "wall",
-    question: "Is core cutting planned for chimney ducting?",
+    question: "Core cutting for chimney ducting",
     drawingRequirement: "Show core cutting location for chimney in elevation."
 },
 
@@ -138,7 +99,7 @@ const CIVIL = [
     category: "Walls & Partitions",
     subcategory: "Walls",
     level: "room",
-    question: "Is any new brick wall planned?",
+    question: "New brick wall to be constructed",
     drawingRequirement: "Show wall location, dimensions and thickness."
 },
 
@@ -148,7 +109,7 @@ const CIVIL = [
     category: "Stone works",
     subcategory: "Door Frames",
     level: "wall",
-    question: "Is granite framing planned on door head and jambs?",
+    question: "Granite framing on door head and jambs",
     drawingRequirement: "Show granite framing in door elevation."
 },
    
@@ -159,7 +120,7 @@ const CIVIL = [
     category: "Punning & POP works",
     subcategory: "POP",
     level: "wall",
-    question: "Are POP grooves planned on walls?",
+    question: "POP/punning grooves on walls",
     drawingRequirement: "Show groove pattern in wall elevation."
 },
 
@@ -169,7 +130,7 @@ const CIVIL = [
     category: "Punning & POP works",
     subcategory: "Metal Inlay",
     level: "wall",
-    question: "Is any metal inlay design planned on walls?",
+    question: "Metal inlay design on walls",
     drawingRequirement: "Show inlay design and dimensions in elevation."
 },
 
@@ -179,7 +140,7 @@ const CIVIL = [
     category: "Punning & POP works",
     subcategory: "POP Moulding",
     level: "wall",
-    question: "Are POP mouldings, trims or cornices planned on walls?",
+    question: "POP mouldings, trims or cornices on walls",
     drawingRequirement: "Show POP mouldings, trims or cornices detailings and location in elevation."
 },
 
@@ -189,7 +150,7 @@ const CIVIL = [
     category: "Punning & POP works",
     subcategory: "POP Moulding",
     level: "room",
-    question: "Are POP mouldings, trims or cornices planned on ceiling?",
+    question: "POP mouldings, trims or cornices on ceiling",
     drawingRequirement: "Show ceiling moulding profile and layout."
 },
 
@@ -199,7 +160,7 @@ const CIVIL = [
     category: "Stone works",
     subcategory: "Ledges",
     level: "wall",
-    question: "Are stone ledges planned?",
+    question: "Stone installation on ledges,runners or furniture",
     drawingRequirement: "Show stone ledges in elevation wherever required."
 },
       {
@@ -208,7 +169,7 @@ const CIVIL = [
     category: "Stone works",
     subcategory: "Platform work",
     level: "wall",
-    question: "Is granite counter installtion planned in the house?",
+    question: "Granite/quartz counter top installation",
     drawingRequirement: "Show counter in plan or elevation wherever required."
 },
 
@@ -222,7 +183,7 @@ const CIVIL = [
     category: "Tilling",
     subcategory: "Floor Tiles",
     level: "room",
-    question: "Is new floor tiling planned? (Tile Size: 1'×1' to 2'×2')",
+    question: "New floor tiling (Tile Size: 1'×1' to 2'×2')",
     drawingRequirement: "Show tile layout, pattern (square or others) and orientation."
 },
 
@@ -232,7 +193,7 @@ const CIVIL = [
     category: "Tilling",
     subcategory: "Floor Tiles",
     level: "room",
-    question: "Is new floor tiling planned? (Tile Size: 2'×2' to 4'×4')",
+    question: "New floor tiling (Tile Size: 2'×2' to 4'×4')",
     drawingRequirement: "Show tile layout, pattern (square or others) and orientation."
 },
 
@@ -242,7 +203,7 @@ const CIVIL = [
     category: "Tilling",
     subcategory: "Floor Tiles",
     level: "room",
-    question: "Is new floor tiling planned? (Tile Size: 4'×4' to 8'×4')",
+    question: "New floor tiling planned (Tile Size: 4'×4' to 8'×4')",
     drawingRequirement: "Show tile layout, pattern (square or others) and orientation."
 },
 
@@ -252,37 +213,37 @@ const CIVIL = [
     category: "Tilling",
     subcategory: "Tile Installation",
     level: "room",
-    question: "Has the customer requested floor tile installation using adhesive?",
+    question: "Floor tile installation using adhesive",
     drawingRequirement: "Mention adhesive-based tile installation wherever applicable."
 },
 
 {
     id: "CV-FLR-005",
     trade: "Civil",
-    category: "Stone Flooring",
-    subcategory: "Stone Flooring",
+    category: "Stone Flooring/Cladding",
+    subcategory: "Indian/Granite",
     level: "room",
-    question: "Is Indian marble or granite flooring planned?",
+    question: "Indian marble or granite flooring",
     drawingRequirement: "Show flooring layout, pattern (square or others) and orientation."
 },
 
 {
     id: "CV-FLR-006",
     trade: "Civil",
-    category: "Stone Flooring",
-    subcategory: "Stone Flooring",
+    category: "Stone Flooring/Cladding",
+    subcategory: "Italian",
     level: "room",
-    question: "Is Italian marble flooring planned?",
+    question: "Italian marble flooring",
     drawingRequirement: "Show flooring layout pattern (square or others) and orientation."
 },
 
 {
     id: "CV-FLR-007",
     trade: "Civil",
-    category: "Stone Flooring",
-    subcategory: "Stone Flooring",
+    category: "Stone Flooring/Cladding",
+    subcategory: "Premium Stone",
     level: "room",
-    question: "Is premium stone flooring planned? (Example: Onyx or equivalent)",
+    question: "Premium stone flooring(Example: Onyx or equivalent)",
     drawingRequirement: "Show flooring layout and pattern (square or others) and orientation."
 },
 
@@ -292,7 +253,7 @@ const CIVIL = [
     category: "Tilling",
     subcategory: "Wall Tiles",
     level: "wall",
-    question: "Is new wall tiling planned? (Tile Size: 1'×1' to 2'×2')",
+    question: "Wall tiling or clading (Tile Size: 1'×1' to 2'×2')",
     drawingRequirement: "Show wall tile layout, pattern (square or others) and elevations."
 },
 
@@ -302,7 +263,7 @@ const CIVIL = [
     category: "Tilling",
     subcategory: "Wall Tiles",
     level: "wall",
-    question: "Is new wall tiling planned? (Tile Size: 2'×2' to 2'×4')",
+    question: "Wall tiling or cladding (Tile Size: 2'×2' to 2'×4')",
     drawingRequirement: "Show wall tile layout, pattern (square or others) and elevations."
 },
 
@@ -312,7 +273,7 @@ const CIVIL = [
     category: "Tilling",
     subcategory: "Wall Tiles",
     level: "wall",
-    question: "Is new wall tiling planned? (Tile Size: 2'×4' to 8'×4')",
+    question: "Wall tiling or cladding (Tile Size: 2'×4' to 8'×4')",
     drawingRequirement: "Show wall tile layout, pattern (square or others) and elevations."
 },
 
@@ -322,8 +283,17 @@ const CIVIL = [
     category: "Tilling",
     subcategory: "Tile Installation",
     level: "wall",
-    question: "Has the customer requested wall tile installation using adhesive?",
+    question: "Wall tile installation using adhesive",
     drawingRequirement: "Mention adhesive-based wall tile installation wherever applicable."
-}
+},
+   {
+    id: "CV-FLR-0012",
+    trade: "Civil",
+    category: "Stone Flooring/Cladding",
+    subcategory: "Premium Stone",
+    level: "room",
+    question: "Stone cladding on wall",
+    drawingRequirement: "Show flooring layout and pattern (square or others) and orientation."
+},
 
 ];
