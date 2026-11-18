@@ -9,12 +9,22 @@ const PAINTING = [
 =========================================================== */
 
 {
+    id: "PT-PNT-007",
+    trade: "Painting",
+    category: "Painting",
+    subcategory: "Painting",
+    level: "room",
+    question: "Fresh painting",
+    drawingRequirement: "Identify rooms and surfaces to be fresh painted."
+},
+   
+{
     id: "PT-PNT-001",
     trade: "Painting",
     category: "Painting",
     subcategory: "Repainting",
     level: "room",
-    question: "Is repainting planned?",
+    question: "Repainting",
     drawingRequirement: "Identify rooms and surfaces to be repainted."
 },
 
@@ -24,7 +34,7 @@ const PAINTING = [
     category: "Painting",
     subcategory: "Texture Paint",
     level: "wall",
-    question: "Is texture paint planned?",
+    question: "Texture paint",
     drawingRequirement: "Show texture paint walls in elevations and identify finish."
 },
 
@@ -34,7 +44,7 @@ const PAINTING = [
     category: "Painting",
     subcategory: "Wallpaper",
     level: "wall",
-    question: "Is wallpaper planned? (For base preparation works.)",
+    question: "Wallpaper (base preparation works)",
     drawingRequirement: "Show wallpaper walls in elevations and identify finish."
 },
 
@@ -44,7 +54,7 @@ const PAINTING = [
     category: "Painting",
     subcategory: "Surface Preparation",
     level: "room",
-    question: "Does the customer require complete removal of the existing paint finish before repainting?",
+    question: "Complete removal of existing paint finish before repainting",
     drawingRequirement: "Mention complete paint removal requirement in painting notes."
 },
 
@@ -54,7 +64,7 @@ const PAINTING = [
     category: "Painting",
     subcategory: "Decorative Paint",
     level: "wall",
-    question: "Is patterned or geometric paint work planned?",
+    question: "Patterned / geometric paint work",
     drawingRequirement: "Show paint pattern and dimensions in wall elevations."
 },
 
@@ -64,19 +74,10 @@ const PAINTING = [
     category: "Painting",
     subcategory: "Artistic Finish",
     level: "wall",
-    question: "Is any mural art, artwork or artistic paint finish planned?",
+    question: "Mural art / artwork / artistic paint finish",
     drawingRequirement: "Show artwork wall location and identify artwork extent in elevations."
-},
-
-{
-    id: "PT-PNT-007",
-    trade: "Painting",
-    category: "Painting",
-    subcategory: "Painting",
-    level: "room",
-    question: "Is fresh painting planned?",
-    drawingRequirement: "Identify rooms and surfaces to be fresh painted."
 }
-   
+
+
 
 ];
