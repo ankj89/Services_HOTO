@@ -14,7 +14,7 @@ const PLUMBING = [
     category: "Bathroom Plumbing",
     subcategory: "Existing Plumbing",
     level: "room",
-    question: "Are the existing plumbing points being retained at their current locations?",
+    question: "Retention of existing plumbing points at current locations",
     drawingRequirement: "Show retained plumbing points in layout drawing."
 },
 
@@ -24,7 +24,7 @@ const PLUMBING = [
     category: "Bathroom Plumbing",
     subcategory: "Internal Plumbing",
     level: "room",
-    question: "Is complete internal CPVC/PVC plumbing replacement planned?",
+    question: "Complete internal CPVC/PVC plumbing replacement",
     drawingRequirement: "Show all fixture location in layout and elevation drawing."
 },
 
@@ -34,7 +34,7 @@ const PLUMBING = [
     category: "Kitchen Plumbing",
     subcategory: "Sink",
     level: "wall",
-    question: "Is relocation of an existing sink planned?",
+    question: "Relocation of existing sink",
     drawingRequirement: "Show revised sink location in plan and elevation."
 },
 
@@ -44,7 +44,7 @@ const PLUMBING = [
     category: "Kitchen Plumbing",
     subcategory: "Sink",
     level: "wall",
-    question: "Is an additional sink planned?",
+    question: "Additional sink",
     drawingRequirement: "Show additional sink location in plan and elevation."
 },
 
@@ -54,7 +54,7 @@ const PLUMBING = [
     category: "Bathroom Plumbing",
     subcategory: "Water Closet",
     level: "wall",
-    question: "Is relocation of an existing wall-mounted WC planned?",
+    question: "Relocation of existing wall-mounted WC",
     drawingRequirement: "Show revised WC location in toilet layout and elevation."
 },
 
@@ -64,7 +64,7 @@ const PLUMBING = [
     category: "Bathroom Plumbing",
     subcategory: "Water Closet",
     level: "wall",
-    question: "Is relocation of an existing floor-mounted WC planned?",
+    question: "Relocation of existing floor-mounted WC",
     drawingRequirement: "Show revised WC location in toilet layout and elevation."
 },
 
@@ -74,7 +74,7 @@ const PLUMBING = [
     category: "Bathroom Plumbing",
     subcategory: "Water Closet",
     level: "wall",
-    question: "Is the WC type being changed (wall-mounted to floor-mounted or vice versa)?",
+    question: "Change in WC type – wall-mounted to floor-mounted or vice versa",
     drawingRequirement: "Show revised WC type and location in plan and elevation."
 },
 
@@ -84,7 +84,7 @@ const PLUMBING = [
     category: "Bathroom Plumbing",
     subcategory: "Wash Basin",
     level: "wall",
-    question: "Is relocation of the wash basin planned?",
+    question: "Relocation of wash basin",
     drawingRequirement: "Show revised wash basin location in plan and elevation."
 },
 
@@ -94,7 +94,7 @@ const PLUMBING = [
     category: "Bathroom Plumbing",
     subcategory: "Shower",
     level: "wall",
-    question: "Is relocation of the shower area planned?",
+    question: "Relocation of shower area",
     drawingRequirement: "Show revised shower area location in toilet layout."
 },
 
@@ -104,7 +104,7 @@ const PLUMBING = [
     category: "Specialized Plumbing",
     subcategory: "Bath Tub",
     level: "room",
-    question: "Is provision required for a bath tub? (Bath tub installation not in company scope.)",
+    question: "Bath tub provision (installation not in company scope)",
     drawingRequirement: "Show bath tub location in layout."
 },
 
@@ -114,7 +114,7 @@ const PLUMBING = [
     category: "Specialized Plumbing",
     subcategory: "Jacuzzi",
     level: "room",
-    question: "Is provision required for a jacuzzi? (Jacuzzi installation not in company scope.)",
+    question: "Jacuzzi provision (installation not in company scope)",
     drawingRequirement: "Show jacuzzi location in layout."
 },
 
@@ -124,7 +124,7 @@ const PLUMBING = [
     category: "Specialized Plumbing",
     subcategory: "Steam Room",
     level: "room",
-    question: "Is provision required for a steam room? (Steam equipment installation not in company scope.)",
+    question: "Steam room provision (steam equipment installation not in company scope)",
     drawingRequirement: "Show steam room provision and plumbing points in layout."
 },
 
@@ -134,7 +134,7 @@ const PLUMBING = [
     category: "Bathroom Plumbing",
     subcategory: "Shower Cubicle",
     level: "room",
-    question: "Is a shower cubicle planned?",
+    question: "Shower cubicle",
     drawingRequirement: "Show shower cubicle location in layout and dimensions."
 },
 
@@ -144,7 +144,7 @@ const PLUMBING = [
     category: "Additional Plumbing",
     subcategory: "New Washroom",
     level: "room",
-    question: "Is any room being converted into a washroom or powder room?",
+    question: "Room conversion into washroom / powder room",
     drawingRequirement: "Show complete plumbing fixture layout and location for the new washroom."
 },
 
@@ -154,7 +154,7 @@ const PLUMBING = [
     category: "Additional Plumbing",
     subcategory: "External Areas",
     level: "room",
-    question: "Are any additional plumbing points planned in the balcony, utility or terrace area?",
+    question: "Additional plumbing points in balcony / utility / terrace",
     drawingRequirement: "Show plumbing point locations in layout drawing or elevation."
 }
 
