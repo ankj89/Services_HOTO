@@ -284,61 +284,117 @@ function isDrawingMissing(drawing) {
 function formatScopeResponse(
     scope,
     drawing,
-    elevation,
-    question
+    elevation
 ) {
 
-    // Category-level or question-level override
-    if (
-        question &&
-        typeof isForcedOutOfScope === "function" &&
-        isForcedOutOfScope(question)
-    ) {
-        return "Not in Scope";
-    }
+    /* ========================================================
+       CX SCOPE
+       --------------------------------------------------------
+       Cx Scope always displays only:
+       Cx Scope
+
+       Drawing Yes/No is intentionally ignored.
+       ======================================================== */
 
     if (scope === "Cx") {
         return "Cx Scope";
     }
 
-    if (scope === "No" && drawing === "No") {
+
+    /* ========================================================
+       NOT IN SCOPE
+       --------------------------------------------------------
+       LS Scope = No
+       Drawing = No
+
+       Display only:
+       Not in Scope
+       ======================================================== */
+
+    if (
+        scope === "No" &&
+        drawing === "No"
+    ) {
         return "Not in Scope";
     }
 
+
+    /* ========================================================
+       LS SCOPE = YES
+       ======================================================== */
+
     if (scope === "Yes") {
 
-        let result = "LS Scope - Yes";
+        let result =
+            "LS Scope - Yes";
+
 
         if (drawing === "Yes") {
-            result += "\nDwg - Yes";
+
+            result +=
+                "\nDwg - Yes";
+
         }
         else if (drawing === "No") {
-            result += "\nDwg - No";
+
+            result +=
+                "\nDwg - No";
+
         }
+
+
+        /* ----------------------------------------------------
+           ELEVATION
+           ---------------------------------------------------- */
 
         if (
             elevation &&
             elevation.toString().trim() !== ""
         ) {
-            result += "\nElv - " + elevation.toString().trim();
+
+            result +=
+                "\nElv - " +
+                elevation.toString().trim();
+
         }
+
 
         return result;
     }
 
-    if (scope === "No" && drawing === "Yes") {
 
-        let result = "LS Scope - No\nDwg - Yes";
+    /* ========================================================
+       LS SCOPE = NO + DRAWING = YES
+       ======================================================== */
+
+    if (
+        scope === "No" &&
+        drawing === "Yes"
+    ) {
+
+        let result =
+            "LS Scope - No\nDwg - Yes";
+
 
         if (
             elevation &&
             elevation.toString().trim() !== ""
         ) {
-            result += "\nElv - " + elevation.toString().trim();
+
+            result +=
+                "\nElv - " +
+                elevation.toString().trim();
+
         }
+
 
         return result;
     }
+
+
+    /* ========================================================
+       BLANK / UNSELECTED
+       ======================================================== */
 
     return "";
 }
@@ -384,14 +440,17 @@ function buildExportData() {
                DISPLAY VALUE
             ------------------------------------------------ */
 
-     
-            row.rooms[room] =
-    formatScopeResponse(
-        response.scope,
-        response.drawing,
-        response.elevation,
-        question
-    );
+            const forcedOutOfScope =
+                typeof isForcedOutOfScope === "function" &&
+                isForcedOutOfScope(question);
+
+            row.rooms[room] = forcedOutOfScope
+                ? "Not in Scope"
+                : formatScopeResponse(
+                    response.scope,
+                    response.drawing,
+                    response.elevation
+                );
 
 
             /* ------------------------------------------------
@@ -429,9 +488,8 @@ function buildExportData() {
             ------------------------------------------------ */
 
             row.drawingMissing[room] =
-
+                !forcedOutOfScope &&
                 response.scope === "Yes" &&
-
                 response.drawing === "No";
 
         });
@@ -440,7 +498,6 @@ function buildExportData() {
         rows.push(row);
 
     });
-
 
     return rows;
 
@@ -451,25 +508,15 @@ function buildExportData() {
    BUILD ACTION SUMMARY
    ============================================================ */
 
-/* ============================================================
-   BUILD PROJECT SUMMARY
-   ROOM-WISE SUMMARY
-============================================================ */
+function buildActionSummary() {
 
-function buildProjectSummary() {
+    const grouped = {};
 
-    const roomSections = [];
 
-    selectedRooms.forEach(room => {
+    QUESTION_BANK.forEach(question => {
 
-        const roomRows = [];
+        selectedRooms.forEach(room => {
 
-        QUESTION_BANK.forEach(question => {
-
-            const response =
-                getQuestionResponse(question, room);
-
-            // Exclude category/question-level out-of-scope
             if (
                 typeof isForcedOutOfScope === "function" &&
                 isForcedOutOfScope(question)
@@ -477,22 +524,47 @@ function buildProjectSummary() {
                 return;
             }
 
-            // Only LS Scope and Cx Scope
-            if (
-                response.scope !== "Yes" &&
-                response.scope !== "Cx"
-            ) {
+            const response =
+                getQuestionResponse(
+                    question,
+                    room
+                );
+
+
+            /* ------------------------------------------------
+               NO RESPONSE
+            ------------------------------------------------ */
+
+            if (!response.scope) {
                 return;
             }
 
+
+            /* ------------------------------------------------
+               NO = NO ACTION SUMMARY
+            ------------------------------------------------ */
+
+            if (response.scope === "No") {
+                return;
+            }
+
+
+            /* ------------------------------------------------
+               BOQ ENGINE CHECK
+            ------------------------------------------------ */
+
             if (
-                typeof getActionSummaryRow !== "function"
+                typeof getActionSummaryRow !==
+                "function"
             ) {
+
                 console.error(
                     "getActionSummaryRow() is not available."
                 );
+
                 return;
             }
+
 
             const actionRow =
                 getActionSummaryRow(
@@ -501,76 +573,163 @@ function buildProjectSummary() {
                     response.scope
                 );
 
+
             if (!actionRow) {
                 return;
             }
 
-            let boqConsideration =
-                actionRow.boqImpact || "";
 
-            /*
-               PLANNED IN MODULAR
-
-               Only applicable to Carpentry.
-               Only applicable when LS Scope = Yes.
-            */
-
-            if (
+            const drawingMissing =
                 response.scope === "Yes" &&
-                question.trade === "Carpentry" &&
-                questionPlannedModular &&
-                questionPlannedModular[question.id] === true
-            ) {
+                response.drawing === "No";
 
-                boqConsideration =
-                    "LS Modular" +
-                    (
-                        boqConsideration
-                            ? " | " + boqConsideration
-                            : ""
-                    );
+
+            /* ------------------------------------------------
+               GROUP SAME REQUIREMENT
+
+               Same:
+               Requirement
+               Category
+               BOQ Consideration
+
+               → combine rooms into one row
+            ------------------------------------------------ */
+
+            const key =
+                [
+                    actionRow.requirement || "",
+                    actionRow.category || "",
+                    actionRow.boqImpact || ""
+                ].join("||");
+
+
+            if (!grouped[key]) {
+
+                grouped[key] = {
+
+                    requirement:
+                        actionRow.requirement || "",
+
+                    category:
+                        actionRow.category || "",
+
+                    rooms: [],
+
+                    boqImpact:
+                        actionRow.boqImpact || "",
+
+                    drawingMissing:
+                        false,
+
+                    cxScope:
+                        response.scope === "Cx"
+
+                };
 
             }
 
-            roomRows.push({
 
-                category:
-                    actionRow.category ||
-                    question.category ||
-                    "",
+            /* ------------------------------------------------
+               ADD ROOM ONLY ONCE
+            ------------------------------------------------ */
 
-                requirement:
-                    actionRow.requirement ||
-                    question.question ||
-                    "",
+            if (
+                room &&
+                !grouped[key].rooms.includes(room)
+            ) {
 
-                boqImpact:
-                    boqConsideration,
+                grouped[key].rooms.push(room);
 
-                scope:
-                    response.scope
+            }
 
-            });
+
+            /* ------------------------------------------------
+               STATUS FLAGS
+            ------------------------------------------------ */
+
+            if (drawingMissing) {
+
+                grouped[key].drawingMissing =
+                    true;
+
+            }
+
+
+            if (response.scope === "Cx") {
+
+                grouped[key].cxScope =
+                    true;
+
+            }
 
         });
 
-        // Only include rooms with applicable requirements
-        if (roomRows.length > 0) {
-
-            roomSections.push({
-
-                room: room,
-
-                rows: roomRows
-
-            });
-
-        }
-
     });
 
-    return roomSections;
 
+    return Object.values(grouped);
+}
+
+
+/* ============================================================
+   BUILD ROOM-WISE PROJECT SUMMARY
+   ============================================================ */
+
+function buildProjectSummary() {
+
+    const roomSummaries = {};
+
+    selectedRooms.forEach(room => {
+        roomSummaries[room] = [];
+
+        QUESTION_BANK.forEach(question => {
+            if (
+                typeof isForcedOutOfScope === "function" &&
+                isForcedOutOfScope(question)
+            ) {
+                return;
+            }
+
+            const response = getQuestionResponse(question, room);
+
+            // Only LS Scope and Cx Scope are included.
+            if (response.scope !== "Yes" && response.scope !== "Cx") {
+                return;
+            }
+
+            if (typeof getActionSummaryRow !== "function") {
+                console.error("getActionSummaryRow() is not available.");
+                return;
+            }
+
+            const actionRow = getActionSummaryRow(
+                question,
+                room,
+                response.scope
+            );
+
+            if (!actionRow) return;
+
+            const isPlannedModular =
+                response.scope === "Yes" &&
+                question.trade === "Carpentry" &&
+                typeof questionPlannedModular !== "undefined" &&
+                !!questionPlannedModular[question.id];
+
+            roomSummaries[room].push({
+                category: isPlannedModular
+                    ? "LS Modular"
+                    : (actionRow.category || ""),
+                requirement: actionRow.requirement || question.question || "",
+                boqImpact: actionRow.boqImpact || "",
+                scope: response.scope,
+                drawingMissing:
+                    response.scope === "Yes" && response.drawing === "No"
+            });
+        });
+    });
+
+    return roomSummaries;
 }
 
 
@@ -599,6 +758,13 @@ function buildDrawingMissing() {
 
         selectedRooms.forEach(room => {
 
+            if (
+                typeof isForcedOutOfScope === "function" &&
+                isForcedOutOfScope(question)
+            ) {
+                return;
+            }
+
             const response =
                 getQuestionResponse(
                     question,
@@ -626,12 +792,7 @@ function buildDrawingMissing() {
                 return;
 
             }
-if (
-    typeof isForcedOutOfScope === "function" &&
-    isForcedOutOfScope(question)
-) {
-    return;
-}
+
 
             /* ------------------------------------------------
                GET REQUIREMENT
@@ -836,9 +997,7 @@ function exportExcel() {
         "Project Information"
 
     );
-
-
-    /* ========================================================
+       /* ========================================================
        SHEET 2 — HOTO
     ======================================================== */
 
@@ -1197,7 +1356,7 @@ exportRows.forEach(
 );
 
 
-   
+
 
     XLSX.utils.book_append_sheet(
 
@@ -1334,9 +1493,7 @@ exportRows.forEach(
         }
 
     }
-
-
-    /* --------------------------------------------------------
+       /* --------------------------------------------------------
        HIGHLIGHT ACTION SUMMARY
        LS + Dwg No ONLY
     -------------------------------------------------------- */
@@ -1836,7 +1993,10 @@ function exportPDF() {
 
     doc.setFont(
         undefined,
-        "normal"
+
+
+
+               "normal"
     );
 
     doc.setFontSize(13);
@@ -1859,7 +2019,7 @@ function exportPDF() {
 
     doc.text(
 
-        "2.  HOTO Scope Matrix",
+        "2.  Project Summary",
 
         contentsX,
 
@@ -1870,7 +2030,7 @@ function exportPDF() {
 
     doc.text(
 
-        "3.  Action Summary",
+        "3.  Missing Drawings",
 
         contentsX,
 
@@ -1881,7 +2041,7 @@ function exportPDF() {
 
     doc.text(
 
-        "4.  Drawing Missing",
+        "4.  HOTO Scope Matrix",
 
         contentsX,
 
@@ -2056,605 +2216,214 @@ function exportPDF() {
 
 
     /* ========================================================
-       HOTO SCOPE MATRIX
+       2. PROJECT SUMMARY — ROOM-WISE
        ======================================================== */
 
-    doc.addPage(
-        "a4",
-        "landscape"
-    );
+    const projectSummary = buildProjectSummary();
 
-
-    const exportRows =
-        buildExportData();
-
-
-    const hotoHead = [
-
-        [
-
-            "Trade",
-
-            "Question",
-
-            ...selectedRooms
-
-        ]
-
-    ];
-
-
-    const hotoBody =
-
-        exportRows.map(row => [
-
-            row.trade,
-
-            row.question,
-
-            ...selectedRooms.map(
-
-                room =>
-
-                    row.rooms[room] || ""
-
-            )
-
-        ]);
-
-
+    doc.addPage("a4", "landscape");
     doc.setFontSize(16);
-
-    doc.setFont(
-        undefined,
-        "bold"
-    );
-
-
-    doc.text(
-
-        "HOTO Scope Matrix",
-
-        10,
-
-        12
-
-    );
-
-
+    doc.setFont(undefined, "bold");
+    doc.text("Project Summary", 10, 12);
     doc.setFontSize(9);
-
-    doc.setFont(
-        undefined,
-        "normal"
-    );
-
-
+    doc.setFont(undefined, "normal");
     doc.text(
-
-        `Project: ${
-            info.projectId || ""
-        }    |    Client: ${
-            info.clientName || ""
-        }    |    City: ${
-            info.city || ""
-        }`,
-
+        `Project: ${info.projectId || ""}    |    Client: ${info.clientName || ""}    |    City: ${info.city || ""}`,
         10,
-
         19
-
     );
 
+    let summaryY = 25;
+    let hasSummaryRows = false;
 
-    doc.autoTable({
+    selectedRooms.forEach(room => {
+        const rows = projectSummary[room] || [];
+        if (rows.length === 0) return;
 
-        startY:
-            24,
-
-        head:
-            hotoHead,
-
-        body:
-            hotoBody,
-
-        theme:
-            "grid",
-
-        repeatHeaders:
-            true,
-
-        styles: {
-
-            fontSize:
-                7,
-
-            cellPadding:
-                2,
-
-            valign:
-                "top",
-
-            overflow:
-                "linebreak"
-
-        },
-
-        headStyles: {
-
-            fontStyle:
-                "bold"
-
-        },
-
-        columnStyles: {
-
-            0: {
-
-                cellWidth:
-                    28
-
-            },
-
-            1: {
-
-                cellWidth:
-                    65
-
-            }
-
-        },
-
-
-        /* ----------------------------------------------------
-           HOTO DRAWING HIGHLIGHT
-
-           ONLY:
-
-           LS Scope + Dwg No
-           ---------------------------------------------------- */
-
-        didParseCell:
-    function(data) {
-
-        /*
-         * Only HOTO body cells
-         * Room columns start from column 2
-         */
-
-        if (
-            data.section !== "body" ||
-            data.column.index < 2
-        ) {
-
-            return;
-
-        }
-
-
-        const exportRow =
-            exportRows[
-                data.row.index
-            ];
-
-
-        const room =
-            selectedRooms[
-                data.column.index - 2
-            ];
-
-
-        if (
-            !exportRow ||
-            !exportRow.responses ||
-            !exportRow.responses[room]
-        ) {
-
-            return;
-
-        }
-
-
-        const response =
-            exportRow.responses[room];
-
-
-        /* =================================================
-           1. CX SCOPE → BLUE
-           ================================================= */
-
-        if (
-            response.scope === "Cx"
-        ) {
-
-            data.cell.styles.fillColor =
-                [217, 234, 247];
-
-            data.cell.styles.textColor =
-                [0, 0, 255];
-
-            data.cell.styles.fontStyle =
-                "bold";
-
-        }
-
-
-        /* =================================================
-           2. LS SCOPE = YES + DWG = NO → RED
-           ================================================= */
-
-        else if (
-            response.scope === "Yes" &&
-            response.drawing === "No"
-        ) {
-
-            data.cell.styles.fillColor =
-                [255, 199, 206];
-
-            data.cell.styles.textColor =
-                [156, 0, 6];
-
-            data.cell.styles.fontStyle =
-                "bold";
-
-        }
-
-
-        /* =================================================
-           3. LS SCOPE = NO + DWG = YES → RED
-           ================================================= */
-
-        else if (
-            response.scope === "No" &&
-            response.drawing === "Yes"
-        ) {
-
-            data.cell.styles.fillColor =
-                [255, 199, 206];
-
-            data.cell.styles.textColor =
-                [156, 0, 6];
-
-            data.cell.styles.fontStyle =
-                "bold";
-
-        }
-
-
-        data.cell.styles.cellWidth =
-            28;
-
-    }
-
-    });
-
-
-   /* ========================================================
-   PROJECT SUMMARY
-======================================================== */
-
-const projectSummaryRows =
-    buildProjectSummary();
-
-doc.addPage("a4", "landscape");
-
-doc.setFontSize(16);
-doc.setFont(undefined, "bold");
-
-doc.text(
-    "Project Summary",
-    10,
-    12
-);
-
-doc.setFontSize(9);
-doc.setFont(undefined, "normal");
-
-doc.text(
-    `Project: ${info.projectId || ""}    |    Client: ${info.clientName || ""}    |    City: ${info.city || ""}`,
-    10,
-    19
-);
-
-let summaryY = 26;
-
-if (projectSummaryRows.length === 0) {
-
-    doc.setFontSize(11);
-
-    doc.text(
-        "No applicable scope requirements identified.",
-        10,
-        summaryY
-    );
-
-}
-else {
-
-    projectSummaryRows.forEach(section => {
-
-        // Add a new page if there is insufficient space
+        hasSummaryRows = true;
         if (summaryY > 175) {
-
             doc.addPage("a4", "landscape");
             summaryY = 18;
-
         }
 
-        doc.setFontSize(12);
+        doc.setFontSize(11);
         doc.setFont(undefined, "bold");
-
-        doc.text(
-            section.room,
-            10,
-            summaryY
-        );
-
-        summaryY += 4;
+        doc.text(`Room: ${room}`, 10, summaryY);
+        summaryY += 3;
 
         doc.autoTable({
-
             startY: summaryY,
-
-            head: [[
-                "Category",
-                "Requirement",
-                "BOQ Consideration"
-            ]],
-
-            body: section.rows.map(row => [
+            head: [["Category", "Requirement", "BOQ Consideration"]],
+            body: rows.map(row => [
                 row.category,
                 row.requirement,
                 row.boqImpact
             ]),
-
             theme: "grid",
-
-            showHead: "everyPage",
-
+            repeatHeaders: true,
             styles: {
                 fontSize: 8,
                 cellPadding: 3,
                 valign: "top",
                 overflow: "linebreak"
             },
-
-            headStyles: {
-                fontStyle: "bold"
-            },
-
+            headStyles: { fontStyle: "bold" },
             columnStyles: {
-                0: {
-                    cellWidth: 40
-                },
-                1: {
-                    cellWidth: 75
-                },
-                2: {
-                    cellWidth: 155
-                }
+                0: { cellWidth: 40 },
+                1: { cellWidth: 75 },
+                2: { cellWidth: 155 }
             },
-
-            margin: {
-                left: 10,
-                right: 10
+            didParseCell: function(data) {
+                if (data.section !== "body") return;
+                const row = rows[data.row.index];
+                if (!row) return;
+                if (row.scope === "Cx") {
+                    data.cell.styles.fillColor = [217, 234, 247];
+                    data.cell.styles.textColor = [0, 0, 255];
+                    data.cell.styles.fontStyle = "bold";
+                } else if (row.drawingMissing) {
+                    data.cell.styles.fillColor = [255, 199, 206];
+                    data.cell.styles.textColor = [156, 0, 6];
+                    data.cell.styles.fontStyle = "bold";
+                }
             }
-
         });
 
-        summaryY =
-            doc.lastAutoTable.finalY + 12;
-
+        summaryY = doc.lastAutoTable.finalY + 10;
     });
 
-}
+    if (!hasSummaryRows) {
+        doc.setFontSize(11);
+        doc.setFont(undefined, "normal");
+        doc.text("No LS Scope or Cx Scope requirements have been recorded.", 10, 35);
+    }
+
+
     /* ========================================================
-       DRAWING MISSING
+       3. MISSING DRAWINGS
        ======================================================== */
 
-    const drawingMissingRows =
-        buildDrawingMissing();
+    const drawingMissingRows = buildDrawingMissing();
 
-
-    doc.addPage(
-        "a4",
-        "landscape"
-    );
-
-
+    doc.addPage("a4", "landscape");
     doc.setFontSize(16);
-
-    doc.setFont(
-        undefined,
-        "bold"
-    );
-
-
-    doc.text(
-
-        "Drawing Missing",
-
-        10,
-
-        12
-
-    );
-
-
+    doc.setFont(undefined, "bold");
+    doc.text("Missing Drawings", 10, 12);
     doc.setFontSize(9);
-
-    doc.setFont(
-        undefined,
-        "normal"
-    );
-
-
+    doc.setFont(undefined, "normal");
     doc.text(
-
-        `Project: ${
-            info.projectId || ""
-        }    |    Client: ${
-            info.clientName || ""
-        }    |    City: ${
-            info.city || ""
-        }`,
-
+        `Project: ${info.projectId || ""}    |    Client: ${info.clientName || ""}    |    City: ${info.city || ""}`,
         10,
-
         19
-
     );
 
-
-    /* ========================================================
-       NO DRAWINGS MISSING
-       ======================================================== */
-
-    if (
-        drawingMissingRows.length === 0
-    ) {
-
+    if (drawingMissingRows.length === 0) {
         doc.setFontSize(12);
-
-        doc.setFont(
-            undefined,
-            "normal"
-        );
-
-
-        doc.text(
-
-            "No drawing gaps identified for LS Scope requirements.",
-
-            10,
-
-            35
-
-        );
-
+        doc.text("No drawing gaps identified for LS Scope requirements.", 10, 35);
+    } else {
+        doc.autoTable({
+            startY: 24,
+            head: [["Room", "Requirement", "Dwg Required"]],
+            body: drawingMissingRows.map(row => [
+                row.room,
+                row.requirement,
+                row.drawingRequirement
+            ]),
+            theme: "grid",
+            repeatHeaders: true,
+            styles: {
+                fontSize: 8,
+                cellPadding: 3,
+                valign: "top",
+                overflow: "linebreak"
+            },
+            headStyles: { fontStyle: "bold" },
+            columnStyles: {
+                0: { cellWidth: 35 },
+                1: { cellWidth: 80 },
+                2: { cellWidth: 140 }
+            },
+            didParseCell: function(data) {
+                if (data.section === "body") {
+                    data.cell.styles.fillColor = [255, 199, 206];
+                    data.cell.styles.textColor = [156, 0, 6];
+                }
+            }
+        });
     }
 
 
     /* ========================================================
-       DRAWING MISSING TABLE
+       4. HOTO SCOPE MATRIX
        ======================================================== */
 
-    else {
+    const exportRows = buildExportData();
+    const hotoHead = [["Trade", "Question", ...selectedRooms]];
+    const hotoBody = exportRows.map(row => [
+        row.trade,
+        row.question,
+        ...selectedRooms.map(room => row.rooms[room] || "")
+    ]);
 
-        doc.autoTable({
+    doc.addPage("a4", "landscape");
+    doc.setFontSize(16);
+    doc.setFont(undefined, "bold");
+    doc.text("HOTO Scope Matrix", 10, 12);
+    doc.setFontSize(9);
+    doc.setFont(undefined, "normal");
+    doc.text(
+        `Project: ${info.projectId || ""}    |    Client: ${info.clientName || ""}    |    City: ${info.city || ""}`,
+        10,
+        19
+    );
 
-            startY:
-                24,
+    doc.autoTable({
+        startY: 24,
+        head: hotoHead,
+        body: hotoBody,
+        theme: "grid",
+        repeatHeaders: true,
+        styles: {
+            fontSize: 7,
+            cellPadding: 2,
+            valign: "top",
+            overflow: "linebreak"
+        },
+        headStyles: { fontStyle: "bold" },
+        columnStyles: {
+            0: { cellWidth: 28 },
+            1: { cellWidth: 65 }
+        },
+        didParseCell: function(data) {
+            if (data.section !== "body" || data.column.index < 2) return;
 
-            head: [
+            const exportRow = exportRows[data.row.index];
+            const room = selectedRooms[data.column.index - 2];
+            if (!exportRow || !exportRow.responses || !exportRow.responses[room]) return;
 
-                [
+            const response = exportRow.responses[room];
+            const forcedOutOfScope =
+                typeof isForcedOutOfScope === "function" &&
+                isForcedOutOfScope(QUESTION_BANK[data.row.index]);
 
-                    "Room",
+            if (forcedOutOfScope) return;
 
-                    "Requirement",
+            if (response.scope === "Cx") {
+                data.cell.styles.fillColor = [217, 234, 247];
+                data.cell.styles.textColor = [0, 0, 255];
+                data.cell.styles.fontStyle = "bold";
+            } else if (
+                (response.scope === "Yes" && response.drawing === "No") ||
+                (response.scope === "No" && response.drawing === "Yes")
+            ) {
+                data.cell.styles.fillColor = [255, 199, 206];
+                data.cell.styles.textColor = [156, 0, 6];
+                data.cell.styles.fontStyle = "bold";
+            }
 
-                    "Dwg Required"
-
-                ]
-
-            ],
-
-            body:
-
-                drawingMissingRows.map(
-                    row => [
-
-                        row.room,
-
-                        row.requirement,
-
-                        row.drawingRequirement
-
-                    ]
-                ),
-
-            theme:
-                "grid",
-
-            repeatHeaders:
-                true,
-
-            styles: {
-
-                fontSize:
-                    8,
-
-                cellPadding:
-                    3,
-
-                valign:
-                    "top",
-
-                overflow:
-                    "linebreak"
-
-            },
-
-            headStyles: {
-
-                fontStyle:
-                    "bold"
-
-            },
-
-            columnStyles: {
-
-                0: {
-
-                    cellWidth:
-                        35
-
-                },
-
-                1: {
-
-                    cellWidth:
-                        80
-
-                },
-
-                2: {
-
-                    cellWidth:
-                        140
-
-                }
-
-            },
-
-
-            /* ------------------------------------------------
-               ALL DRAWING MISSING ROWS RED
-               ------------------------------------------------ */
-
-            didParseCell:
-                function(data) {
-
-                    if (
-                        data.section ===
-                        "body"
-                    ) {
-
-                        data.cell.styles.fillColor =
-                            [255, 199, 206];
-
-
-                        data.cell.styles.textColor =
-                            [156, 0, 6];
-
-                    }
-
-                }
-
-        });
-
-    }
+            data.cell.styles.cellWidth = 28;
+        }
+    });
 
 
     /* ========================================================
