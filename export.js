@@ -284,117 +284,61 @@ function isDrawingMissing(drawing) {
 function formatScopeResponse(
     scope,
     drawing,
-    elevation
+    elevation,
+    question
 ) {
 
-    /* ========================================================
-       CX SCOPE
-       --------------------------------------------------------
-       Cx Scope always displays only:
-       Cx Scope
-
-       Drawing Yes/No is intentionally ignored.
-       ======================================================== */
+    // Category-level or question-level override
+    if (
+        question &&
+        typeof isForcedOutOfScope === "function" &&
+        isForcedOutOfScope(question)
+    ) {
+        return "Not in Scope";
+    }
 
     if (scope === "Cx") {
         return "Cx Scope";
     }
 
-
-    /* ========================================================
-       NOT IN SCOPE
-       --------------------------------------------------------
-       LS Scope = No
-       Drawing = No
-
-       Display only:
-       Not in Scope
-       ======================================================== */
-
-    if (
-        scope === "No" &&
-        drawing === "No"
-    ) {
+    if (scope === "No" && drawing === "No") {
         return "Not in Scope";
     }
 
-
-    /* ========================================================
-       LS SCOPE = YES
-       ======================================================== */
-
     if (scope === "Yes") {
 
-        let result =
-            "LS Scope - Yes";
-
+        let result = "LS Scope - Yes";
 
         if (drawing === "Yes") {
-
-            result +=
-                "\nDwg - Yes";
-
+            result += "\nDwg - Yes";
         }
         else if (drawing === "No") {
-
-            result +=
-                "\nDwg - No";
-
+            result += "\nDwg - No";
         }
-
-
-        /* ----------------------------------------------------
-           ELEVATION
-           ---------------------------------------------------- */
 
         if (
             elevation &&
             elevation.toString().trim() !== ""
         ) {
-
-            result +=
-                "\nElv - " +
-                elevation.toString().trim();
-
+            result += "\nElv - " + elevation.toString().trim();
         }
-
 
         return result;
     }
 
+    if (scope === "No" && drawing === "Yes") {
 
-    /* ========================================================
-       LS SCOPE = NO + DRAWING = YES
-       ======================================================== */
-
-    if (
-        scope === "No" &&
-        drawing === "Yes"
-    ) {
-
-        let result =
-            "LS Scope - No\nDwg - Yes";
-
+        let result = "LS Scope - No\nDwg - Yes";
 
         if (
             elevation &&
             elevation.toString().trim() !== ""
         ) {
-
-            result +=
-                "\nElv - " +
-                elevation.toString().trim();
-
+            result += "\nElv - " + elevation.toString().trim();
         }
-
 
         return result;
     }
-
-
-    /* ========================================================
-       BLANK / UNSELECTED
-       ======================================================== */
 
     return "";
 }
@@ -440,16 +384,14 @@ function buildExportData() {
                DISPLAY VALUE
             ------------------------------------------------ */
 
+     
             row.rooms[room] =
-                formatScopeResponse(
-
-                    response.scope,
-
-                    response.drawing,
-
-                    response.elevation
-
-                );
+    formatScopeResponse(
+        response.scope,
+        response.drawing,
+        response.elevation,
+        question
+    );
 
 
             /* ------------------------------------------------
@@ -509,56 +451,48 @@ function buildExportData() {
    BUILD ACTION SUMMARY
    ============================================================ */
 
-function buildActionSummary() {
+/* ============================================================
+   BUILD PROJECT SUMMARY
+   ROOM-WISE SUMMARY
+============================================================ */
 
-    const grouped = {};
+function buildProjectSummary() {
 
+    const roomSections = [];
 
-    QUESTION_BANK.forEach(question => {
+    selectedRooms.forEach(room => {
 
-        selectedRooms.forEach(room => {
+        const roomRows = [];
+
+        QUESTION_BANK.forEach(question => {
 
             const response =
-                getQuestionResponse(
-                    question,
-                    room
-                );
+                getQuestionResponse(question, room);
 
-
-            /* ------------------------------------------------
-               NO RESPONSE
-            ------------------------------------------------ */
-
-            if (!response.scope) {
+            // Exclude category/question-level out-of-scope
+            if (
+                typeof isForcedOutOfScope === "function" &&
+                isForcedOutOfScope(question)
+            ) {
                 return;
             }
 
-
-            /* ------------------------------------------------
-               NO = NO ACTION SUMMARY
-            ------------------------------------------------ */
-
-            if (response.scope === "No") {
+            // Only LS Scope and Cx Scope
+            if (
+                response.scope !== "Yes" &&
+                response.scope !== "Cx"
+            ) {
                 return;
             }
-
-
-            /* ------------------------------------------------
-               BOQ ENGINE CHECK
-            ------------------------------------------------ */
 
             if (
-                typeof getActionSummaryRow !==
-                "function"
+                typeof getActionSummaryRow !== "function"
             ) {
-
                 console.error(
                     "getActionSummaryRow() is not available."
                 );
-
                 return;
             }
-
 
             const actionRow =
                 getActionSummaryRow(
@@ -567,101 +501,76 @@ function buildActionSummary() {
                     response.scope
                 );
 
-
             if (!actionRow) {
                 return;
             }
 
+            let boqConsideration =
+                actionRow.boqImpact || "";
 
-            const drawingMissing =
-                response.scope === "Yes" &&
-                response.drawing === "No";
+            /*
+               PLANNED IN MODULAR
 
-
-            /* ------------------------------------------------
-               GROUP SAME REQUIREMENT
-
-               Same:
-               Requirement
-               Category
-               BOQ Consideration
-
-               → combine rooms into one row
-            ------------------------------------------------ */
-
-            const key =
-                [
-                    actionRow.requirement || "",
-                    actionRow.category || "",
-                    actionRow.boqImpact || ""
-                ].join("||");
-
-
-            if (!grouped[key]) {
-
-                grouped[key] = {
-
-                    requirement:
-                        actionRow.requirement || "",
-
-                    category:
-                        actionRow.category || "",
-
-                    rooms: [],
-
-                    boqImpact:
-                        actionRow.boqImpact || "",
-
-                    drawingMissing:
-                        false,
-
-                    cxScope:
-                        response.scope === "Cx"
-
-                };
-
-            }
-
-
-            /* ------------------------------------------------
-               ADD ROOM ONLY ONCE
-            ------------------------------------------------ */
+               Only applicable to Carpentry.
+               Only applicable when LS Scope = Yes.
+            */
 
             if (
-                room &&
-                !grouped[key].rooms.includes(room)
+                response.scope === "Yes" &&
+                question.trade === "Carpentry" &&
+                questionPlannedModular &&
+                questionPlannedModular[question.id] === true
             ) {
 
-                grouped[key].rooms.push(room);
+                boqConsideration =
+                    "LS Modular" +
+                    (
+                        boqConsideration
+                            ? " | " + boqConsideration
+                            : ""
+                    );
 
             }
 
+            roomRows.push({
 
-            /* ------------------------------------------------
-               STATUS FLAGS
-            ------------------------------------------------ */
+                category:
+                    actionRow.category ||
+                    question.category ||
+                    "",
 
-            if (drawingMissing) {
+                requirement:
+                    actionRow.requirement ||
+                    question.question ||
+                    "",
 
-                grouped[key].drawingMissing =
-                    true;
+                boqImpact:
+                    boqConsideration,
 
-            }
+                scope:
+                    response.scope
 
-
-            if (response.scope === "Cx") {
-
-                grouped[key].cxScope =
-                    true;
-
-            }
+            });
 
         });
 
+        // Only include rooms with applicable requirements
+        if (roomRows.length > 0) {
+
+            roomSections.push({
+
+                room: room,
+
+                rows: roomRows
+
+            });
+
+        }
+
     });
 
+    return roomSections;
 
-    return Object.values(grouped);
 }
 
 
@@ -717,7 +626,12 @@ function buildDrawingMissing() {
                 return;
 
             }
-
+if (
+    typeof isForcedOutOfScope === "function" &&
+    isForcedOutOfScope(question)
+) {
+    return;
+}
 
             /* ------------------------------------------------
                GET REQUIREMENT
@@ -2415,224 +2329,125 @@ function exportPDF() {
     });
 
 
-    /* ========================================================
-       ACTION SUMMARY
-       ======================================================== */
+   /* ========================================================
+   PROJECT SUMMARY
+======================================================== */
 
-    const actionSummaryRows =
-        buildActionSummary();
+const projectSummaryRows =
+    buildProjectSummary();
 
+doc.addPage("a4", "landscape");
 
-    doc.addPage(
-        "a4",
-        "landscape"
-    );
+doc.setFontSize(16);
+doc.setFont(undefined, "bold");
 
+doc.text(
+    "Project Summary",
+    10,
+    12
+);
 
-    doc.setFontSize(16);
+doc.setFontSize(9);
+doc.setFont(undefined, "normal");
 
-    doc.setFont(
-        undefined,
-        "bold"
-    );
+doc.text(
+    `Project: ${info.projectId || ""}    |    Client: ${info.clientName || ""}    |    City: ${info.city || ""}`,
+    10,
+    19
+);
 
+let summaryY = 26;
 
-    doc.text(
+if (projectSummaryRows.length === 0) {
 
-        "Action Summary",
-
-        10,
-
-        12
-
-    );
-
-
-    doc.setFontSize(9);
-
-    doc.setFont(
-        undefined,
-        "normal"
-    );
-
+    doc.setFontSize(11);
 
     doc.text(
-
-        `Project: ${
-            info.projectId || ""
-        }    |    Client: ${
-            info.clientName || ""
-        }    |    City: ${
-            info.city || ""
-        }`,
-
+        "No applicable scope requirements identified.",
         10,
-
-        19
-
+        summaryY
     );
 
+}
+else {
 
-    doc.autoTable({
+    projectSummaryRows.forEach(section => {
 
-        startY:
-            24,
+        // Add a new page if there is insufficient space
+        if (summaryY > 175) {
 
-        head: [
+            doc.addPage("a4", "landscape");
+            summaryY = 18;
 
-            [
+        }
 
-               "Requirement",
+        doc.setFontSize(12);
+        doc.setFont(undefined, "bold");
 
-        "Category",
+        doc.text(
+            section.room,
+            10,
+            summaryY
+        );
 
-        "Rooms",
+        summaryY += 4;
 
-        "BOQ Consideration"
+        doc.autoTable({
 
-            ]
+            startY: summaryY,
 
-        ],
+            head: [[
+                "Category",
+                "Requirement",
+                "BOQ Consideration"
+            ]],
 
-      body:
+            body: section.rows.map(row => [
+                row.category,
+                row.requirement,
+                row.boqImpact
+            ]),
 
-    actionSummaryRows.map(row => [
+            theme: "grid",
 
-        row.requirement,
+            showHead: "everyPage",
 
-        row.category,
-
-        row.rooms.join(", "),
-
-        row.boqImpact
-
-    ]),
-
-        theme:
-            "grid",
-
-        repeatHeaders:
-            true,
-
-        styles: {
-
-            fontSize:
-                8,
-
-            cellPadding:
-                3,
-
-            valign:
-                "top",
-
-            overflow:
-                "linebreak"
-
-        },
-
-        headStyles: {
-
-            fontStyle:
-                "bold"
-
-        },
-
-        columnStyles: {
-
-            0: {
-
-                cellWidth:
-                    55
-
+            styles: {
+                fontSize: 8,
+                cellPadding: 3,
+                valign: "top",
+                overflow: "linebreak"
             },
 
-            1: {
-
-                cellWidth:
-                    35
-
+            headStyles: {
+                fontStyle: "bold"
             },
 
-            2: {
-
-                cellWidth:
-                    55
-
+            columnStyles: {
+                0: {
+                    cellWidth: 40
+                },
+                1: {
+                    cellWidth: 75
+                },
+                2: {
+                    cellWidth: 155
+                }
             },
 
-            3: {
-
-                cellWidth:
-                    135
-
+            margin: {
+                left: 10,
+                right: 10
             }
 
-        },
+        });
 
+        summaryY =
+            doc.lastAutoTable.finalY + 12;
 
-        /* ----------------------------------------------------
-           HIGHLIGHT ACTION SUMMARY
-           ONLY LS + Dwg No
-           ---------------------------------------------------- */
+    });
 
-      didParseCell:
-    function(data) {
-
-        if (
-            data.section !== "body"
-        ) {
-            return;
-        }
-
-
-        const row =
-            actionSummaryRows[
-                data.row.index
-            ];
-
-
-        if (!row) {
-            return;
-        }
-
-
-        /* =================================================
-           CX SCOPE → BLUE
-           ================================================= */
-
-        if (row.cxScope) {
-
-            data.cell.styles.fillColor =
-                [217, 234, 247];
-
-            data.cell.styles.textColor =
-                [0, 0, 255];
-
-            data.cell.styles.fontStyle =
-                "bold";
-
-        }
-
-
-        /* =================================================
-           LS + DRAWING NO → RED
-           ================================================= */
-
-        else if (row.drawingMissing) {
-
-            data.cell.styles.fillColor =
-                [255, 199, 206];
-
-            data.cell.styles.textColor =
-                [156, 0, 6];
-
-            data.cell.styles.fontStyle =
-                "bold";
-
-        }
-
-    }
-});
+}
     /* ========================================================
        DRAWING MISSING
        ======================================================== */
